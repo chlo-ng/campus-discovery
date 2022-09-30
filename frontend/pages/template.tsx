@@ -1,8 +1,10 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import Head from 'next/head';
+import type { NextPage } from "next"
+import { useRouter } from "next/router"
+import Head from 'next/head'
 // import styles from 'file' to use styles.className for elements
 import styles from '../styles/Home.module.css'
+// import components from '../componenets' folder
+import ComponentTemplate from "../components/componentTemplate"
 
 const Template: NextPage = () => {
     /*
@@ -11,7 +13,7 @@ const Template: NextPage = () => {
     use router.replace("<url>") to navigate to another page and remove previous page from history
     use router.replace("<folderName>") to navigate to the index.tsx file in a folder. look at templateFolder for example
     */
-    const router = useRouter();
+    const router = useRouter()
 
     // return html page you want to render
     return (
@@ -22,8 +24,14 @@ const Template: NextPage = () => {
           <meta name="description" content="insert page description here" />
           <link rel="icon" href="/gtLogo.png" />
         </Head>
-        <p>template</p>
+        <main>
+          <p>template</p>
+          <ComponentTemplate
+            exampleStringProp="example"
+            exampleBooleanProp={true}
+          />
+        </main>
       </div>
-    );
-};
-export default Template;
+    )
+}
+export default Template

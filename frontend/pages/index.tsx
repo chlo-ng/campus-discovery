@@ -2,10 +2,10 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Button } from 'react-bootstrap'
 import styles from '../styles/Home.module.css'
-import { useRouter } from "next/router";
+import { useRouter } from "next/router"
 
 const Home: NextPage = () => {
-  const router = useRouter();
+  const router = useRouter()
   return (
     <div className={styles.container}>
       <Head>
@@ -18,7 +18,7 @@ const Home: NextPage = () => {
         <Button 
           variant="primary"
           onClick={() => {
-            router.push("/userConfiguration")
+            router.push("/template")
           }}
         >
           click me!

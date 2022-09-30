@@ -1,10 +1,10 @@
-import type { NextPage } from "next";
-import { useRouter } from "next/router";
-import Head from 'next/head';
+import type { NextPage } from "next"
+import { useRouter } from "next/router"
+import Head from 'next/head'
 
 const TemplateFolder: NextPage = () => {
     // using router.push("templateFolder") would render this page
-    const router = useRouter();
+    const router = useRouter()
 
     return (
       <div>
@@ -15,6 +15,6 @@ const TemplateFolder: NextPage = () => {
         </Head>
         <p>template folder</p>
       </div>
-    );
-};
-export default TemplateFolder;
+    )
+}
+export default TemplateFolder
