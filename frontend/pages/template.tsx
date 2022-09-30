@@ -2,7 +2,7 @@ import type { NextPage } from "next"
 import { useRouter } from "next/router"
 import Head from 'next/head'
 // import styles from 'file' to use styles.className for elements
-import styles from '../styles/template.css'
+import styles from '../styles/Template.module.css'
 // import components from '../componenets' folder
 import ComponentTemplateFunction from "../components/ComponentTemplateFunction"
 import ComponentTemplateClass from "../components/ComponentTemplateClass"
