@@ -4,7 +4,8 @@ import Head from 'next/head'
 // import styles from 'file' to use styles.className for elements
 import styles from '../styles/Home.module.css'
 // import components from '../componenets' folder
-import ComponentTemplate from "../components/componentTemplate"
+import ComponentTemplateFunction from "../components/ComponentTemplateFunction"
+import ComponentTemplateClass from "../components/ComponentTemplateClass"
 
 const Template: NextPage = () => {
     /*
@@ -26,9 +27,12 @@ const Template: NextPage = () => {
         </Head>
         <main>
           <p>template</p>
-          <ComponentTemplate
+          <ComponentTemplateFunction
             exampleStringProp="example"
             exampleBooleanProp={true}
+          />
+          <ComponentTemplateClass 
+            exampleStringProp="component template class prop"
           />
         </main>
       </div>
