@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Button } from 'react-bootstrap'
 // change import to custom file when creating welcome screen
-import styles from '../styles/template.css'
+import styles from '../styles/Template.module.css'
 import { useRouter } from "next/router"
 
 const Home: NextPage = () => {
