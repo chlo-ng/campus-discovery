@@ -19,7 +19,7 @@ const Home: NextPage = () => {
         <Button 
           variant="primary"
           onClick={() => {
-            router.push("/template")
+            router.push("/config")
           }}
         >
           click me!
