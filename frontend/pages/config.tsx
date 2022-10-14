@@ -7,8 +7,8 @@ import { validEmail, validPassword } from './Regex.js';
 
 const config: NextPage = () => {
     const router = useRouter()
-    const [name,setname]=useState('')
-    const [role, setrole]=useState('')
+    const [name, setname] = useState('')
+    const [role, setrole] = useState('')
     async function submitHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
       if (role == "student" || role == "organizer" || role == "teacher") {
@@ -32,7 +32,7 @@ const config: NextPage = () => {
       <div>
         <Head>
           <title>Campus Discovery</title>
-          <meta name="description" content="insert page description here" />
+          <meta name="description" content="create account" />
           <link rel="icon" href="/gtLogo.png" />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
@@ -44,13 +44,13 @@ const config: NextPage = () => {
             <form onSubmit={submitHandler}>
               <label>
                   Name:
-                  <input type="text" required= {true} name="name" onChange={e=>setname(e.target.value)}/>
+                  <input type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
               </label>
               <input type="submit" value="Submit" />
             </form>
-            <button onClick={e=>setrole("student")}>student</button>
-              <button onClick={e=>setrole("organizer")}>organizer</button>
-              <button onClick={e=>setrole("teacher")}>teacher</button>
+            <button onClick={e => setrole("student")}>student</button>
+              <button onClick={e => setrole("organizer")}>organizer</button>
+              <button onClick={e => setrole("teacher")}>teacher</button>
             <p>{name}</p>
             <p>{role}</p>
           </div>
