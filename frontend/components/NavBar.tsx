@@ -1,6 +1,5 @@
 import * as React from 'react'
 import styles from '../styles/NavBar.module.css'
-import { useRouter } from "next/router"
 
 type Props = {
   loggedIn: boolean
@@ -40,7 +39,7 @@ class NavBar extends React.Component<Props, State> {
           <nav className={styles.sideBarNav}>
             {!this.props.loggedIn && <ul>
               <li><a>Login</a></li>
-              <li><a onClick={() => {console.log("hi")}}>Create Account</a></li>
+              <li><a href="/<create acc screen>">Create Account</a></li>
             </ul>}
             {this.props.loggedIn && <ul>
               <li><a>Manage Account</a></li>
