@@ -2,28 +2,23 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { Button } from 'react-bootstrap'
 // change import to custom file when creating welcome screen
-import styles from '../styles/Template.module.css'
-import { useRouter } from "next/router"
+import { useRouter } from 'next/router'
+import NavBar from '../components/NavBar'
 
 const Home: NextPage = () => {
   const router = useRouter()
   return (
-    <div className={styles.container}>
+    <div>
       <Head>
         <title>Campus Discovery</title>
         <meta name="description" content="CS 2340 Group 7" />
         <link rel="icon" href="/gtLogo.png" />
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
       </Head>
 
-      <main className={styles.main}>
-        <Button 
-          variant="primary"
-          onClick={() => {
-            router.push("/template")
-          }}
-        >
-          click me!
-        </Button>
+      <main>
+        <NavBar loggedIn={false}/>
       </main>
     </div>
   )

@@ -24,3 +24,9 @@ a {
     background: black;
   }
 }
+
+:root {
+  --dark-gold: #A28D5B;
+  --gold: #B3A369;
+  --navy: #003057;
+}

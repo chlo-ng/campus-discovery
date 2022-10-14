@@ -12,6 +12,8 @@ const TemplateFolder: NextPage = () => {
           <title>Campus Discovery</title>
           <meta name="description" content="insert page description here" />
           <link rel="icon" href="/gtLogo.png" />
+          <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
+          <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
         </Head>
         <p>template folder</p>
       </div>
