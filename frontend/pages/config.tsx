@@ -18,15 +18,24 @@ const config: NextPage = () => {
     */
     const router = useRouter()
     const [name,setname]=useState('')
+    const [role, setrole]=useState('')
     async function submitHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
-      console.log(name)
-      if (validEmail.test(name)) {
-        alert("invalid name")
-     }
-     if (validPassword.test(name)) {
-        alert("no space in name");
-     }
+      if (role == "student" || role == "organizer" || role == "teacher") {
+        verifyName(name)
+      }
+      else {
+        alert("please select role")
+      }
+    }
+
+    const verifyName = (e: string) => {
+        if (e.trim() == "") {
+          console.log(e)
+          alert("invalid name")
+        } else {
+          setname(e);
+        }
     }
 
     // return html page you want to render
@@ -39,24 +48,21 @@ const config: NextPage = () => {
           <link rel="icon" href="/gtLogo.png" />
         </Head>
         <main>
-          <p>config</p>
-          <ComponentTemplateFunction
-            exampleStringProp="example"
-            exampleBooleanProp={true}
-          />
+          <p>config screen</p>
           <form onSubmit={submitHandler}>
             <label>
                 Name:
-                <input type="text" name="name"/>
+                <input type="text" required= {true} name="name" onChange={e=>setname(e.target.value)}/>
             </label>
-            <input type="submit" value="Submit" onChange={e=>setname(e.target.value)}/>
+            <input type="submit" value="Submit" />
           </form>
-          <button>student</button>
-            <button>organizer</button>
-            <button>teacher</button>
-          <ComponentTemplateClass 
-            exampleStringProp="component template class prop"
-          />
+          <button onClick={e=>setrole("student")}>student</button>
+            <button onClick={e=>setrole("organizer")}>organizer</button>
+            <button onClick={e=>setrole("teacher")}>teacher</button>
+          
+        
+          <p>{name}</p>
+          <p>{role}</p>
         </main>
       </div>
     )
