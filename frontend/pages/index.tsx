@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import { Button } from 'react-bootstrap'
 // change import to custom file when creating welcome screen
 import { useRouter } from 'next/router'
 import NavBar from '../components/NavBar'
@@ -19,6 +18,9 @@ const Home: NextPage = () => {
 
       <main>
         <NavBar loggedIn={false}/>
+        <div className="container">
+          <p>hi</p>
+        </div>
       </main>
     </div>
   )
