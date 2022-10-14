@@ -15,7 +15,6 @@ const TemplateFolder: NextPage = () => {
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
         </Head>
-        <p>template folder</p>
       </div>
     )
 }
