@@ -10,6 +10,8 @@ const UserConfiguration: NextPage = () => {
             <title>Campus Discovery</title>
             <meta name="description" content="user configuration page" />
             <link rel="icon" href="/gtLogo.png" />
+            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
+            <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
         </Head>
         <main>
             <p>user configuration</p>

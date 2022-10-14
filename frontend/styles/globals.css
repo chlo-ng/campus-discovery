@@ -24,3 +24,15 @@ a {
     background: black;
   }
 }
+
+.container {
+  width: 100%;
+  height: 100%;
+  margin-top: 50px;
+}
+
+:root {
+  --dark-gold: #A28D5B;
+  --gold: #B3A369;
+  --navy: #003057;
+}

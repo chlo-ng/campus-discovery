@@ -1,11 +1,7 @@
 import type { NextPage } from "next"
 import { useRouter } from "next/router"
 import Head from 'next/head'
-// import styles from 'file' to use styles.className for elements
-import styles from '../styles/Template.module.css'
-// import components from '../componenets' folder
-import ComponentTemplateFunction from "../components/ComponentTemplateFunction"
-import ComponentTemplateClass from "../components/ComponentTemplateClass"
+import NavBar from "../components/NavBar"
 
 const Template: NextPage = () => {
     /*
@@ -19,21 +15,17 @@ const Template: NextPage = () => {
     // return html page you want to render
     return (
       // className={styles.container} will apply the .container{} css style from the styles file imported up top
-      <div className={styles.container}>
+      <div>
         <Head>
           <title>Campus Discovery</title>
           <meta name="description" content="insert page description here" />
           <link rel="icon" href="/gtLogo.png" />
+          <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
+          <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
         </Head>
         <main>
-          <p>template</p>
-          <ComponentTemplateFunction
-            exampleStringProp="example"
-            exampleBooleanProp={true}
-          />
-          <ComponentTemplateClass 
-            exampleStringProp="component template class prop"
-          />
+          <NavBar loggedIn={false} />
+          <div className="container"></div>
         </main>
       </div>
     )
