@@ -30,9 +30,7 @@ const Events: NextPage = () => {
               <p className={styles.header}>Trending this week</p>
               <div className={styles.trending}>
                 <div className={styles.verticalCenter}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" className="bi bi-caret-left" viewBox="0 0 16 16">
-                    <path d="M10 12.796V3.204L4.519 8 10 12.796zm-.659.753-5.48-4.796a1 1 0 0 1 0-1.506l5.48-4.796A1 1 0 0 1 11 3.204v9.592a1 1 0 0 1-1.659.753z"/>
-                  </svg>
+                  <img className={styles.triangleButton} src="/triangle.png"/>
                 </div>
                 <div className={styles.trendingBox}>
                   <img className={styles.eventImage} src="/exampleEvent.png"></img>
@@ -44,20 +42,16 @@ const Events: NextPage = () => {
                   </div>
                 </div>
                 <div className={styles.verticalCenter}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" className="bi bi-caret-right" viewBox="0 0 16 16">
-                    <path d="M6 12.796V3.204L11.481 8 6 12.796zm.659.753 5.48-4.796a1 1 0 0 0 0-1.506L6.66 2.451C6.011 1.885 5 2.345 5 3.204v9.592a1 1 0 0 0 1.659.753z"/>
-                  </svg>
+                  <img className={`${styles.triangleButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                 </div>
               </div>
             </div>
             <div className={styles.eventsContainer}>
               <p className={styles.header}>Browse Events</p>
               <div className={styles.searchBar}>
-                <input type="search" className="form-control rounded" placeholder="Start browsing..." aria-label="Search" aria-describedby="search-addon" size={70} />
-                <span className={styles.searchIcon} id="search-addon">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
-                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                  </svg>
+                <input type="search" placeholder="Start browsing..." aria-label="Search" aria-describedby="search-addon" size={70} />
+                <span id="search-addon">
+                  <img className={styles.searchIcon} src="/search.png"/>
                 </span>
               </div>
 

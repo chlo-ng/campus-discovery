@@ -30,6 +30,15 @@
   display: flex;
 }
 
+.triangleButton {
+  height: 30px;
+  margin: 15px;
+}
+
+.triangleButtonRotate {
+  transform: rotate(180deg);
+}
+
 .trendingBox {
   height: 271px;
   /* 120 px is bc icons are 60 px. change if icon size changes*/
@@ -96,5 +105,7 @@
   height: 40px;
   width: 40px;
 }
+
+
 
 
