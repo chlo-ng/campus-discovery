@@ -15,7 +15,8 @@ const config: NextPage = () => {
       e.preventDefault()
       if (role == "student" || role == "organizer" || role == "teacher") {
         verifyName(name)
-      }
+        router.push("events")
+      } 
       else {
         alert("please select role")
       }
@@ -46,21 +47,21 @@ const config: NextPage = () => {
             <form onSubmit={submitHandler}>
               <label>
               <p className = {astyle.text}>Create an Account</p>
-              <p>Select Role:</p>
+              <p className = {astyle.atext}>Select Role:</p>
               <div>
-              <button className= {astyle.buttons} onClick={e => setrole("student")}>student</button>
-              <button className= {astyle.buttons} onClick={e => setrole("organizer")}>organizer</button>
-              <button className= {astyle.buttons} onClick={e => setrole("teacher")}>teacher</button>
+              <button className= {astyle.buttons} onClick={e => setrole("student")}>Student</button>
+              <button className= {astyle.buttons} onClick={e => setrole("organizer")}>Alumini</button>
+              <button className= {astyle.buttons} onClick={e => setrole("teacher")}>Teacher</button>
               </div>
               <p>{name} <br></br> {role}</p>
                   <p className={astyle.name}>Name:</p>
-                  <input className= {astyle.input} type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
+                  <input className= {astyle.input} size = {38} type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
                   <p className={astyle.name}>Email:</p>
-                  <input className= {astyle.input} required= {true}></input>
+                  <input className= {astyle.input} size = {38} required= {true}></input>
                   <p className={astyle.name}>Password:</p>
-                  <input className= {astyle.input} required= {true}></input>
+                  <input className= {astyle.input} size = {38} required= {true}></input>
                   <p className={astyle.name}>Confirm Password:</p>
-                  <input className= {astyle.input} required= {true}></input>
+                  <input className= {astyle.input} size = {38} required= {true}></input>
               </label>
               <input type="submit" value="Sign Up" className= {astyle.button}/>
             </form>
