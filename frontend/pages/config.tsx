@@ -11,13 +11,29 @@ const config: NextPage = () => {
     const router = useRouter()
     const [name, setname] = useState('')
     const [role, setrole] = useState('')
-    async function submitHandler(e: React.ChangeEvent<any>) {
+    const [verified, setVerified] = useState('')
+    async function nameHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
-      if (role == "student" || role == "organizer" || role == "teacher") {
+      if (role == "student" || role == "alumini" || role == "teacher") {
         verifyName(name)
-        router.push("events")
+        submitHandler(e)
+        if (verified == 'true'){
+          router.push("events")
+        }
+        
       } 
       else {
+        alert("please select role")
+      }
+    }
+    async function submitHandler(e: React.ChangeEvent<any>) {
+      
+      if (role == "student" || role == "alumini" || role == "teacher") {
+        setVerified('true')
+        
+      } 
+      else {
+        setVerified('false');
         alert("please select role")
       }
     }
@@ -42,17 +58,21 @@ const config: NextPage = () => {
         </Head>
         <main>
           <NavBar loggedIn={false}/>
-          <div className={astyle.container}>
+          
+          <div className={styles.logo}>
+            
             <div className={astyle.center}>
-            <form onSubmit={submitHandler}>
+            <form>
               <label>
               <p className = {astyle.text}>Create an Account</p>
               <p className = {astyle.atext}>Select Role:</p>
-              <div className={astyle.buttons}>
+              
                 <button className= {astyle.roleButtons} onClick={e => setrole("student")}>Student</button>
-                <button className= {astyle.roleButtons} onClick={e => setrole("organizer")}>Alumni</button>
+                <button className= {astyle.roleButtons} onClick={e => setrole("alumini")}>Alumini</button>
                 <button className= {astyle.roleButtons} onClick={e => setrole("teacher")}>Teacher</button>
-              </div>
+             
+                  <p className={astyle.name}>Your Name: {name}</p>
+                  <p className={astyle.name}>Your Role: {role}</p>
                   <p className={astyle.name}>Name:</p>
                   <input className= {astyle.input} size = {38} type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
                   <p className={astyle.name}>Email:</p>
@@ -62,9 +82,8 @@ const config: NextPage = () => {
                   <p className={astyle.name}>Confirm Password:</p>
                   <input className= {astyle.input} size = {38} required= {true}></input>
               </label>
-              <input type="submit" value="Sign Up" className= {astyle.submitButton}/>
+              <input type="submit" value="Sign Up" className= {astyle.submitButton} onClick = {nameHandler}/>
             </form>
-            
             
             </div>
           </div>
