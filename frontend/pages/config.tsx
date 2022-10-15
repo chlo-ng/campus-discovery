@@ -3,6 +3,8 @@ import { useRouter } from "next/router"
 import Head from 'next/head'
 import React, {useState} from 'react'
 import NavBar from "../components/NavBar"
+import styles from '../styles/NavBar.module.css'
+import astyle from '../styles/config.module.css'
 import { validEmail, validPassword } from './Regex.js';
 
 const config: NextPage = () => {
@@ -39,20 +41,23 @@ const config: NextPage = () => {
         </Head>
         <main>
           <NavBar loggedIn={false}/>
-          <div className="container">
-            <p>config screen</p>
+          <div className={styles.logo}>
+            <div className={astyle.center}>
             <form onSubmit={submitHandler}>
               <label>
-                  Name:
-                  <input type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
+                  <p className={astyle.name}>Name:</p>
+                  <input className= {astyle.input} type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
               </label>
-              <input type="submit" value="Submit" />
+              <input type="submit" value="Submit" className= {astyle.button}/>
             </form>
-            <button onClick={e => setrole("student")}>student</button>
+            
+            </div>
+            <div className= {astyle.button}>
+              <button onClick={e => setrole("student")}>student</button>
               <button onClick={e => setrole("organizer")}>organizer</button>
               <button onClick={e => setrole("teacher")}>teacher</button>
-            <p>{name}</p>
-            <p>{role}</p>
+              <p>{name} <br></br> {role}</p>
+            </div>
           </div>
         </main>
       </div>
