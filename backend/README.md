@@ -54,7 +54,4 @@ Some helpful links:
 [Integrating H2 Database with Spring Boot](https://stackabuse.com/integrating-h2-database-with-spring-boot/)
 
 
-For more helpful links refer to the HELP.md file.
-
-
 
