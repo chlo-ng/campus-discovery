@@ -15,16 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
-
 .vsc-initialized {
   z-index: -9999;
   position: relative;
@@ -32,6 +22,16 @@ a {
 
 #__next {
   z-index: -9999;
+  position: relative;
+}
+
+main {
+  z-index: -999;
+  position: relative;
+}
+
+div {
+  z-index: -999;
   position: relative;
 }
 
