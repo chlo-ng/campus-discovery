@@ -11,31 +11,31 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 
-//Example for rest controller class
+//Example for REST controller class
 @RestController
-@RequestMapping("api/users")
+@RequestMapping("api/")
 public class UserController {
 
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping
+    @GetMapping("users")
     public List<User> getUsers() {
         return this.userRepository.findAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("users/{id}")
     public User getUser(@PathVariable Long id) {
         return userRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
-    @PostMapping
+    @PostMapping("users")
     public ResponseEntity createUser(@RequestBody User user) throws URISyntaxException {
         User savedUser = userRepository.save(user);
         return ResponseEntity.created(new URI("/users/" + savedUser.getId())).body(savedUser);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("users/{id}")
     public ResponseEntity updateUser(@PathVariable Long id,
                                        @RequestBody User user) {
         User currentUser =
@@ -46,7 +46,7 @@ public class UserController {
         return ResponseEntity.ok(currentUser);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("users/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         userRepository.deleteById(id);
         return ResponseEntity.ok().build();
