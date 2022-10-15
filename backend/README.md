@@ -23,6 +23,8 @@ The resository folder holds the interface classes for the different repositories
 ### Controller
 The controller folder holds REST controller classes. Tags are used to specifiy different requests.
 
+Example: GET request http://localhost:8080/api/users/ will return a list of all users.
+
 ## Database
 
 The database is stored in the demodb files in the main folder. 
