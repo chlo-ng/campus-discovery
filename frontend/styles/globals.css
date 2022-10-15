@@ -56,31 +56,33 @@ div {
   --fw-medium: 500;
   --fw-regular: 400;
 
-  --p-size: 3vh;
-  --h1-size: 7.5vh;
-  --h2-size: 5vh;
-  --h3-size: 4vh;
+  
+  --extra-large: 7.5vh;
+  --large: 5vh;
+  --medium: 4vh;
+  --small: 3vh;
+  --extra-small: 2.5vh;
 }
 
 p {
   font-family: var(--font-body);
-  font-size: var(--p-size);
+  font-size: var(--small);
   font-weight: var(--fw-regular);
 }
 
 h1 {
   font-family: var(--font-headings);
-  font-size: var(--h1-size);
+  font-size: var(--extra-large);
   font-weight: var(--fw-bold);
 }
 
 h2 {
   font-family: var(--font-headings);
-  font-size: var(--h2-size);
+  font-size: var(--large);
 }
 
 h3 {
   font-family: var(--font-headings);
-  font-size: var(--h3-size);
+  font-size: var(--medium);
   font-weight: var(--fw-regular);
 }

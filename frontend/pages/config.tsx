@@ -42,18 +42,17 @@ const config: NextPage = () => {
         </Head>
         <main>
           <NavBar loggedIn={false}/>
-          <div className={styles.logo}>
+          <div className={astyle.container}>
             <div className={astyle.center}>
             <form onSubmit={submitHandler}>
               <label>
               <p className = {astyle.text}>Create an Account</p>
               <p className = {astyle.atext}>Select Role:</p>
-              <div>
-              <button className= {astyle.buttons} onClick={e => setrole("student")}>Student</button>
-              <button className= {astyle.buttons} onClick={e => setrole("organizer")}>Alumini</button>
-              <button className= {astyle.buttons} onClick={e => setrole("teacher")}>Teacher</button>
+              <div className={astyle.buttons}>
+                <button className= {astyle.roleButtons} onClick={e => setrole("student")}>Student</button>
+                <button className= {astyle.roleButtons} onClick={e => setrole("organizer")}>Alumni</button>
+                <button className= {astyle.roleButtons} onClick={e => setrole("teacher")}>Teacher</button>
               </div>
-              <p>{name} <br></br> {role}</p>
                   <p className={astyle.name}>Name:</p>
                   <input className= {astyle.input} size = {38} type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
                   <p className={astyle.name}>Email:</p>
@@ -63,7 +62,7 @@ const config: NextPage = () => {
                   <p className={astyle.name}>Confirm Password:</p>
                   <input className= {astyle.input} size = {38} required= {true}></input>
               </label>
-              <input type="submit" value="Sign Up" className= {astyle.button}/>
+              <input type="submit" value="Sign Up" className= {astyle.submitButton}/>
             </form>
             
             
