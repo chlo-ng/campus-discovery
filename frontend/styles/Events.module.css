@@ -1,0 +1,92 @@
+.eventsContainer {
+  margin-top: 70px;
+}
+
+.browseContainer {
+  margin-left:79px;
+}
+
+.header {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 53px;
+  text-align: left;
+  margin-left: 79px;
+
+  color: var(--navy);
+}
+
+.verticalCenter {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.trending {
+  display: flex;
+  flex-direction: row;
+  margin-left: 40px;
+}
+
+.trendingBox {
+  display: flex;
+  flex-direction: row;
+  box-sizing: border-box;
+
+  height: 271px;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 35px;
+}
+
+.eventImage {
+  height: 202px;
+  border: 3px solid #424242;
+  align-self: center;
+}
+
+.eventDetails {
+  margin-left: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.eventTitle {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 5px;
+  margin-bottom: 0px;
+  color: #000000;
+
+  vertical-align: middle;
+}
+
+.eventText {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 5px;
+  margin-bottom: 0px;
+
+  color: #000000;
+}
+
+.searchBar {
+  display: flex;
+  flex-direction: row;
+  margin-left: 79px;
+}
+
+.searchIcon {
+  margin-left: 10px;
+  height: 48px;
+}
+
+
