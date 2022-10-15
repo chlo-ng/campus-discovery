@@ -1,0 +1,33 @@
+.welcome {
+    height: 93vh;
+    background-color: white;
+    color: var(--black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.welcomeContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    height: 45vh;
+    padding: 2em;
+}
+
+.welcomeContainer p {
+    text-align: center;
+    width: 300px;
+    line-height: 1.5em;
+}
+
+.welcomeContainer h3 {
+    margin: .25em;
+}
+
+.welcomeContainer h1 {
+    color: var(--navy);
+    margin: 0;
+}
