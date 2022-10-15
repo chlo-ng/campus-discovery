@@ -45,18 +45,27 @@ const config: NextPage = () => {
             <div className={astyle.center}>
             <form onSubmit={submitHandler}>
               <label>
+              <p className = {astyle.text}>Create an Account</p>
+              <p>Select Role:</p>
+              <div>
+              <button className= {astyle.buttons} onClick={e => setrole("student")}>student</button>
+              <button className= {astyle.buttons} onClick={e => setrole("organizer")}>organizer</button>
+              <button className= {astyle.buttons} onClick={e => setrole("teacher")}>teacher</button>
+              </div>
+              <p>{name} <br></br> {role}</p>
                   <p className={astyle.name}>Name:</p>
                   <input className= {astyle.input} type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
+                  <p className={astyle.name}>Email:</p>
+                  <input className= {astyle.input} required= {true}></input>
+                  <p className={astyle.name}>Password:</p>
+                  <input className= {astyle.input} required= {true}></input>
+                  <p className={astyle.name}>Confirm Password:</p>
+                  <input className= {astyle.input} required= {true}></input>
               </label>
-              <input type="submit" value="Submit" className= {astyle.button}/>
+              <input type="submit" value="Sign Up" className= {astyle.button}/>
             </form>
             
-            </div>
-            <div className= {astyle.button}>
-              <button onClick={e => setrole("student")}>student</button>
-              <button onClick={e => setrole("organizer")}>organizer</button>
-              <button onClick={e => setrole("teacher")}>teacher</button>
-              <p>{name} <br></br> {role}</p>
+            
             </div>
           </div>
         </main>
