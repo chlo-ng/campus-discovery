@@ -14,7 +14,11 @@ export default function NavBar({
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.navBar}>
-        <img className={styles.logo} src="/gtLogoLong.png" />
+        <img className={styles.logo}
+          src="/gtLogoLong.png"
+          onClick={() => {
+            router.push("/")
+          }} />
         <img className={styles.icon}
           src="/user.png" 
           onClick={() => {
@@ -32,7 +36,7 @@ export default function NavBar({
         <nav className={styles.sideBarNav}>
           {!loggedIn && <ul>
             <li><a>Login</a></li>
-            <li><a onClick={() => {router.push("template")}}>Create Account</a></li>
+            <li><a onClick={() => {router.push("config")}}>Create Account</a></li>
           </ul>}
           {loggedIn && <ul>
             <li><a>Manage Account</a></li>

@@ -14,7 +14,6 @@ const Template: NextPage = () => {
 
     // return html page you want to render
     return (
-      // className={styles.container} will apply the .container{} css style from the styles file imported up top
       <div>
         <Head>
           <title>Campus Discovery</title>
