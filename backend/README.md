@@ -5,7 +5,7 @@ This is a Spring Boot application with a H2 database.
 First, run the server:
 
 ```bash
- ./mvnw spring-boot:run
+mvnw spring-boot:run
 ```
 
 Server will be hosted at [http://localhost:8080](http://localhost:8080)
