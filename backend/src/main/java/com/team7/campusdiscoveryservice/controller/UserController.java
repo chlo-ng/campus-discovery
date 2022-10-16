@@ -42,6 +42,7 @@ public class UserController {
                 userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setUsername(user.getUsername());
         currentUser.setPassword(user.getPassword());
+        userRepository.save(currentUser);
 
         return ResponseEntity.ok(currentUser);
     }
