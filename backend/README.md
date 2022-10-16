@@ -27,16 +27,18 @@ Example: GET request http://localhost:8080/api/users/ will return a list of all 
 
 ## Database
 
-The database is stored in the demodb files in the main folder. 
+The database is stored in the demodb.mv.db file in the main folder. 
 
 Any changes you make to the database will be persisted and saved in the files for the next time the application runs.
 
-To reset/initialize the database, add the SQL insert statements for your data in the /src/main/resources/data.sql file and add the below statement to the application.properties file in the same folder.
+There is already a database with some data in the demodb.mv.db file, so the application can be used. To reset/initialize the database, add the SQL insert statements for your data in the /src/main/resources/data.sql file and add the below statement to the application.properties file in the same folder.
 
 ```bash
 spring.sql.init.mode=always
 spring.jpa.hibernate.ddl-auto=create
 ```
+This will overwrite the database file each time you restart the server.
+
 
 To get a better view of the database, there is a H2 Console located at [http://localhost:8080/h2-console](http://localhost:8080/h2-console). The password is currently set to 1.
 
