@@ -18,8 +18,12 @@ const Home: NextPage = () => {
 
       <main>
         <NavBar loggedIn={false}/>
-        <div className="container">
-          <p>hi</p>
+        <div className='welcome container'>
+          <div className='welcomeContainer'>
+            <h3> Welcome to </h3>
+            <h1> Campus Discovery! </h1>
+            <p> To use our services, sign in with GT credentials or create an account by clicking on the upper right button. </p>
+          </div>
         </div>
       </main>
     </div>

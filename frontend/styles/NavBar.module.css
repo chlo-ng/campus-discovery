@@ -32,6 +32,8 @@
     height: 100%;
     z-index: 999;
     background-color: white;
+
+    box-shadow: -5px 0px 6px rgba(0, 0, 0, 0.25);
 }
 
 .sideBarTop {

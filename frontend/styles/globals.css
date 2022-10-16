@@ -15,16 +15,6 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
-}
-
 .vsc-initialized {
   z-index: -9999;
   position: relative;
@@ -32,6 +22,16 @@ a {
 
 #__next {
   z-index: -9999;
+  position: relative;
+}
+
+main {
+  z-index: -999;
+  position: relative;
+}
+
+div {
+  z-index: -999;
   position: relative;
 }
 
@@ -47,4 +47,42 @@ a {
   --dark-gold: #A28D5B;
   --gold: #B3A369;
   --navy: #003057;
+  --black: #1E1E1E;
+
+  --font-body: 'Roboto', sans-serif;
+  --font-headings: 'Roboto Slab', mono;
+
+  --fw-bold: 800;
+  --fw-medium: 500;
+  --fw-regular: 400;
+
+  
+  --extra-large: 7.5vh;
+  --large: 5vh;
+  --medium: 4vh;
+  --small: 3vh;
+  --extra-small: 2.5vh;
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: var(--small);
+  font-weight: var(--fw-regular);
+}
+
+h1 {
+  font-family: var(--font-headings);
+  font-size: var(--extra-large);
+  font-weight: var(--fw-bold);
+}
+
+h2 {
+  font-family: var(--font-headings);
+  font-size: var(--large);
+}
+
+h3 {
+  font-family: var(--font-headings);
+  font-size: var(--medium);
+  font-weight: var(--fw-regular);
 }
