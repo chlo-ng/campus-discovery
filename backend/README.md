@@ -4,8 +4,16 @@ This is a Spring Boot application with a H2 database.
 
 First, run the server:
 
+For Windows:
+
 ```bash
 mvnw spring-boot:run
+```
+
+For Mac:
+
+```bash
+./mvnw spring-boot:run
 ```
 
 Server will be hosted at [http://localhost:8080](http://localhost:8080)
