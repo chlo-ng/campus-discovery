@@ -40,9 +40,16 @@ spring.jpa.hibernate.ddl-auto=create
 This will overwrite the database file each time you restart the server.
 
 
-To get a better view of the database, there is a H2 Console located at [http://localhost:8080/h2-console](http://localhost:8080/h2-console). The password is currently set to 1.
+To get a better view of the database, there is a H2 Console located at [http://localhost:8080/h2-console](http://localhost:8080/h2-console). 
+
+![image](https://github.gatech.edu/storage/user/58295/files/a63a0230-4917-4fca-99b6-95f45f4ce9b3)
+
+Make sure that the JDBC URL is set to jdbc:h2:file:./demodb. The password is currently set to 1.
+
 
 You can edit the database in this console and make SQL queries. Any changes will be saved to the database file.
+
+Example: To see the USERS table, run the command SELECT * FROM USERS.
 
 ## More Help 
 Some helpful links:
