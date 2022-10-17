@@ -29,9 +29,10 @@ const config: NextPage = () => {
           },
           body: JSON.stringify(data),
         }).then((response) => {
-          console.log(response)
-          localStorage.setItem("id", "0");
-          router.push("events");
+          response.json().then((res) => {
+            localStorage.setItem("id", res["id"]);
+            router.push("events");
+          })
         });
       } else if (!["student", "alumni", "teacher"].includes(role)) {
         alert("Please select a role.")
