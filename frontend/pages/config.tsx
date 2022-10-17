@@ -59,7 +59,7 @@ const config: NextPage = () => {
                 <p className = {styles.atext}>Select Role:</p>
                 
                 <button type="button" className={role === 'student' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("student")}>Student</button>
-                <button type="button" className={role === 'alumni' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("alumni")}>Alumini</button>
+                <button type="button" className={role === 'alumni' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("alumni")}>Alumni</button>
                 <button type="button" className={role === 'teacher' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("teacher")}>Teacher</button>
             
                 <p className={styles.name}>Name:</p>
