@@ -63,9 +63,9 @@ const config: NextPage = () => {
               <p className = {styles.text}>Create an Account</p>
               <p className = {styles.atext}>Select Role:</p>
               
-                <button className={role === 'student' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} id="student" onClick={e => setRole("student")}>Student</button>
-                <button className={role === 'alumni' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} id="alumni" onClick={e => setRole("alumni")}>Alumini</button>
-                <button className={role === 'teacher' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} id="teacher" onClick={e => setRole("teacher")}>Teacher</button>
+                <button className={role === 'student' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("student")}>Student</button>
+                <button className={role === 'alumni' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("alumni")}>Alumini</button>
+                <button className={role === 'teacher' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("teacher")}>Teacher</button>
              
                   <p className={styles.name}>Name:</p>
                   <input className= {styles.input} size = {38} type="text" required= {true} name="name" onChange={e => setName(e.target.value)}/>
