@@ -17,7 +17,7 @@ const Home: NextPage = () => {
       </Head>
 
       <main>
-        <NavBar loggedIn={false}/>
+        <NavBar />
         <div className='welcome container'>
           <div className='welcomeContainer'>
             <h3> Welcome to </h3>

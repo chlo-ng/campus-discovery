@@ -64,6 +64,7 @@
     padding: 15px;
 }
 
-.sideBarNav li:hover {
+.sideBarNav li a:hover {
     text-decoration-line: underline;
+    cursor: pointer;
 }
