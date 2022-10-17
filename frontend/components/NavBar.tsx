@@ -14,7 +14,7 @@ export default function NavBar({
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.navBar}>
-        <img className={styles.logo}
+        <img className={styles.logos}
           src="/gtLogoLong.png"
           onClick={() => {
             router.push("/")
