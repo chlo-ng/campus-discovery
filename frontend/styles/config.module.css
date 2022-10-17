@@ -1,11 +1,10 @@
 .container {
-    height: 100vh;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    
-  }
+}
+
 .center {
     display: flex;
     justify-content: center;
@@ -21,14 +20,15 @@
 }
 .something {
     height: 100vh;
-    position:relative;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .input {
+    padding: 1px 5px 1px 5px;
     position: center;
-    text-align: center;
+    text-align: left;
     margin: 0;
     display:flex;
     border-radius: 7px;
@@ -71,9 +71,14 @@
     border-radius: 10px;
     padding: 10px 15px;
     border: 1.5px solid var(--dark-gold);
+    background-color: white;
 }
 
 .roleButtons:hover {
+    background-color: var(--dark-gold);
+}
+
+.selected {
     background-color: var(--dark-gold);
 }
 

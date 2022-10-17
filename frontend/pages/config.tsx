@@ -3,15 +3,15 @@ import { useRouter } from "next/router"
 import Head from 'next/head'
 import React, {useState} from 'react'
 import NavBar from "../components/NavBar"
-import styles from '../styles/NavBar.module.css'
-import astyle from '../styles/config.module.css'
+import styles from '../styles/config.module.css'
 import { validEmail, validPassword } from './Regex.js';
 
 const config: NextPage = () => {
     const router = useRouter()
-    const [name, setname] = useState('')
-    const [role, setrole] = useState('')
+    const [name, setName] = useState('')
+    const [role, setRole] = useState('')
     const [verified, setVerified] = useState('')
+    
     async function nameHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
       if (role == "student" || role == "alumini" || role == "teacher") {
@@ -20,17 +20,15 @@ const config: NextPage = () => {
         if (verified == 'true'){
           router.push("events")
         }
-        
       } 
       else {
         alert("please select role")
       }
     }
+
     async function submitHandler(e: React.ChangeEvent<any>) {
-      
       if (role == "student" || role == "alumini" || role == "teacher") {
         setVerified('true')
-        
       } 
       else {
         setVerified('false');
@@ -43,7 +41,7 @@ const config: NextPage = () => {
           console.log(e)
           alert("invalid name")
         } else {
-          setname(e);
+          setName(e);
         }
     }
 
@@ -58,31 +56,27 @@ const config: NextPage = () => {
         </Head>
         <main>
           <NavBar loggedIn={false}/>
-          
-          <div className={styles.logo}>
-            
-            <div className={astyle.center}>
+          <div className={`${styles.container} container`}>
+            <div className={styles.center}>
             <form>
               <label>
-              <p className = {astyle.text}>Create an Account</p>
-              <p className = {astyle.atext}>Select Role:</p>
+              <p className = {styles.text}>Create an Account</p>
+              <p className = {styles.atext}>Select Role:</p>
               
-                <button className= {astyle.roleButtons} onClick={e => setrole("student")}>Student</button>
-                <button className= {astyle.roleButtons} onClick={e => setrole("alumini")}>Alumini</button>
-                <button className= {astyle.roleButtons} onClick={e => setrole("teacher")}>Teacher</button>
+                <button className={role === 'student' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} id="student" onClick={e => setRole("student")}>Student</button>
+                <button className={role === 'alumni' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} id="alumni" onClick={e => setRole("alumni")}>Alumini</button>
+                <button className={role === 'teacher' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} id="teacher" onClick={e => setRole("teacher")}>Teacher</button>
              
-                  <p className={astyle.name}>Your Name: {name}</p>
-                  <p className={astyle.name}>Your Role: {role}</p>
-                  <p className={astyle.name}>Name:</p>
-                  <input className= {astyle.input} size = {38} type="text" required= {true} name="name" onChange={e => setname(e.target.value)}/>
-                  <p className={astyle.name}>Email:</p>
-                  <input className= {astyle.input} size = {38} required= {true}></input>
-                  <p className={astyle.name}>Password:</p>
-                  <input className= {astyle.input} size = {38} required= {true}></input>
-                  <p className={astyle.name}>Confirm Password:</p>
-                  <input className= {astyle.input} size = {38} required= {true}></input>
+                  <p className={styles.name}>Name:</p>
+                  <input className= {styles.input} size = {38} type="text" required= {true} name="name" onChange={e => setName(e.target.value)}/>
+                  <p className={styles.name}>Email:</p>
+                  <input className= {styles.input} size = {38} required= {true}></input>
+                  <p className={styles.name}>Password:</p>
+                  <input className= {styles.input} size = {38} required= {true}></input>
+                  <p className={styles.name}>Confirm Password:</p>
+                  <input className= {styles.input} size = {38} required= {true}></input>
               </label>
-              <input type="submit" value="Sign Up" className= {astyle.submitButton} onClick = {nameHandler}/>
+              <input type="submit" value="Sign Up" className= {styles.submitButton} onClick = {nameHandler}/>
             </form>
             
             </div>
