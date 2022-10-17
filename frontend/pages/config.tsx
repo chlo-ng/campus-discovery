@@ -60,21 +60,21 @@ const config: NextPage = () => {
             <div className={styles.center}>
             <form>
               <label>
-              <p className = {styles.text}>Create an Account</p>
-              <p className = {styles.atext}>Select Role:</p>
-              
+                <p className = {styles.text}>Create an Account</p>
+                <p className = {styles.atext}>Select Role:</p>
+                
                 <button className={role === 'student' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("student")}>Student</button>
                 <button className={role === 'alumni' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("alumni")}>Alumini</button>
                 <button className={role === 'teacher' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("teacher")}>Teacher</button>
-             
-                  <p className={styles.name}>Name:</p>
-                  <input className= {styles.input} size = {38} type="text" required= {true} name="name" onChange={e => setName(e.target.value)}/>
-                  <p className={styles.name}>Email:</p>
-                  <input className= {styles.input} size = {38} required= {true}></input>
-                  <p className={styles.name}>Password:</p>
-                  <input className= {styles.input} size = {38} required= {true}></input>
-                  <p className={styles.name}>Confirm Password:</p>
-                  <input className= {styles.input} size = {38} required= {true}></input>
+            
+                <p className={styles.name}>Name:</p>
+                <input className= {styles.input} size = {38} type="text" required= {true} name="name" onChange={e => setName(e.target.value)}/>
+                <p className={styles.name}>Email:</p>
+                <input className= {styles.input} size = {38} required= {true}></input>
+                <p className={styles.name}>Password:</p>
+                <input className= {styles.input} size = {38} required= {true}></input>
+                <p className={styles.name}>Confirm Password:</p>
+                <input className= {styles.input} size = {38} required= {true}></input>
               </label>
               <input type="submit" value="Sign Up" className= {styles.submitButton} onClick = {nameHandler}/>
             </form>
