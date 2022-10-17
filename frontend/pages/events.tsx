@@ -17,7 +17,7 @@ const Events: NextPage = () => {
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
         </Head>
         <main>
-          <NavBar loggedIn={false} />
+          <NavBar />
           <div className="container">
             <div className={styles.eventsContainer}>
               <p className={styles.header}>Trending this week</p>

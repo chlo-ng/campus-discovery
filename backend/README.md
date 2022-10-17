@@ -47,6 +47,12 @@ spring.jpa.hibernate.ddl-auto=create
 ```
 This will overwrite the database file each time you restart the server.
 
+If you want the data.sql to just update the database, you can add the following to the application.properties files instead.
+
+```bash
+spring.sql.init.mode=always
+spring.jpa.hibernate.ddl-auto=update
+```
 
 To get a better view of the database, there is a H2 Console located at [http://localhost:8080/h2-console](http://localhost:8080/h2-console). 
 

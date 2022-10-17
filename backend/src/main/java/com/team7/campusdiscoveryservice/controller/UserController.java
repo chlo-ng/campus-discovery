@@ -13,6 +13,7 @@ import java.util.List;
 
 //Example for REST controller class
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/")
 public class UserController {
 
@@ -42,6 +43,7 @@ public class UserController {
                 userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setUsername(user.getUsername());
         currentUser.setPassword(user.getPassword());
+        currentUser.setType(user.getType());
         userRepository.save(currentUser);
 
         return ResponseEntity.ok(currentUser);

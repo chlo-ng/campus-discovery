@@ -3,14 +3,20 @@ import * as React from 'react'
 import styles from '../styles/NavBar.module.css'
 
 interface AppProps {
-  loggedIn: boolean
 }
 
 export default function NavBar({
-  loggedIn
 }: AppProps) {
   const router = useRouter()
   const [expanded, setExpanded] = React.useState(false);
+  const [loggedIn, setLoggedIn] = React.useState(false);
+  
+  if (typeof window !== "undefined") {
+    if (loggedIn !== (localStorage.getItem("id") !== null)) {
+      setLoggedIn(localStorage.getItem("id") !== null)
+    }
+  }
+
   return (
     <div className={styles.navBarContainer}>
       <div className={styles.navBar}>
@@ -41,7 +47,10 @@ export default function NavBar({
           {loggedIn && <ul>
             <li><a>Manage Account</a></li>
             <li><a>My Events</a></li>
-            <li><a>Log Out</a></li>
+            <li><a onClick={() => {
+              localStorage.removeItem("id")
+              router.push("/")
+            }}>Log Out</a></li>
           </ul>}
         </nav>
       </div>}
