@@ -1,5 +1,6 @@
 package com.team7.campusdiscoveryservice.controller;
 
+import com.team7.campusdiscoveryservice.entity.Event;
 import com.team7.campusdiscoveryservice.entity.User;
 import com.team7.campusdiscoveryservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +44,7 @@ public class UserController {
                 userRepository.findById(id).orElseThrow(RuntimeException::new);
         currentUser.setUsername(user.getUsername());
         currentUser.setPassword(user.getPassword());
-        currentUser.setType(user.getType());
+        currentUser.setRole(user.getRole());
         userRepository.save(currentUser);
 
         return ResponseEntity.ok(currentUser);
