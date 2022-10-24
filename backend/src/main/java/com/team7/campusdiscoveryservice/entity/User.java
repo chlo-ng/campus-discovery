@@ -1,6 +1,12 @@
 package com.team7.campusdiscoveryservice.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 
 //Indicates that User is an entity
@@ -22,24 +28,33 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "type", nullable = false)
-    private String type;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "role", nullable = false)
+    private Role role;
+
+    @JsonIgnoreProperties({"creator", "rsvped"})
+    @ManyToMany
+    @JoinTable(name = "users_rsvp",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "event_id"))
+    private Set<Event> rsvp = new LinkedHashSet<>();
+
+    @JsonIgnoreProperties({"creator", "rsvped"})
+    @OneToMany(mappedBy = "creator",
+            orphanRemoval = true)
+    private Set<Event> createdEvents = new LinkedHashSet<>();
 
     public User() {
     }
 
-    public User(String username, String password, String type) {
+    public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
-        this.type = type;
+        this.role = role;
     }
 
     public Long getId() {
         return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -58,11 +73,49 @@ public class User {
         this.password = password;
     }
 
-    public String getType() {
-        return type;
+    public Role getRole() {
+        return role;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setRole(Role role) {
+        this.role = role;
     }
+
+    public Set<Event> getCreatedEvents() {
+        return createdEvents;
+    }
+
+    public void setCreatedEvents(Set<Event> createdEvents) {
+        this.createdEvents = createdEvents;
+    }
+
+    public Set<Event> getRsvp() {
+        return rsvp;
+    }
+
+    public void setRsvp(Set<Event> rsvp) {
+        this.rsvp = rsvp;
+    }
+
+    public void addRSVPEvent(Event event) {
+        this.rsvp.add(event);
+        event.getRsvped().add(this);
+    }
+
+    public void removeCreatedEvent(Event event) {
+        this.createdEvents.remove(event);
+    }
+
+    public void removeRSVPEvent(Event event) {
+        this.rsvp.remove(event);
+    }
+
+    @PreRemove
+    private void removeConnections() {
+        for (Event e: rsvp) {
+            e.getRsvped().remove(this);
+        }
+    }
+
+
 }

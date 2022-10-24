@@ -18,6 +18,45 @@ For Mac:
 
 Server will be hosted at [http://localhost:8080](http://localhost:8080)
 
+## REST APIs
+Access at: http://localhost:8080/api/
+
+# Users http://localhost:8080/api/users/
+User Objects: 
+id, username, password, role, rsvp (Set), createdEvents (Set)
+
+Run the backend server and go to the link to test if there are User objects.
+
+{id}: replace with the id you want
+
+GET: returns list of user objects
+GET('/{id}'): returns user object with specified id
+
+POST: pass in json body with username, password, and role to create new user
+POST('users/rsvp/{userID}/{eventID}'): RSVPs the user with userID to the event with eventID
+
+PUT('/{id}'): pass in json body with username, password, and role to update user with specified id
+
+DELETE('/{id}'): removes user with specified id from the database, including from rsvped, as well as events they created
+DELETE('users/rsvp/{userID}/{eventID}'): removes the RSVP of user with userID to event with eventID
+
+# Events http://localhost:8080/api/events/
+Event Objects: 
+id, title, date (MUST BE IN MM-DD-YYYY format), startTime(MUST BE IN hh:mm:ss format), description, creator (User), rsvped (Set), 
+
+Run the backend server and go to the link to test if there are Events objects.
+
+{id}: replace with the id/values you want
+
+GET: returns list of event objects
+GET('/{id}'): returns event object with specified id
+
+POST('/{creatorID}'}: pass in json body with title, date, startTime, and description with creatorID in path variable to create new event
+
+PUT('/{id}/{creatorID}'): pass in json body with title, date, startTime, and description with creatorID in path variable to update event with specified id
+
+DELETE('/{id}'): removes event with specified id from the database, as well as from rsvp
+
 ## Java
 
 The Java files are located in the src/main/java/com/team7/campusdiscoveryservice/ directory. 
@@ -27,6 +66,9 @@ The entity folder holds the data types/Objects held in each table. There is an e
 
 ### Repository
 The resository folder holds the interface classes for the different repositories. It extends [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html), and thus inherits its methods. There is an example UserRepository located in the folder.
+
+### Service
+The service folder holds services that manage the repositories directly. The services are called in the controllers.
 
 ### Controller
 The controller folder holds REST controller classes. Tags are used to specifiy different requests.
