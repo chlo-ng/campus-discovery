@@ -1,8 +1,8 @@
 
 INSERT INTO users (username, password, role) VALUES
-  ('user1', 'password123', 'USER'),
-  ('user2', 'password234', 'USER'),
-  ('user3', 'password345', 'ADMIN');
+  ('user1', 'password123', 'TEACHER'),
+  ('user2', 'password234', 'STUDENT'),
+  ('user3', 'password345', 'ALUMNI');
 
 INSERT INTO events (title, event_date, start_time, description,
 location, creator_id)

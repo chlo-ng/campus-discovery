@@ -2,7 +2,8 @@ package com.team7.campusdiscoveryservice.controller;
 
 import com.team7.campusdiscoveryservice.entity.Event;
 import com.team7.campusdiscoveryservice.entity.User;
-import com.team7.campusdiscoveryservice.repository.UserRepository;
+import com.team7.campusdiscoveryservice.service.EventService;
+import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,41 +20,58 @@ import java.util.List;
 public class UserController {
 
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
+
+    @Autowired
+    private EventService eventService;
 
     @GetMapping("users")
     public List<User> getUsers() {
-        return this.userRepository.findAll();
+        return userService.getUsers();
     }
 
     @GetMapping("users/{id}")
     public User getUser(@PathVariable Long id) {
-        return userRepository.findById(id).orElseThrow(RuntimeException::new);
+        return userService.getUser(id);
     }
 
     @PostMapping("users")
     public ResponseEntity createUser(@RequestBody User user) throws URISyntaxException {
-        User savedUser = userRepository.save(user);
+        User savedUser = userService.createUser(user);
         return ResponseEntity.created(new URI("/users/" + savedUser.getId())).body(savedUser);
+    }
+
+    @PostMapping("users/rsvp/{userID}/{eventID}")
+    public ResponseEntity rsvpToEvent(@PathVariable Long userID,
+                                      @PathVariable Long eventID) throws URISyntaxException {
+        User user = userService.getUser(userID);
+        Event event = eventService.getEvent(eventID);
+        User u = userService.rsvpToEvent(user, event);
+        return ResponseEntity.created(new URI("/users/" + u.getId())).body(u);
     }
 
     @PutMapping("users/{id}")
     public ResponseEntity updateUser(@PathVariable Long id,
                                        @RequestBody User user) {
         User currentUser =
-                userRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentUser.setUsername(user.getUsername());
-        currentUser.setPassword(user.getPassword());
-        currentUser.setRole(user.getRole());
-        userRepository.save(currentUser);
-
+                userService.updateUser(id, user);
         return ResponseEntity.ok(currentUser);
     }
 
     @DeleteMapping("users/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
-        userRepository.deleteById(id);
+        userService.deleteUser(id);
         return ResponseEntity.ok().build();
     }
+
+    @DeleteMapping("users/rsvp/{userID}/{eventID}")
+    public ResponseEntity unRsvpToEvent(@PathVariable Long userID,
+                                        @PathVariable Long eventID) {
+        userService.unRsvpToEvent(userService.getUser(userID),
+                eventService.getEvent(eventID));
+        return ResponseEntity.ok().build();
+    }
+
+
 
 }

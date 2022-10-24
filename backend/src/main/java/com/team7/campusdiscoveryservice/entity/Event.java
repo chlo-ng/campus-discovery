@@ -1,15 +1,11 @@
 package com.team7.campusdiscoveryservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.LinkedHashSet;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,7 +19,6 @@ public class Event {
 
     @Column(name = "title", nullable = false)
     private String title;
-
 
     @Column(name = "event_date", nullable = false)
     private Date date;
@@ -40,18 +35,22 @@ public class Event {
     @JsonIgnoreProperties({"rsvp", "createdEvents"})
     @ManyToOne(optional = false)
     @JoinColumn(name = "creator_id", nullable = false)
-    private User creator;
+    private User creator = new User();
 
     @JsonIgnoreProperties({"rsvp", "createdEvents"})
     @ManyToMany(mappedBy = "rsvp")
     private Set<User> rsvped = new LinkedHashSet<>();
 
-    public Event(String title, Date date, Time startTime, String description, String location) {
+
+
+    public Event(String title, Date date, Time startTime, String description,
+                 String location) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
         this.description = description;
         this.location = location;
+
     }
 
     public Event() {
@@ -109,6 +108,14 @@ public class Event {
 
     public void setRsvped(Set<User> rsvped) {
         this.rsvped = rsvped;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     @PreRemove

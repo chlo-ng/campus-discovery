@@ -1,8 +1,8 @@
 package com.team7.campusdiscoveryservice.controller;
 
 import com.team7.campusdiscoveryservice.entity.Event;
-import com.team7.campusdiscoveryservice.entity.User;
-import com.team7.campusdiscoveryservice.repository.EventRepository;
+import com.team7.campusdiscoveryservice.service.EventService;
+import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,42 +19,40 @@ import java.util.List;
 public class EventController {
 
     @Autowired
-    private EventRepository eventRepository;
+    private UserService userService;
+
+    @Autowired
+    private EventService eventService;
 
     @GetMapping("events")
     public List<Event> getEvents() {
-        return this.eventRepository.findAll();
+        return eventService.getEvents();
     }
 
     @GetMapping("events/{id}")
     public Event getEvent(@PathVariable Long id) {
-        return eventRepository.findById(id).orElseThrow(RuntimeException::new);
+        return eventService.getEvent(id);
     }
 
-    @PostMapping("events")
-    public ResponseEntity createEvent(@RequestBody Event event) throws URISyntaxException {
-        Event savedEvent = eventRepository.save(event);
+    @PostMapping("events/{creatorID}")
+    public ResponseEntity createEvent(@RequestBody Event event,
+                                      @PathVariable Long creatorID) throws URISyntaxException {
+        Event savedEvent = eventService.createEvent(event, creatorID);
         return ResponseEntity.created(new URI("/events/" + savedEvent.getId())).body(savedEvent);
     }
 
-    @PutMapping("events/{id}")
+    @PutMapping("events/{id}/{creatorID}")
     public ResponseEntity updateEvent(@PathVariable Long id,
-                                     @RequestBody Event event) {
-        Event currentEvent =
-                eventRepository.findById(id).orElseThrow(RuntimeException::new);
-        currentEvent.setTitle(event.getTitle());
-        currentEvent.setDate(event.getDate());
-        currentEvent.setDescription(event.getDescription());
-        currentEvent.setStartTime(event.getStartTime());
-        currentEvent.setCreator(event.getCreator());
-        eventRepository.save(currentEvent);
+                                     @RequestBody Event event,
+                                      @PathVariable Long creatorID) {
+        Event currentEvent = eventService.updateEvent(id, event, creatorID);
 
         return ResponseEntity.ok(currentEvent);
     }
 
     @DeleteMapping("events/{id}")
     public ResponseEntity deleteEvent(@PathVariable Long id) {
-        eventRepository.deleteById(id);
+        eventService.deleteEvent(id);
         return ResponseEntity.ok().build();
     }
 
