@@ -1,6 +1,6 @@
 This is a Spring Boot application with a H2 database.
 
-## Getting Started
+# Getting Started
 
 First, run the server:
 
@@ -18,12 +18,12 @@ For Mac:
 
 Server will be hosted at [http://localhost:8080](http://localhost:8080)
 
-## REST APIs
+# REST APIs
 Access at: http://localhost:8080/api/
 
-# Users http://localhost:8080/api/users/
+## Users http://localhost:8080/api/users/
 User Objects: 
-id, username, password, role, rsvp (Set), createdEvents (Set)
+id, username, password, role (STUDENT, TEACHER, or ALUMNI) , rsvp (Set), createdEvents (Set)
 
 Run the backend server and go to the link to test if there are User objects.
 
@@ -40,7 +40,7 @@ PUT('/{id}'): pass in json body with username, password, and role to update user
 DELETE('/{id}'): removes user with specified id from the database, including from rsvped, as well as events they created
 DELETE('users/rsvp/{userID}/{eventID}'): removes the RSVP of user with userID to event with eventID
 
-# Events http://localhost:8080/api/events/
+## Events http://localhost:8080/api/events/
 Event Objects: 
 id, title, date (MUST BE IN MM-DD-YYYY format), startTime(MUST BE IN hh:mm:ss format), description, creator (User), rsvped (Set), 
 
@@ -57,25 +57,25 @@ PUT('/{id}/{creatorID}'): pass in json body with title, date, startTime, and des
 
 DELETE('/{id}'): removes event with specified id from the database, as well as from rsvp
 
-## Java
+# Java
 
 The Java files are located in the src/main/java/com/team7/campusdiscoveryservice/ directory. 
 
-### Entity
+## Entity
 The entity folder holds the data types/Objects held in each table. There is an example User class in the folder with more details.
 
-### Repository
+## Repository
 The resository folder holds the interface classes for the different repositories. It extends [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html), and thus inherits its methods. There is an example UserRepository located in the folder.
 
-### Service
+## Service
 The service folder holds services that manage the repositories directly. The services are called in the controllers.
 
-### Controller
+## Controller
 The controller folder holds REST controller classes. Tags are used to specifiy different requests.
 
 Example: GET request http://localhost:8080/api/users/ will return a list of all users.
 
-## Database
+# Database
 
 The database is stored in the demodb.mv.db file in the main folder. 
 
@@ -107,14 +107,14 @@ You can edit the database in this console and make SQL queries. Any changes will
 
 Example: To see the USERS table, run the command SELECT * FROM USERS.
 
-## More Help 
+# More Help 
 Some helpful links:
 
-### React/REST
+## React/REST
 [React JS + Spring Boot REST API Example Tutorial](https://www.youtube.com/watch?v=5RA5NpxbioI)
 [React.js and Spring Data REST](https://spring.io/guides/tutorials/react-and-spring-data-rest/)
 
-### H2 Database
+## H2 Database
 [Spring Boot With H2 Database](https://www.baeldung.com/spring-boot-h2-database)
 [Integrating H2 Database with Spring Boot](https://stackabuse.com/integrating-h2-database-with-spring-boot/)
 
