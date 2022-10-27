@@ -16,7 +16,7 @@ const config: NextPage = () => {
     
     async function submitHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
-      if (["student", "alumni", "teacher"].includes(role) && name.trim() !== "") {
+      if (["STUDENT", "ALUMNI", "TEACHER"].includes(role) && name.trim() !== "") {
         var data: any = {
           username: username,
           password: password,
@@ -34,7 +34,7 @@ const config: NextPage = () => {
             router.push("events");
           })
         });
-      } else if (!["student", "alumni", "teacher"].includes(role)) {
+      } else if (!["STUDENT", "ALUMNI", "TEACHER"].includes(role)) {
         alert("Please select a role.")
       } else {
         alert("Please use a valid name.")
@@ -58,9 +58,9 @@ const config: NextPage = () => {
                 <p className = {styles.text}>Create an Account</p>
                 <p className = {styles.atext}>Select Role:</p>
                 
-                <button type="button" className={role === 'student' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("student")}>Student</button>
-                <button type="button" className={role === 'alumni' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("alumni")}>Alumni</button>
-                <button type="button" className={role === 'teacher' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("teacher")}>Teacher</button>
+                <button type="button" className={role === 'STUDENT' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("STUDENT")}>Student</button>
+                <button type="button" className={role === 'ALUMNI' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("ALUMNI")}>Alumni</button>
+                <button type="button" className={role === 'TEACHER' ? `${styles.roleButtons} ${styles.selected}` : styles.roleButtons} onClick={e => setRole("TEACHER")}>Teacher</button>
             
                 <p className={styles.name}>Name:</p>
                 <input className={styles.input} size={38} type="text" required={true} name="name" onChange={e => setName(e.target.value)}/>

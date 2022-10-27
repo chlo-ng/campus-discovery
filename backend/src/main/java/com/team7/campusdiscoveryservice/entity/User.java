@@ -1,8 +1,7 @@
 package com.team7.campusdiscoveryservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.LinkedHashSet;
@@ -26,6 +25,7 @@ public class User {
 
     //Don't specify name will assume variable name
     @Column(name = "password", nullable = false)
+    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)
