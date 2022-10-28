@@ -6,7 +6,7 @@ import styles from '../styles/Events.module.css'
 
 const Events: NextPage = () => {
     const router = useRouter()
-
+    
     return (
       <div>
         <Head>
