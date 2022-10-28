@@ -6,8 +6,9 @@ import Head from 'next/head'
 import NavBar from "../components/NavBar"
 import styles from '../styles/Events.module.css'
 
-const Event: NextPage = () => {
+const Post = () => {
     const router = useRouter()
+    const { event } = router.query
     const [name, setName] = useState('')
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
@@ -15,7 +16,7 @@ const Event: NextPage = () => {
     const [describe, setDescribe] = useState('')
     const [image, setImage] = useState('bookmark.png')
     
-    fetch("http://localhost:8080/api/events/1").then((response) => {
+    fetch("http://localhost:8080/api/events/" + event).then((response) => {
           response.json().then((res) => {
             setName(res["title"])
             setDate(res["date"])
@@ -57,4 +58,4 @@ const Event: NextPage = () => {
     </div>
   )
 }
-export default Event
+export default Post
