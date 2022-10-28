@@ -29,33 +29,58 @@ Run the backend server and go to the link to test if there are User objects.
 
 {id}: replace with the id you want
 
-GET: returns list of user objects
-GET('/{id}'): returns user object with specified id
+### GET
+**GET:** returns list of user objects
+**
+GET('/{id}'):** returns user object with specified id
 
-POST: pass in json body with username, password, and role to create new user
-POST('users/rsvp/{userID}/{eventID}'): RSVPs the user with userID to the event with eventID
+### POST
+**POST:** pass in json body with username, password, and role to create new user
+**POST('users/login/'):** pass in json body with username, password to login, will return an error if invalid credentials
+**POST('users/rsvp/{userID}/{eventID}'):** RSVPs the user with userID to the event with eventID
 
-PUT('/{id}'): pass in json body with username, password, and role to update user with specified id
+### PUT
+**PUT('/{id}'):** pass in json body with username, password, and role to update user with specified id
 
-DELETE('/{id}'): removes user with specified id from the database, including from rsvped, as well as events they created
-DELETE('users/rsvp/{userID}/{eventID}'): removes the RSVP of user with userID to event with eventID
+### DELETE
+**DELETE('/{id}'):** removes user with specified id from the database, including from rsvped, as well as events they created
+**DELETE('users/rsvp/{userID}/{eventID}'):** removes the RSVP of user with userID to event with eventID
 
 ## Events http://localhost:8080/api/events/
 Event Objects: 
-id, title, date (MUST BE IN MM-DD-YYYY format), startTime(MUST BE IN hh:mm:ss format), description, creator (User), rsvped (Set), 
+id, title, date (MUST BE IN MM-DD-YYYY format), startTime (MUST BE IN hh:mm:ss format), description, image (image url; defaults to gtLogo.png), creator (User), rsvped (Set), 
 
 Run the backend server and go to the link to test if there are Events objects.
 
 {id}: replace with the id/values you want
 
-GET: returns list of event objects
-GET('/{id}'): returns event object with specified id
+### GET
+**GET:** returns list of event objects
 
-POST('/{creatorID}'}: pass in json body with title, date, startTime, and description with creatorID in path variable to create new event
+**GET('/{id}'):** returns event object with specified id
 
-PUT('/{id}/{creatorID}'): pass in json body with title, date, startTime, and description with creatorID in path variable to update event with specified id
+### POST
+**POST('/{creatorID}'}:** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to create new event
 
-DELETE('/{id}'): removes event with specified id from the database, as well as from rsvp
+### PUT
+**PUT('/{id}/{creatorID}'):** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to update event with specified id
+
+#### Request Parameter --> add ?parameter=value to the end of the request
+
+**PUT('events/{id}/title'):** add request parameter title (ex. events/1/title?title= insert title here)
+
+**PUT('events/{id}/description'):** add request parameter description to update for event with id (ex. events/1/title?descriptione= insert description here)
+
+**PUT('events/{id}/date'):** add request parameter date to update for event with id (ex. events/1/date?date= insert date here in yyyymmdd format)
+
+**PUT('events/{id}/starttime'):** add request parameter startTime to update for event with id (ex. events/1/starttime?startTime= insert time here in hh:mm:ss format)
+
+**PUT('events/{id}/location'):** add request parameter location to update for event with id (ex. events/1/location?location= insert location here)
+
+**PUT('events/{id}/image'):** add request parameter image to update for event with id (ex. events/1/image?image= insert image url here)
+
+### DELETE
+**DELETE('/{id}'):** removes event with specified id from the database, as well as from rsvp
 
 # Java
 
