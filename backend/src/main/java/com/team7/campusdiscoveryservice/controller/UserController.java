@@ -1,12 +1,15 @@
 package com.team7.campusdiscoveryservice.controller;
 
 import com.team7.campusdiscoveryservice.entity.Event;
+import com.team7.campusdiscoveryservice.entity.Login;
 import com.team7.campusdiscoveryservice.entity.User;
 import com.team7.campusdiscoveryservice.service.EventService;
 import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -35,10 +38,24 @@ public class UserController {
         return userService.getUser(id);
     }
 
+
     @PostMapping("users")
     public ResponseEntity createUser(@RequestBody User user) throws URISyntaxException {
         User savedUser = userService.createUser(user);
         return ResponseEntity.created(new URI("/users/" + savedUser.getId())).body(savedUser);
+    }
+
+    @PostMapping("users/login/")
+    public ResponseEntity login(@RequestBody Login login, WebRequest req) throws URISyntaxException {
+
+       User user = userService.checkLogin(login);
+       if (user == null) {
+           return new ResponseEntity<String>("Invalid Credentials",
+                   HttpStatus.UNAUTHORIZED);
+       }
+        return ResponseEntity.created(new URI("/users/" + user.getId())).body(user);
+
+
     }
 
     @PostMapping("users/rsvp/{userID}/{eventID}")

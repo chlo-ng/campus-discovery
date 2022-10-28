@@ -32,6 +32,9 @@ public class Event {
     @Column(name = "location", nullable = false)
     private String location;
 
+    @Column(name = "image", nullable = false)
+    private String image;
+
     @JsonIgnoreProperties({"rsvp", "createdEvents"})
     @ManyToOne(optional = false)
     @JoinColumn(name = "creator_id", nullable = false)
@@ -41,19 +44,19 @@ public class Event {
     @ManyToMany(mappedBy = "rsvp")
     private Set<User> rsvped = new LinkedHashSet<>();
 
+    public static final String defaultImageURL = "gtLogo.png";
 
 
-    public Event(String title, Date date, Time startTime, String description,
-                 String location) {
+    public Event() {
+    }
+
+    public Event(String title, Date date, Time startTime, String description, String location, String image) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
         this.description = description;
         this.location = location;
-
-    }
-
-    public Event() {
+        this.image = image;
     }
 
     public void addRSVPed(User user) {
@@ -116,6 +119,14 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     @PreRemove

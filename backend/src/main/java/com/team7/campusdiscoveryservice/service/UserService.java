@@ -1,12 +1,12 @@
 package com.team7.campusdiscoveryservice.service;
 
 import com.team7.campusdiscoveryservice.entity.Event;
+import com.team7.campusdiscoveryservice.entity.Login;
 import com.team7.campusdiscoveryservice.entity.User;
 import com.team7.campusdiscoveryservice.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @Service
@@ -22,6 +22,14 @@ public class UserService {
 
     public User getUser(Long id) {
         return userRepository.findById(id).orElseThrow(RuntimeException::new);
+    }
+
+    public User checkLogin(Login login) {
+        User user = userRepository.findByUsername(login.getUsername()).orElse(null);
+        if (user == null || !login.getPassword().equals(user.getPassword())) {
+            return null;
+        }
+        return user;
     }
 
     @PostMapping("users")
@@ -47,8 +55,6 @@ public class UserService {
 
     public User rsvpToEvent(User user, Event event) {
         user.addRSVPEvent(event);
-//        event.getRsvped().add(user);
-//        eventService.updateEvent(eventID, event, event.getCreator().getId());
         userRepository.save(user);
         return user;
     }
