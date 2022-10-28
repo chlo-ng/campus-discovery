@@ -54,10 +54,9 @@ public class EventController {
 
     @PutMapping("events/{id}/title")
     public ResponseEntity updateEventTitle(@PathVariable Long id,
-                                      @RequestBody String title) {
+                                           @RequestParam("title") String title) {
 
         try {
-            title = parseAttribute(title);
             Event currentEvent = eventService.updateEventTitle(id, title);
             return ResponseEntity.ok(currentEvent);
         } catch (Exception e) {
@@ -68,9 +67,8 @@ public class EventController {
 
     @PutMapping("events/{id}/description")
     public ResponseEntity updateEventDescription(@PathVariable Long id,
-                                           @RequestBody String description) {
+                                                 @RequestParam("description") String description) {
         try {
-            description = parseAttribute(description);
             Event currentEvent = eventService.updateEventDescription(id, description);
             return ResponseEntity.ok(currentEvent);
         } catch (Exception e) {
@@ -81,9 +79,8 @@ public class EventController {
 
     @PutMapping("events/{id}/date")
     public ResponseEntity updateEventDate(@PathVariable Long id,
-                                                 @RequestBody String date) {
+                                                 @RequestParam("date") String date) {
         try {
-            date = parseAttribute(date);
             Event currentEvent = eventService.updateEventDate(id, date);
             return ResponseEntity.ok(currentEvent);
         } catch (Exception e) {
@@ -95,9 +92,8 @@ public class EventController {
 
     @PutMapping("events/{id}/starttime")
     public ResponseEntity updateEventStartTime(@PathVariable Long id,
-                                          @RequestBody String startTime) {
+                                               @RequestParam("startTime") String startTime) {
         try {
-            startTime = parseAttribute(startTime);
             Event currentEvent = eventService.updateEventStartTime(id, startTime);
             return ResponseEntity.ok(currentEvent);
         } catch (Exception e) {
@@ -108,9 +104,8 @@ public class EventController {
 
     @PutMapping("events/{id}/location")
     public ResponseEntity updateEventLocation(@PathVariable Long id,
-                                               @RequestBody String location) {
+                                              @RequestParam("location") String location) {
         try {
-            location = parseAttribute(location);
             Event currentEvent = eventService.updateEventLocation(id, location);
             return ResponseEntity.ok(currentEvent);
         } catch (Exception e) {
@@ -122,9 +117,8 @@ public class EventController {
 
     @PutMapping("events/{id}/image")
     public ResponseEntity updateEventImage(@PathVariable Long id,
-                                              @RequestBody String image) {
+                                              @RequestParam("image") String image) {
         try {
-            image = parseAttribute(image);
             Event currentEvent = eventService.updateEventImage(id, image);
             return ResponseEntity.ok(currentEvent);
         } catch (Exception e) {
@@ -141,8 +135,5 @@ public class EventController {
     }
 
 
-    public static String parseAttribute(String attribute) {
-        return attribute.split(": ")[1].split("\"")[1].trim();
-    }
 
 }
