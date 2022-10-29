@@ -32,8 +32,7 @@ public class UserService {
         return user;
     }
 
-    @PostMapping("users")
-    public User createUser(@RequestBody User user) {
+    public User createUser(User user) {
         User savedUser = userRepository.save(user);
         return savedUser;
     }

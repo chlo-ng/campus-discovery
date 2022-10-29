@@ -25,7 +25,6 @@ public class User {
 
     //Don't specify name will assume variable name
     @Column(name = "password", nullable = false)
-    @JsonIgnore
     private String password;
 
     @Enumerated(EnumType.STRING)
