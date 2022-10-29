@@ -33,6 +33,9 @@ const Events: NextPage = () => {
                     <p className={styles.eventText}>6:00 - 9:00PM</p>
                     <p className={styles.eventText}>Tech Green</p>
                   </div>
+                  <div className={styles.verticalCenter}>
+                    <img className={styles.triangleButton} src="/edit.png"/>
+                </div>
                 </div>
                 <div className={styles.verticalCenter}>
                   <img className={`${styles.triangleButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
