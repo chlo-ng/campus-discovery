@@ -20,8 +20,9 @@ const config: NextPage = () => {
         var data: any = {
           username: username,
           password: password,
-          type: role
+          role: role
         }
+        
         fetch("http://localhost:8080/api/users/", {
           method: "POST",
           headers: {
