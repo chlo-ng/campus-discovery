@@ -65,6 +65,7 @@ Run the backend server and go to the link to test if there are Events objects.
 ### PUT
 **PUT('/{id}/{creatorID}'):** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to update event with specified id
 
+
 #### Request Parameter --> add ?parameter=value to the end of the request
 
 **PUT('events/{id}/title'):** add request parameter title (ex. events/1/title?title= insert title here)
