@@ -241,6 +241,7 @@
   opacity: 1;
 }
 
-#image-upload>input {
+.myInput {
   display: none;
+  visibility: hidden;
 }

@@ -36,8 +36,9 @@ const EditEvent: NextPage = () => {
               title: title,
               description: description,
               date: date,
-              time: time,
-              location: location
+              time: time + ":00",
+              location: location,
+              image: image,
             }
             console.log(data);
             fetch("http://localhost:8080/api/events/" + id, {
@@ -84,9 +85,6 @@ const EditEvent: NextPage = () => {
         router.push("../events"); 
       }
 
-      async function imageSwapHandler(e: React.ChangeEvent<any>) {
-
-      }
 
     return (
       <div>
@@ -103,13 +101,12 @@ const EditEvent: NextPage = () => {
           <div className={styles.eventsContainer}>
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
-                <div className="image-upload">
-                  <label for="file-input">
-                    {/* <img src="https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/128/Downloads-icon.png"/> */}
-                    <img className={styles.eventImage} src="/moonfest.png"></img>
-                  </label>
-                  <br></br>
-                  <input id="file-input" type="file" />
+                  <div className="image-upload">
+                    <label for="myInput">
+                      <img className={styles.eventImage} src="/moonfest.png" ></img>
+                    </label>
+                    <br></br>
+                    <input id="myInput" type = "image" onChange={(e)=>{setImage(e.target.files[0])}} type="file"/>
                   </div>
                   <div className={styles.textImage}>Edit Cover</div>
                     <div className={styles.eventDetails}>
@@ -130,9 +127,9 @@ const EditEvent: NextPage = () => {
                         <form>
                             <input className={styles.bigInput} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
                             <br></br>
-                            <input className={styles.input} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
+                            <input className={styles.input} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
                             <br></br>
-                            <input className={styles.input} size={64} required={true} onChange={e => setTime(e.target.value)}></input>
+                            <input className={styles.input} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
                             <br></br>
                             <input className={styles.input} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
                         </form>
@@ -167,6 +164,8 @@ const EditEvent: NextPage = () => {
             <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
             <button type="submit" className={styles.submitButton} onClick={returnHandler}>Back</button>
           </div>
+          <h1>Upload and Display Image usign React Hook's</h1>
+
         </main>
     </div>
   )
