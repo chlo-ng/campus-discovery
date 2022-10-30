@@ -71,22 +71,29 @@ const EditEvent: NextPage = () => {
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
                   <img className={styles.eventImage} src="/moonfest.png"></img>
-                  <div className={styles.eventDetails}>
+                    <div className={styles.eventDetails}>
                     <form>
                         <label className={styles.name}>Event Name: </label>
-                        <input className={styles.input} size={38} required={true} onChange={e => setUsername(e.target.value)}></input>
                         <br></br>
-                        <label className={styles.name}>Date: </label>
-                        <input type='password' className={styles.input} size={38} required={true} onChange={e => setPassword(e.target.value)}></input>
+                        <label className={styles.name}>Date:       </label>
                         <br></br>
-                        <label className={styles.name}>Time: </label>
-                        <input className={styles.input} size={38} required={true} onChange={e => setUsername(e.target.value)}></input>
+                        <label className={styles.name}>Time:</label>
                         <br></br>
-                        <label className={styles.name} >Location: </label>
-                        <input type='password' className={styles.input} size={38} required={true} onChange={e => setPassword(e.target.value)}></input>
+                        <label className={styles.name} >Location:  </label>
                     </form>
-                  </div>
-                </div>
+                    </div>
+                    <div className={styles.eventInputs}>
+                        <form>
+                            <input className={styles.input} size={65} required={true} onChange={e => setTitle(e.target.value)}></input>
+                            <br></br>
+                            <input className={styles.input} size={65} required={true} onChange={e => setDate(e.target.value)}></input>
+                            <br></br>
+                            <input className={styles.input} size={65} required={true} onChange={e => setTime(e.target.value)}></input>
+                            <br></br>
+                            <input className={styles.input} size={65} required={true} onChange={e => setLocation(e.target.value)}></input>
+                        </form>
+                    </div>
+                    </div>
               </div>
               <hr
                 style={{
@@ -101,7 +108,7 @@ const EditEvent: NextPage = () => {
                 <div className={styles.editBox}>
                 <form>
                     <p className={styles.description}>Event Description:</p>
-                    <textarea className={styles.inputDescription} required={true} onChange={e => SetDescrition(e.target.value)}></textarea>
+                    <textarea className={styles.inputDescription} required={true} onChange={e => setDescription(e.target.value)}></textarea>
                 </form>
                 </div>
               </div>

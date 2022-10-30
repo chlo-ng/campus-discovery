@@ -87,12 +87,21 @@
   
   .eventDetails {
     margin-left: 20px;
-    width: 500px;
-    /* background-color: green; */
+    width: 100px;
+    background-color: green;
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
+  .eventInputs {
+    margin-left: 20px;
+    width: 650px;
+    /* background-color: blue; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
   
   .eventTitle {
     font-family: 'Roboto Slab';
