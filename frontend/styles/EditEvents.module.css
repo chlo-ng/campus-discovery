@@ -21,10 +21,10 @@
     font-size: 40px;
     line-height: 53px;
     text-align: left;
-    width: 100%;
+    width: 470px;
     color: var(--navy);
-    padding-left: 60px;
-    margin: 50px 0px 10px 0px;
+    /* padding-left: 60px; */
+    /* margin: 50px 0px 10px 0px; */
   }
   
   .verticalCenter {
@@ -62,7 +62,7 @@
     justify-content: top;
     align-items: end;
     width: calc(100%-120px);
-    background-color: green;
+    /* background-color: green; */
     right:0;
   }
   
@@ -87,21 +87,29 @@
   
   .eventDetails {
     margin-left: 20px;
-    width: 100px;
-    background-color: green;
+    width: 120px;
+    /* background-color: green; */
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
   .eventInputs {
     margin-left: 20px;
-    width: 650px;
+    width: 480px;
     /* background-color: blue; */
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  
+
+  .iconBar {
+    margin-left: 5px;
+    width: 30px;
+    background-color: greenyellow;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
   
   .eventTitle {
     font-family: 'Roboto Slab';
@@ -136,6 +144,7 @@
   .searchBar input {
     border-radius: 20px;
     height: 40px;
+    
     padding: 1px 10px 1px 10px;
   }
   
@@ -148,7 +157,6 @@
     border-radius: 10px;
     text-align: center;
     color: white;
-    /* margin-top: 1em; */
     padding: 10px 15px;
     margin-left: 204px;
     margin-top: 50px;
@@ -164,6 +172,7 @@
   text-align: center;
   font-size: 35px;
   font-weight: bold;
+  border-radius: 7px;
 }
 
 .form{
@@ -178,4 +187,24 @@
   border-radius: 7px;
   height: 30vh;
   width: 60vw;
+}
+.input {
+  padding: 1px 5px 1px 5px;
+  text-align: left;
+  margin: 0;
+  width: 470px;
+  display:flex;
+  border-radius: 7px;
+}
+.bigInput {
+  padding: 1px 5px 1px 5px;
+  text-align: left;
+  font-weight: 800;
+  font-size: 40px;
+  margin: 0;
+  width: 470px;
+  display:flex;
+  border-radius: 7px;
+  color: var(--navy);
+  line-height: 53px;
 }

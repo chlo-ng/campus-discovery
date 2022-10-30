@@ -92,25 +92,34 @@ const EditEvent: NextPage = () => {
                   <img className={styles.eventImage} src="/moonfest.png"></img>
                     <div className={styles.eventDetails}>
                     <form>
-                        <label className={styles.name}>Event Name: </label>
+                        <label className={styles.header}>Name: </label>
+                        <br></br>
                         <br></br>
                         <label className={styles.name}>Date:       </label>
                         <br></br>
+                        <br></br>
                         <label className={styles.name}>Time:</label>
+                        <br></br>
                         <br></br>
                         <label className={styles.name} >Location:  </label>
                     </form>
                     </div>
                     <div className={styles.eventInputs}>
                         <form>
-                            <input className={styles.input} size={65} required={true} onChange={e => setTitle(e.target.value)}></input>
+                            <input className={styles.bigInput} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
                             <br></br>
-                            <input className={styles.input} size={65} required={true} onChange={e => setDate(e.target.value)}></input>
+                            <input className={styles.input} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
                             <br></br>
-                            <input className={styles.input} size={65} required={true} onChange={e => setTime(e.target.value)}></input>
+                            <input className={styles.input} size={64} required={true} onChange={e => setTime(e.target.value)}></input>
                             <br></br>
-                            <input className={styles.input} size={65} required={true} onChange={e => setLocation(e.target.value)}></input>
+                            <input className={styles.input} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
                         </form>
+                    </div>
+                    <div className={styles.iconBar}>
+                        <img className={styles.editButton} src="/editV2.png"/>
+                        <img className={styles.editButton} src="/editV2.png"/>
+                        <img className={styles.editButton} src="/editV2.png"/>
+                        <img className={styles.editButton} src="/editV2.png"/>
                     </div>
                     </div>
               </div>
