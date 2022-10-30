@@ -72,7 +72,7 @@ const EditEvent: NextPage = () => {
                 </div>
               </div>
             </div>
-            <button type="submit" className={styles.submitButton} onClick={submitHandler}>Sign In</button>
+            <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
           </div>
         </main>
     </div>

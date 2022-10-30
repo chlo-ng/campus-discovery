@@ -119,4 +119,22 @@
     padding: 1px 10px 1px 10px;
   }
   
+  .submitButton {
+    background-color: var(--navy);
+    font-family: var(--font-body);
+    font-size: var(--extra-small);
+    font-weight: var(--fw-bold);
+
+    border-radius: 10px;
+    text-align: center;
+    color: white;
+    /* margin-top: 1em; */
+    padding: 10px 15px;
+    margin-left: 204px;
+    margin-top: 800px;
+}
+
+.submitButton:hover {
+  color: var(--dark-gold);
+}
   
