@@ -16,6 +16,8 @@ const CreateEvent: NextPage = () => {
 
 
     async function submitHandler(e: React.ChangeEvent<any>) {
+        e.preventDefault()
+
         const id = localStorage.getItem("id")
 
         var event: any = {
@@ -27,20 +29,62 @@ const CreateEvent: NextPage = () => {
             image: image
         }
 
-        console.log(event)
+        var dateElement = document.getElementById("date")
+        var timeElement = document.getElementById("time")
+        var imageElement = document.getElementById("image")
+        var nameError = document.getElementById("nameError")
+        var dateError = document.getElementById("dateError")
+        var timeError = document.getElementById("timeError")
+        var locationError = document.getElementById("locationError")
+        var imageError = document.getElementById("imageError")
 
-        fetch("http://localhost:8080/api/events/" + id, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(event),
-        }).then((response) => {
-          response.json().then((res) => {
-            console.log(res);
-            // router.push("/events")
-          }).catch(err => alert(console.log(err)))
-        })
+        var validInput = true
+
+        if (name.trim() === "" && nameError) {
+            nameError.innerHTML = "Please add the name of your event."
+            validInput = false
+        } else if (nameError) {
+            nameError.innerHTML = ""
+        }
+
+        if (dateElement && !dateElement.checkValidity() && dateError) {
+            dateError.innerHTML = "Please input a valid date."
+        } else if (dateError) {
+            dateError.innerHTML = ""
+        }
+
+        if (timeElement && !timeElement.checkValidity() && timeError) {
+            timeError.innerHTML = "Please input a valid time."
+        } else if (timeError) {
+            timeError.innerHTML = ""
+        }
+
+        if (location.trim() === "" && locationError) {
+            locationError.innerHTML = "Please add the location of your event."
+            validInput = false
+        } else if (locationError) {
+            locationError.innerHTML = ""
+        }
+        
+        if (imageElement && !imageElement.checkValidity() && imageError) {
+            imageError.innerHTML = "Please input a valid image url."
+        } else if (imageError) {
+            imageError.innerHTML = ""
+        }
+
+        if (validInput) {
+            fetch("http://localhost:8080/api/events/" + id, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(event),
+            }).then((response) => {
+            response.json().then((res) => {
+                router.push("/events")
+            }).catch(err => alert(console.log(err)))
+            })
+        }
     }
     
     return (
@@ -59,27 +103,42 @@ const CreateEvent: NextPage = () => {
               <p className={styles.heading}>Create an Event</p>
               <div className={styles.question}>
                 <p className={styles.label}>Event Name:</p>
-                <input className={styles.input} required={true} onChange={e => setName(e.target.value)}></input>
+                <div className={styles.inputContainer}>
+                  <input className={styles.input} required={true} onChange={e => setName(e.target.value)} />
+                  <p className={styles.inputError} id="nameError"></p>
+                </div>
               </div>
               <div className={styles.question}>
                 <p className={styles.label}>Date:</p>
-                <input className={styles.input} type="date" required={true} onChange={e => setDate(e.target.value)}></input>
+                <div className={styles.inputContainer}>
+                  <input className={styles.input} id="date" type="date" required={true} onChange={e => setDate(e.target.value)} />
+                  <p className={styles.inputError} id="dateError"></p>
+                </div>
               </div>
               <div className={styles.question}>
                 <p className={styles.label}>Time:</p>
-                <input className={styles.input} type="time" min="00:00" max="23:59" required={true} onChange={e => setTime(e.target.value)}></input>
+                <div className={styles.inputContainer}>
+                  <input className={styles.input} id="time" type="time" min="00:00" max="23:59" required={true} onChange={e => setTime(e.target.value)} />
+                  <p className={styles.inputError} id="timeError"></p>
+                </div>
               </div>
               <div className={styles.question}>
                 <p className={styles.label}>Location:</p>
-                <input className={styles.input} required={true} onChange={e => setLocation(e.target.value)}></input>
+                <div className={styles.inputContainer}>
+                  <input className={styles.input} required={true} onChange={e => setLocation(e.target.value)} />
+                  <p className={styles.inputError} id="locationError"></p>
+                </div>
               </div>
               <div className={styles.question}>
                 <p className={styles.label}>Image:</p>
-                <input className={styles.input} type="url" required={true} onChange={e => setImage(e.target.value)}></input>
+                <div className={styles.inputContainer}>
+                  <input className={styles.input} id="image" type="url" required={true} onChange={e => setImage(e.target.value)} />
+                  <p className={styles.inputError} id="imageError"></p>
+                </div>
               </div>
               <div className={styles.question}>
                 <p className={styles.label}>Description:</p>
-                <textarea className={styles.description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
+                <textarea className={styles.description} required={true} onChange={e => setDescription(e.target.value)} />
               </div>
               <button className={styles.submitButton} type="submit" onClick={submitHandler}>Submit</button>
             </form>

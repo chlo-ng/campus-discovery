@@ -24,6 +24,7 @@
 
 .question {
     width: 100%;
+    min-height: 45px;
     margin: 20px 0px 5px 0px;
     display: inline-flex;
     position: relative;
@@ -44,6 +45,11 @@
     height: 30px;
     width: 400px;
     font-family: var(--font-body);
+}
+
+.inputError {
+    font-size: var(--extra-extra-small);
+    margin: 0px;
 }
 
 .submitButton {
