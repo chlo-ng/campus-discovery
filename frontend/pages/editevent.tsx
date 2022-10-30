@@ -72,11 +72,19 @@ const EditEvent: NextPage = () => {
                 <div className={styles.editBox}>
                   <img className={styles.eventImage} src="/moonfest.png"></img>
                   <div className={styles.eventDetails}>
-                     <p className = {styles.text}>Account Login</p>
-                    <p className={styles.name}>Username/Email:</p>
-                    <input className={styles.input} size={38} required={true} onChange={e => setUsername(e.target.value)}></input>
-                    <p className={styles.name}>Password:</p>
-                    <input type='password' className={styles.input} size={38} required={true} onChange={e => setPassword(e.target.value)}></input>
+                    <form>
+                        <label className={styles.name}>Event Name: </label>
+                        <input className={styles.input} size={38} required={true} onChange={e => setUsername(e.target.value)}></input>
+                        <br></br>
+                        <label className={styles.name}>Date: </label>
+                        <input type='password' className={styles.input} size={38} required={true} onChange={e => setPassword(e.target.value)}></input>
+                        <br></br>
+                        <label className={styles.name}>Time: </label>
+                        <input className={styles.input} size={38} required={true} onChange={e => setUsername(e.target.value)}></input>
+                        <br></br>
+                        <label className={styles.name} >Location: </label>
+                        <input type='password' className={styles.input} size={38} required={true} onChange={e => setPassword(e.target.value)}></input>
+                    </form>
                   </div>
                 </div>
               </div>
