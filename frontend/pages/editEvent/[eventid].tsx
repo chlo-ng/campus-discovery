@@ -29,7 +29,7 @@ const EditEvent: NextPage = () => {
     });
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        // if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
+        if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
           //Error might be due to id's not existing for each event. 
           if (confirm('Are you sure you want to update this event?')){
             var data: any = {
@@ -58,9 +58,9 @@ const EditEvent: NextPage = () => {
           } else {
             console.log('Update event cancelled');
           }
-        // } else{
-        //   alert("Please complete all fields.")
-        // }
+        } else{
+          alert("Please complete all fields.")
+        }
         
       }
       async function deleteHandler(e: React.ChangeEvent<any>) {
@@ -101,13 +101,15 @@ const EditEvent: NextPage = () => {
           <div className={styles.eventsContainer}>
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
-                  <div className="image-upload">
+                  {/* <div className="image-upload">
                     <label for="myInput">
                       <img className={styles.eventImage} src="/moonfest.png" ></img>
                     </label>
                     <br></br>
                     <input id="myInput" type = "image" onChange={(e)=>{setImage(e.target.files[0])}} type="file"/>
-                  </div>
+                  </div> */}
+                  <img className={styles.eventImage} src="/moonfest.png" ></img>
+
                   <div className={styles.textImage}>Edit Cover</div>
                     <div className={styles.eventDetails}>
                     <form>
