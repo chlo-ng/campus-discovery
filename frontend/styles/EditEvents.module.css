@@ -240,3 +240,7 @@
   left: 298px;
   opacity: 1;
 }
+
+#image-upload>input {
+  display: none;
+}

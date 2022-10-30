@@ -4,6 +4,7 @@ import Head from 'next/head'
 import React, {useState} from 'react'
 import NavBar from "../../components/NavBar"
 import styles from '../../styles/EditEvents.module.css'
+import axios from 'axios'
 
 const EditEvent: NextPage = () => {
     const router = useRouter()
@@ -13,7 +14,7 @@ const EditEvent: NextPage = () => {
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
     const [location, setLocation] = useState('')
-    const [image, setImage] = useState('')
+    const [image, setImage] = useState(null)
 
     fetch("http://localhost:8080/api/events/" + id).then((response) => {
       response.json().then((res) => {
@@ -26,7 +27,6 @@ const EditEvent: NextPage = () => {
         //Should populate fields with id contents initially. 
       })
     });
-
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
         // if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
@@ -84,6 +84,10 @@ const EditEvent: NextPage = () => {
         router.push("../events"); 
       }
 
+      async function imageSwapHandler(e: React.ChangeEvent<any>) {
+
+      }
+
     return (
       <div>
         <Head>
@@ -99,7 +103,14 @@ const EditEvent: NextPage = () => {
           <div className={styles.eventsContainer}>
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
-                  <img className={styles.eventImage} src="/moonfest.png"></img>
+                <div className="image-upload">
+                  <label for="file-input">
+                    {/* <img src="https://icons.iconarchive.com/icons/dtafalonso/android-lollipop/128/Downloads-icon.png"/> */}
+                    <img className={styles.eventImage} src="/moonfest.png"></img>
+                  </label>
+                  <br></br>
+                  <input id="file-input" type="file" />
+                  </div>
                   <div className={styles.textImage}>Edit Cover</div>
                     <div className={styles.eventDetails}>
                     <form>
