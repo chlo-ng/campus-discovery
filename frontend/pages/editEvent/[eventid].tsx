@@ -23,42 +23,50 @@ const EditEvent: NextPage = () => {
         setDescription(res["description"])
         setLocation(res["location"])
         setImage(res["self"])
+        //Should populate fields with id contents initially. 
       })
     });
 
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        if (confirm('Are you sure you want to update this event?')){
-          var data: any = {
-            title: title,
-            description: description,
-            date: date,
-            time: time,
-            location: location
-          }
-          console.log(data);
-          fetch("http://localhost:8080/api/events/" + id, {
-            method: "POST",
-            headers: { 
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(data),
-          }).then((response) => {
-            response.json().then((res) => {
-              console.log('Task complete');
-              console.log(res);
-              router.push("../events");
+        // if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
+          //Error might be due to id's not existing for each event. 
+          if (confirm('Are you sure you want to update this event?')){
+            var data: any = {
+              title: title,
+              description: description,
+              date: date,
+              time: time,
+              location: location
+            }
+            console.log(data);
+            fetch("http://localhost:8080/api/events/" + id, {
+              //Will fail to fetch at the moment due to id's not existing for each event.
+              method: "PUT",
+              headers: { 
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify(data),
+            }).then((response) => {
+              response.json().then((res) => {
+                console.log('Task complete');
+                console.log(res);
+                router.push("../events");
+              })
             })
-          })
-        } else {
-          console.log('Update event cancelled');
-        }
+          } else {
+            console.log('Update event cancelled');
+          }
+        // } else{
+        //   alert("Please complete all fields.")
+        // }
         
       }
       async function deleteHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
         if (confirm('Are you sure you want to delete this event?')){
-          fetch("http://localhost:8080/api/events/" + id, {
+          fetch("http://localhost:8080/api/" + id, {
+            //Will fail to fetch due to id again. Cancel button works though.
           method: "DELETE",
           headers: { 
               "Content-Type": "application/json",
@@ -94,7 +102,7 @@ const EditEvent: NextPage = () => {
                   <img className={styles.eventImage} src="/moonfest.png"></img>
                     <div className={styles.eventDetails}>
                     <form>
-                        <label className={styles.header}>Name: </label>
+                        <label className={styles.header}>Event: </label>
                         <br></br>
                         <br></br>
                         <label className={styles.name}>Date:       </label>

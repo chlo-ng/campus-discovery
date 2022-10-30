@@ -98,6 +98,7 @@
     height: 202px;
     border: 3px solid #424242;
     align-self: center;
+    opacity: .5;
   }
   
   .eventDetails {
@@ -159,7 +160,7 @@
   .searchBar input {
     border-radius: 20px;
     height: 40px;
-    
+    /* font-weight: bold; */
     padding: 1px 10px 1px 10px;
   }
   
