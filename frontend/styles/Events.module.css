@@ -52,8 +52,10 @@
   justify-content: top;
   align-items: end;
   /* width: calc(100%-120px); */
-  padding-left: 700;
-  background-color: green;
+  width: 60px;
+  /* padding-left: 700; */
+  margin-left: 300px;
+  /* background-color: green; */
   right:0;
 }
 

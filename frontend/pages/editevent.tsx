@@ -59,6 +59,10 @@ const EditEvent: NextPage = () => {
         })
         })  
       }
+      
+      async function returnHandler(e: React.ChangeEvent<any>) {
+        router.push("events"); 
+      }
 
     return (
       <div>
@@ -120,6 +124,7 @@ const EditEvent: NextPage = () => {
             </div>
             <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
             <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
+            <button type="submit" className={styles.submitButton} onClick={returnHandler}>Back</button>
           </div>
         </main>
     </div>
