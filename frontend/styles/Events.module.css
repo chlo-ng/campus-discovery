@@ -51,7 +51,8 @@
   flex-direction: column;
   justify-content: top;
   align-items: end;
-  width: calc(100%-120px);
+  /* width: calc(100%-120px); */
+  padding-left: 700;
   background-color: green;
   right:0;
 }
@@ -101,7 +102,6 @@
   font-size: 30px;
   line-height: 5px;
   margin-bottom: 0px;
-
   color: #000000;
 }
 
