@@ -15,7 +15,7 @@ const EditEvent: NextPage = () => {
 
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        if (title.trim() !== "" && description.trim() !== "") {
+        if (title.trim() !== "" && description.trim() !== "" && date.trim() !== "" && time.trim() !== "" && location.trim()! == "") {
           var data: any = {
             title: title,
             description: description,
@@ -32,12 +32,17 @@ const EditEvent: NextPage = () => {
             body: JSON.stringify(data),
           }).then((response) => {
             response.json().then((res) => {
+                if (confirm('Are you sure you want to update this event?')) {
+                    console.log('Task complete');
+                  } else {
+                    console.log('Task incomplete');
+                  }
               console.log(res);
               router.push("events");
             })
           })
-        } else if (title.trim() == "" && description.trim() == "") {
-          alert("Please provide a non-empty title and description.")
+        } else if (title.trim() == "" && description.trim() == "" && date.trim() == "" && time.trim() == "" && location.trim() == "") {
+          alert("Please check for empty fields.")
         }
       }
       async function deleteHandler(e: React.ChangeEvent<any>) {
