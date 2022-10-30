@@ -50,10 +50,25 @@
     transform: rotate(180deg);
   }
   
-  .editButton {
+   
+  .editUpperIcon {
     height: 30px;
     width: 30px;
-    margin: 15px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+  }
+     
+  .editMiddleIcon {
+    height: 30px;
+    width: 30px;
+    margin-top: 8px;
+    margin-bottom: 10px;
+  }
+  .editIcon {
+    height: 30px;
+    width: 30px;
+    margin-top: 2px;
+    margin-bottom: 10px;
   }
   
   .upperRight {
@@ -105,7 +120,7 @@
   .iconBar {
     margin-left: 5px;
     width: 30px;
-    background-color: greenyellow;
+    /* background-color: greenyellow; */
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -28,6 +28,7 @@ const EditEvent: NextPage = () => {
 
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
+        if (confirm('Are you sure you want to update this event?')){
           var data: any = {
             title: title,
             description: description,
@@ -44,30 +45,31 @@ const EditEvent: NextPage = () => {
             body: JSON.stringify(data),
           }).then((response) => {
             response.json().then((res) => {
-                if (confirm('Are you sure you want to update this event?')) {
-                    console.log('Task complete');
-                    console.log(res);
-                    router.push("../events");
-                  } else {
-                    console.log('Task incomplete');
-                    console.log(res);
-                  }
+              console.log('Task complete');
+              console.log(res);
+              router.push("../events");
             })
           })
+        } else {
+          console.log('Update event cancelled');
+        }
         
       }
       async function deleteHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        fetch("http://localhost:8080/api/events/" + id, {
-        method: "DELETE",
-        headers: { 
-            "Content-Type": "application/json",
-        },
-        }).then((response) => {
-        response.json().then((res) => {
-            router.push("../events");
-        })
-        })  
+        if (confirm('Are you sure you want to delete this event?')){
+          fetch("http://localhost:8080/api/events/" + id, {
+          method: "DELETE",
+          headers: { 
+              "Content-Type": "application/json",
+          },
+          }).then((response) => {
+          response.json().then((res) => {
+              router.push("../events");
+          })
+          })  
+        } 
+
       }
       
       async function returnHandler(e: React.ChangeEvent<any>) {
@@ -116,10 +118,10 @@ const EditEvent: NextPage = () => {
                         </form>
                     </div>
                     <div className={styles.iconBar}>
-                        <img className={styles.editButton} src="/editV2.png"/>
-                        <img className={styles.editButton} src="/editV2.png"/>
-                        <img className={styles.editButton} src="/editV2.png"/>
-                        <img className={styles.editButton} src="/editV2.png"/>
+                        <img className={styles.editUpperIcon} src="/editV2.png"/>
+                        <img className={styles.editMiddleIcon} src="/calendarIcon.png"/>
+                        <img className={styles.editIcon} src="/clockIcon.png"/>
+                        <img className={styles.editIcon} src="/locationIcon.png"/>
                     </div>
                     </div>
               </div>
