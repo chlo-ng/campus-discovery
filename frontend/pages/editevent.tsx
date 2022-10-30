@@ -7,11 +7,24 @@ import styles from '../styles/EditEvents.module.css'
 
 const EditEvent: NextPage = () => {
     const router = useRouter()
+    const { id } = router.query
     const [title, setTitle] = useState('')
     const [description, setDescription] = useState('')
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
     const [location, setLocation] = useState('')
+    const [image, setImage] = useState('')
+
+    fetch("http://localhost:8080/api/events/" + id).then((response) => {
+      response.json().then((res) => {
+        setTitle(res["title"])
+        setDate(res["date"])
+        setTime(res["startTime"])
+        setDescription(res["description"])
+        setLocation(res["location"])
+        setImage(res["self"])
+      })
+    });
 
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
@@ -24,7 +37,7 @@ const EditEvent: NextPage = () => {
             location: location
           }
           console.log(data);
-          fetch("http://localhost:8080/api/users/{id}", {
+          fetch("http://localhost:8080/api/events/" + id, {
             method: "POST",
             headers: { 
               "Content-Type": "application/json",
@@ -47,7 +60,7 @@ const EditEvent: NextPage = () => {
       }
       async function deleteHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        fetch("http://localhost:8080/api/users/{id}", {
+        fetch("http://localhost:8080/api/events/{id}", {
         method: "DELETE",
         headers: { 
             "Content-Type": "application/json",
