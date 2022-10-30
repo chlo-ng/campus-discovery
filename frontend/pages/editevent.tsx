@@ -46,13 +46,9 @@ const EditEvent: NextPage = () => {
         <main>
           <NavBar />
           <div className="container">
-            <div className={styles.editeventsContainer}>
-              <p className={styles.header}>Trending this week</p>
-              <div className={styles.trending}>
-                <div className={styles.verticalCenter}>
-                  <img className={styles.triangleButton} src="/triangle.png"/>
-                </div>
-                <div className={styles.trendingBox}>
+          <div className={styles.eventsContainer}>
+              <div className={styles.contentBox}>
+                <div className={styles.editBox}>
                   <img className={styles.eventImage} src="/moonfest.png"></img>
                   <div className={styles.eventDetails}>
                     <p className={styles.eventTitle}>GT VSA's Moon Fest</p>
@@ -60,15 +56,7 @@ const EditEvent: NextPage = () => {
                     <p className={styles.eventText}>6:00 - 9:00PM</p>
                     <p className={styles.eventText}>Tech Green</p>
                   </div>
-                  <div className={styles.upperRight}>
-                    <img className={styles.editButton} 
-                    src="/editV2.png" onClick={() => {
-                    router.push("editevent")
-                    }}/>
-                  </div>
-                </div>
-                <div className={styles.verticalCenter}>
-                  <img className={`${styles.triangleButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
+
                 </div>
               </div>
             </div>
