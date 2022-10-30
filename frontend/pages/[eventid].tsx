@@ -28,7 +28,6 @@ const EditEvent: NextPage = () => {
 
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        if (title.trim() !== "" && description.trim() !== "" && date.trim() !== "" && time.trim() !== "" && location.trim()! == "") {
           var data: any = {
             title: title,
             description: description,
@@ -38,7 +37,7 @@ const EditEvent: NextPage = () => {
           }
           console.log(data);
           fetch("http://localhost:8080/api/events/" + id, {
-            method: "POST",
+            method: "PUT",
             headers: { 
               "Content-Type": "application/json",
             },
@@ -47,25 +46,24 @@ const EditEvent: NextPage = () => {
             response.json().then((res) => {
                 if (confirm('Are you sure you want to update this event?')) {
                     console.log('Task complete');
+                    console.log(res);
+                    router.push("events");
                   } else {
                     console.log('Task incomplete');
+                    console.log(res);
+                    router.push("events");
                   }
-              console.log(res);
-              router.push("events");
             })
           })
-        } else if (title.trim() == "" && description.trim() == "" && date.trim() == "" && time.trim() == "" && location.trim() == "") {
-          alert("Please check for empty fields.")
-        }
+        
       }
       async function deleteHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        fetch("http://localhost:8080/api/events/{id}", {
+        fetch("http://localhost:8080/api/events/" + id, {
         method: "DELETE",
         headers: { 
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(data),
         }).then((response) => {
         response.json().then((res) => {
             router.push("events");
