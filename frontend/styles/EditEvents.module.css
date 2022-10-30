@@ -140,10 +140,31 @@
     /* margin-top: 1em; */
     padding: 10px 15px;
     margin-left: 204px;
-    margin-top: 350px;
+    margin-top: 50px;
 }
 
 .submitButton:hover {
   color: var(--dark-gold);
 }
+
+.description {
+  display: flex;
+  margin-bottom: .5em;
+  text-align: center;
+  font-size: 35px;
+  font-weight: bold;
+}
+
+.form{
+  padding-left: 204px;
+}
   
+.inputDescription {
+  padding: 1px 5px 1px 5px;
+  text-align: left;
+  margin: 0;
+  display:flex;
+  border-radius: 7px;
+  height: 30vh;
+  width: 60vw;
+}
