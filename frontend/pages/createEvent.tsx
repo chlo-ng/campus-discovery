@@ -49,12 +49,14 @@ const CreateEvent: NextPage = () => {
 
         if (dateElement && !dateElement.checkValidity() && dateError) {
             dateError.innerHTML = "Please input a valid date."
+            validInput = false
         } else if (dateError) {
             dateError.innerHTML = ""
         }
 
         if (timeElement && !timeElement.checkValidity() && timeError) {
             timeError.innerHTML = "Please input a valid time."
+            validInput = false
         } else if (timeError) {
             timeError.innerHTML = ""
         }
@@ -68,6 +70,7 @@ const CreateEvent: NextPage = () => {
         
         if (imageElement && !imageElement.checkValidity() && imageError) {
             imageError.innerHTML = "Please input a valid image url."
+            validInput = false
         } else if (imageError) {
             imageError.innerHTML = ""
         }
