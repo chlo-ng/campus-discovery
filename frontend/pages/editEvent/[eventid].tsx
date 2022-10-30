@@ -100,6 +100,7 @@ const EditEvent: NextPage = () => {
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
                   <img className={styles.eventImage} src="/moonfest.png"></img>
+                  <div className={styles.textImage}>Edit Cover</div>
                     <div className={styles.eventDetails}>
                     <form>
                         <label className={styles.header}>Event: </label>

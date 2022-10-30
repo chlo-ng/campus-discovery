@@ -100,6 +100,13 @@
     align-self: center;
     opacity: .5;
   }
+
+  .eventImage:hover {
+    height: 202px;
+    border: 3px solid #424242;
+    align-self: center;
+    opacity: .2;
+  }
   
   .eventDetails {
     margin-left: 20px;
@@ -223,4 +230,13 @@
   border-radius: 7px;
   color: var(--navy);
   line-height: 53px;
+}
+.textImage{
+  position: absolute;
+  font-weight: bold;
+  font-size: 30px;
+  color: black;
+  top: 117px;
+  left: 298px;
+  opacity: 1;
 }
