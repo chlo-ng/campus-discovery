@@ -2,8 +2,8 @@ import type { NextPage } from "next"
 import { useRouter } from "next/router"
 import Head from 'next/head'
 import React, {useState} from 'react'
-import NavBar from "../components/NavBar"
-import styles from '../styles/EditEvents.module.css'
+import NavBar from "../../components/NavBar"
+import styles from '../../styles/EditEvents.module.css'
 
 const EditEvent: NextPage = () => {
     const router = useRouter()
@@ -37,7 +37,7 @@ const EditEvent: NextPage = () => {
           }
           console.log(data);
           fetch("http://localhost:8080/api/events/" + id, {
-            method: "PUT",
+            method: "POST",
             headers: { 
               "Content-Type": "application/json",
             },
@@ -47,11 +47,10 @@ const EditEvent: NextPage = () => {
                 if (confirm('Are you sure you want to update this event?')) {
                     console.log('Task complete');
                     console.log(res);
-                    router.push("events");
+                    router.push("../events");
                   } else {
                     console.log('Task incomplete');
                     console.log(res);
-                    router.push("events");
                   }
             })
           })
@@ -66,13 +65,13 @@ const EditEvent: NextPage = () => {
         },
         }).then((response) => {
         response.json().then((res) => {
-            router.push("events");
+            router.push("../events");
         })
         })  
       }
       
       async function returnHandler(e: React.ChangeEvent<any>) {
-        router.push("events"); 
+        router.push("../events"); 
       }
 
     return (

@@ -36,7 +36,8 @@ const Events: NextPage = () => {
                   <div className={styles.upperRight}>
                     <img className={styles.editButton} 
                     src="/editV2.png" onClick={() => {
-                    router.push("editevent")
+                      const { id } = router.query
+                      router.push("editEvent/"+ id)
                     }}/>
                   </div>
                 </div>
