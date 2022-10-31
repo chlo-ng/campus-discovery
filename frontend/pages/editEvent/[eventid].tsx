@@ -127,13 +127,13 @@ const EditEvent: NextPage = () => {
                     </div>
                     <div className={styles.eventInputs}>
                         <form>
-                            <input className={styles.bigInput} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
+                            <input className={styles.bigInput} defaultValue = {title} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
                             <br></br>
-                            <input className={styles.input} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
+                            <input className={styles.input} defaultValue = {date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
                             <br></br>
-                            <input className={styles.input} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
+                            <input className={styles.input} defaultValue = {time} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
                             <br></br>
-                            <input className={styles.input} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
+                            <input className={styles.input}  defaultValue = {location} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
                         </form>
                     </div>
                     {/* Just in case we want it later */}
@@ -158,7 +158,7 @@ const EditEvent: NextPage = () => {
                 <div className={styles.editBox}>
                 <form>
                     <p className={styles.description}>Event Description:</p>
-                    <textarea className={styles.inputDescription} required={true} onChange={e => setDescription(e.target.value)}></textarea>
+                    <textarea className={styles.inputDescription} defaultValue = {description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
                 </form>
                 </div>
               </div>
