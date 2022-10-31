@@ -4,7 +4,6 @@ import Head from 'next/head'
 import React, {useState} from 'react'
 import NavBar from "../../components/NavBar"
 import styles from '../../styles/EditEvents.module.css'
-import axios from 'axios'
 
 const EditEvent: NextPage = () => {
     const router = useRouter()
@@ -14,7 +13,7 @@ const EditEvent: NextPage = () => {
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
     const [location, setLocation] = useState('')
-    const [image, setImage] = useState(null)
+    const [image, setImage] = useState('')
 
     fetch("http://localhost:8080/api/events/" + id).then((response) => {
       response.json().then((res) => {
@@ -23,7 +22,7 @@ const EditEvent: NextPage = () => {
         setTime(res["startTime"])
         setDescription(res["description"])
         setLocation(res["location"])
-        setImage(res["self"])
+        setImage(res["image"])
         //Should populate fields with id contents initially. 
       })
     });
@@ -98,7 +97,7 @@ const EditEvent: NextPage = () => {
         <main>
           <NavBar />
           <div className="container">
-          <div className={styles.eventsContainer}>
+          <div className={styles.editEventsContainer}>
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
                   {/* <div className="image-upload">
@@ -108,7 +107,7 @@ const EditEvent: NextPage = () => {
                     <br></br>
                     <input id="myInput" type = "image" onChange={(e)=>{setImage(e.target.files[0])}} type="file"/>
                   </div> */}
-                  <img className={styles.eventImage} src="/moonfest.png" ></img>
+                  <img className={styles.eventImage} src={image} ></img>
 
                   <div className={styles.textImage}>Edit Cover</div>
                     <div className={styles.eventDetails}>
@@ -147,7 +146,6 @@ const EditEvent: NextPage = () => {
               </div>
               <hr
                 style={{
-
                     color: 'black',
                     background: 'black',
                     height: '1px',
