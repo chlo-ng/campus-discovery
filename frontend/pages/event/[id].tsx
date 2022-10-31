@@ -12,7 +12,7 @@ const Post: NextPage = () => {
     const [event, setEvent] = useState()
     const [name, setName] = useState('')
     var [date, setDate] = useState(new Date())
-    const [time, setTime] = useState([])
+    const [time, setTime] = useState(['00', '00'])
     const [location, setLocation] = useState('')
     const [describe, setDescribe] = useState('')
     const [image, setImage] = useState('')
@@ -23,17 +23,19 @@ const Post: NextPage = () => {
       var userID = localStorage.getItem("id")
     }
     
-    fetch("http://localhost:8080/api/events/" + id).then((response) => {
-      response.json().then((res) => {
-        setEvent(res)
-        setName(res["title"])
-        setDate(new Date(res["date"]))
-        setTime(res["startTime"] ? res["startTime"].split(":") : ['00', '00', '00'])
-        setDescribe(res["description"])
-        setLocation(res["location"])
-        setImage(res["image"])
-      })
-    });
+    if (time[2] == undefined) {
+      fetch("http://localhost:8080/api/events/" + id).then((response) => {
+        response.json().then((res) => {
+          setEvent(res)
+          setName(res["title"])
+          setDate(new Date(res["date"]))
+          setTime(res["startTime"] ? res["startTime"].split(":") : ['00', '00'])
+          setDescribe(res["description"])
+          setLocation(res["location"])
+          setImage(res["image"])
+        })
+      });
+    }
 
     async function bookmarkHandler(e:React.ChangeEvent<any>) {
         router.push('../config')
