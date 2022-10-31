@@ -9,71 +9,67 @@ import styles from '../../styles/Events.module.css'
 const Post = () => {
     const router = useRouter()
     const { id } = router.query
+    const [event, setEvent] = useState()
     const [name, setName] = useState('')
-    var [date, setDate] = useState('')
-    const [time, setTime] = useState(0)
+    var [date, setDate] = useState(new Date())
+    const [time, setTime] = useState([])
     const [location, setLocation] = useState('')
     const [describe, setDescribe] = useState('')
-    const [image, setImage] = useState('bookmark.png')
-    const [bigImage, setBigImage] = useState('')
-    const [timeInd, setTimeind] = useState('')
-    const datetime = new Date(date + 'T'+time);
+    const [image, setImage] = useState('')
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    if (typeof localStorage !== 'undefined') {
+      var isAdmin = localStorage.getItem("role") === "TEACHER"
+      var userID = localStorage.getItem("id")
+    }
     
     fetch("http://localhost:8080/api/events/" + id).then((response) => {
-          response.json().then((res) => {
-            setName(res["title"])
-            setDate(res["date"])
-            setTime(res["startTime"])
-            setDescribe(res["description"])
-            setLocation(res["location"])
-            setImage(res["self"])
-            setBigImage("../" + res["image"])
-            
-          })
-        });
+      response.json().then((res) => {
+        setEvent(res)
+        setName(res["title"])
+        setDate(new Date(res["date"]))
+        setTime(res["startTime"] ? res["startTime"].split(":") : ['00', '00', '00'])
+        setDescribe(res["description"])
+        setLocation(res["location"])
+        setImage(res["image"])
+      })
+    });
 
     async function bookmarkHandler(e:React.ChangeEvent<any>) {
         router.push('../config')
     }
 
-    function timeHandler() {
-      setTime(datetime.getHours())
-        if (time > 12) {
-            setTimeind('PM')
-        } else {
-          setTimeind('AM')
-        }
-    }
-
-    useEffect (() => {
-      timeHandler();
-    }, []);
-
     return (
       <div>
         <Head>
           <title>Events</title>
-          
-          
-        </Head>
           <link rel="icon" href="/gtLogo.png" />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
+        </Head>
         <main>
           <NavBar />
           <div className="container">
             <div className={styles.topbox} >
-                <img className={styles.image} src = {bigImage}></img>
-                <h2 className= {styles.topname}>{name}<br></br><p className = {styles.text}>{date}<br></br>{datetime.getHours()}:{datetime.getMinutes()}{datetime.getMinutes()} {timeInd}<br></br>{location}</p></h2> 
-                
-                <img className= {styles.icon} src = "../bookmark.png" onClick={bookmarkHandler}></img>
-          </div>
+                <img className={styles.image} src={image}></img>
+                <div className={styles.topboxDetails}>
+                  <h2 className={styles.topname}>{name}</h2> 
+                  <p className={styles.text}>{date.toLocaleDateString(undefined, options)}</p>
+                  <p className={styles.text}>{time[0] > 12 ?
+                    parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
+                    parseInt(time[0]) + ":" + time[1] + " AM"}</p>
+                  <p className={styles.text}>{location}</p>
+                </div>
+                <div>
+                  <img className= {styles.icon} src="../bookmark.png" onClick={bookmarkHandler}></img>
+                  {(isAdmin || (userID == event?.creator.id)) &&
+                    <img className={styles.icon} src={"/editButton.png"} onClick={e => router.push("/editEvent/" + id)} />
+                  }
+                </div>
+            </div>
             <div className={styles.bottombox}>
-                <img className={styles.line} src = "/divider.png"></img>
-                <p className={styles.info}>Event Description: <br></br></p>
+                <p className={styles.info}>Event Description:<br></br></p>
                 <p className={styles.subtext}>{describe}</p>
-                <p className={styles.info}>RSVP: Check-in at event site</p>
-
             </div>
           </div>
         </main>

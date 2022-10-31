@@ -47,7 +47,6 @@ const Events: NextPage = () => {
                   <img className={styles.searchIcon} src="/search.png"/>
                 </span>
               </div>
-
             </div>
           </div>
         </main>

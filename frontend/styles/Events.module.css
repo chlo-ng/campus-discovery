@@ -20,10 +20,9 @@
 }
 
 .icon {
-  margin-top: 49px;
-  margin-left: calc(100% - 800px);
+  margin: 0px;
   width: 30px;
-  height:fit-content;
+  height: fit-content;
 }
 
 .icon:hover {
@@ -36,9 +35,8 @@
   font-style: normal;
   font-size: 40px;
   color: var(--navy);
-  float: right;
-  margin-left: 50px;
-  margin-top: 37px;
+  margin: 0px;
+  width: 100%;
 }
 
 .verticalCenter {
@@ -75,10 +73,23 @@
 }
 
 .topbox {
-  height: 200px;
-  margin-left: 150px;
-  display:flex;
-  justify-content:left;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 250px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 50px;
+}
+
+.topboxDetails {
+  padding-left: 50px;
+  height: 80%;
+  width: calc(100% - 330px);
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .eventImage {
@@ -102,7 +113,6 @@
   line-height: 5px;
   margin-bottom: 0px;
   color: #000000;
-
   vertical-align: middle;
 }
 
@@ -118,7 +128,6 @@
   font-size: 30px;
   line-height: 5px;
   margin-bottom: 0px;
-
   color: #000000;
 }
 
@@ -142,11 +151,8 @@
 }
 
 .text {
-  font-family: 'Roboto Slab';
-  font-style: normal;
-  font-weight: 400;
-  font-size: 20px;
-  min-width: 300px;
+  width: 100%;
+  margin: 0px;
   color: black;
 }
 
@@ -161,25 +167,25 @@
   font-size: 15px;
   min-width: 300px;
   color: black;
-  display:flex;
-  margin-left: 130px;
-  
 }
 
 .info {
-  margin-left: 100px;
+  margin: 0px;
 }
 
 .image {
-  margin-top: 50px;
-  width:300px;
-  height: auto;
-    
+  margin: 0px;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  object-fit: cover;
 }
 
 .bottombox {
-  margin-left: 50px;
-  margin-right: 50px;
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
 }
 
 
