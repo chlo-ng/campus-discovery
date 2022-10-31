@@ -37,7 +37,7 @@ const EditEvent: NextPage = () => {
               date: date,
               time: time + ":00",
               location: location,
-              image: image,
+              image: image
             }
             console.log(data);
             fetch("http://localhost:8080/api/events/" + id, {
@@ -113,16 +113,15 @@ const EditEvent: NextPage = () => {
                         <p className={styles.name}>Date:</p>
                         <p className={styles.name}>Time:</p>
                         <p className={styles.name}>Location:</p>
+                        <p className={styles.name}>Image:</p>
                   </div>
                   <div className={styles.eventInputs}>
                     <form>
                         <input className={styles.bigInput} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
-                        <br></br>
                         <input className={styles.input} defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
-                        <br></br>
                         <input className={styles.input} defaultValue={time} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
-                        <br></br>
                         <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
+                        <input className={styles.input}  defaultValue={image} size={64} required={true} onChange={e => setImage(e.target.value)}></input>
                     </form>
                   </div>
                     {/* Just in case we want it later */}
