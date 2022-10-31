@@ -98,7 +98,7 @@ const EditEvent: NextPage = () => {
           <NavBar />
           <div className="container">
           <div className={styles.editEventsContainer}>
-              <div className={styles.contentBox}>
+              <div className={styles.contentBox} style={{borderBottom: "1px solid black"}}>
                 <div className={styles.editBox}>
                   {/* <div className="image-upload">
                     <label for="myInput">
@@ -107,34 +107,24 @@ const EditEvent: NextPage = () => {
                     <br></br>
                     <input id="myInput" type = "image" onChange={(e)=>{setImage(e.target.files[0])}} type="file"/>
                   </div> */}
-                  <img className={styles.eventImage} src={image} ></img>
-
-                  <div className={styles.textImage}>Edit Cover</div>
-                    <div className={styles.eventDetails}>
+                  <img className={styles.eventImage} src={image} />
+                  <div className={styles.eventDetails}>
+                        <p className={styles.header}>Event:</p>
+                        <p className={styles.name}>Date:</p>
+                        <p className={styles.name}>Time:</p>
+                        <p className={styles.name}>Location:</p>
+                  </div>
+                  <div className={styles.eventInputs}>
                     <form>
-                        <label className={styles.header}>Event: </label>
+                        <input className={styles.bigInput} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
                         <br></br>
+                        <input className={styles.input} defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
                         <br></br>
-                        <label className={styles.name}>Date:       </label>
+                        <input className={styles.input} defaultValue={time} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
                         <br></br>
-                        <br></br>
-                        <label className={styles.name}>Time:</label>
-                        <br></br>
-                        <br></br>
-                        <label className={styles.name} >Location:  </label>
+                        <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
                     </form>
-                    </div>
-                    <div className={styles.eventInputs}>
-                        <form>
-                            <input className={styles.bigInput} defaultValue = {title} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
-                            <br></br>
-                            <input className={styles.input} defaultValue = {date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
-                            <br></br>
-                            <input className={styles.input} defaultValue = {time} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
-                            <br></br>
-                            <input className={styles.input}  defaultValue = {location} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
-                        </form>
-                    </div>
+                  </div>
                     {/* Just in case we want it later */}
                     {/* <div className={styles.iconBar}>
                         <img className={styles.editUpperIcon} src="/editV2.png"/>
@@ -142,16 +132,8 @@ const EditEvent: NextPage = () => {
                         <img className={styles.editIcon} src="/clockIcon.png"/>
                         <img className={styles.editIcon} src="/locationIcon.png"/>
                     </div> */}
-                    </div>
+                  </div>
               </div>
-              <hr
-                style={{
-                    color: 'black',
-                    background: 'black',
-                    height: '1px',
-                    width: '80%',
-                }}
-                />
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
                 <form>

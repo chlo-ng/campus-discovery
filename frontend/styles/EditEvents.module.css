@@ -1,10 +1,8 @@
 .editEventsContainer {
     width: 100%;
     margin: 100px 0px 0px 0px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
-  }
+}
 
 .upperContainer {
   width: 80%;
@@ -14,18 +12,22 @@
   align-items: center;
 }
   
-  .header {
-    font-family: 'Roboto Slab';
-    font-style: normal;
-    font-weight: 800;
-    font-size: 40px;
-    line-height: 53px;
-    text-align: left;
-    width: 470px;
-    color: var(--navy);
-    /* padding-left: 60px; */
-    /* margin: 50px 0px 10px 0px; */
-  }
+.header {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 40px;
+  line-height: 53px;
+  text-align: left;
+  color: var(--navy);
+  margin: 0px;
+  /* padding-left: 60px; */
+  /* margin: 50px 0px 10px 0px; */
+}
+
+.name {
+  margin: 0px;
+}
   
   .verticalCenter {
     display: flex;
@@ -34,12 +36,10 @@
   }
   
   .contentBox {
-    width: 100%;
-    height: auto;
-    display: flex;
-    align-items: center;
-    margin-bottom: 30px;
-
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding-bottom: 50px;
   }
   
   .triangleButton {
@@ -85,54 +85,43 @@
   
   .editBox {
     /* 120 px is bc icons are 60 px. change if icon size changes*/
-    width: calc(100% - 120px);
-    background: #FFFFFF;
-    border-radius: 15px;
-    /* padding: 35px; */
-    padding-left: 204px;
-    display: flex;
-    align-items: center;
-
+    width: 100%;
+    height: 200px;
   }
   
   .eventImage {
-    height: 202px;
-    border: 3px solid #424242;
+    width: 300px;
+    height: 200px;
+    border: 3px solid black;
     align-self: center;
-    opacity: .5;
-  }
-
-  .eventImage:hover {
-    height: 202px;
-    border: 3px solid #424242;
-    align-self: center;
-    opacity: .2;
+    overflow: hidden;
+    object-fit: cover;
+    display: inline-block;
   }
   
   .eventDetails {
-    margin-left: 20px;
-    width: 120px;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 20px;
+    width: 150px;
+    height: 200px;
     /* background-color: green; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: inline-block;
   }
+
   .eventInputs {
-    margin-left: 20px;
-    width: 480px;
+    margin: 0px;
+    padding-left: 50px;
+    width: calc(100% - 450px);
+    height: 200px;
     /* background-color: blue; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    display: inline-block;
   }
 
   .iconBar {
     margin-left: 5px;
     width: 30px;
     /* background-color: greenyellow; */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
   
   .eventTitle {
@@ -214,6 +203,7 @@
   height: 30vh;
   width: 60vw;
   border: 2px solid #000000;
+  font-family: var(--font-body);
 }
 .input {
   padding: 1px 5px 1px 5px;
@@ -222,7 +212,9 @@
   width: 470px;
   display:flex;
   border-radius: 7px;
+  font-family: var(--font-body);
 }
+
 .bigInput {
   padding: 1px 5px 1px 5px;
   text-align: left;
@@ -232,11 +224,10 @@
   width: 470px;
   display:flex;
   border-radius: 7px;
-  color: var(--navy);
   line-height: 53px;
+  font-family: var(--font-body);
 }
 .textImage{
-  position: absolute;
   font-weight: bold;
   font-size: 30px;
   color: black;
