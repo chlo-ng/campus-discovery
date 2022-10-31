@@ -26,42 +26,88 @@ const EditEvent: NextPage = () => {
         //Should populate fields with id contents initially. 
       })
     });
-    async function submitHandler(e: React.ChangeEvent<any>) {
+    // async function submitHandler(e: React.ChangeEvent<any>) {
+    //     e.preventDefault()
+    //     if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
+    //       //Error might be due to id's not existing for each event. 
+    //       if (confirm('Are you sure you want to update this event?')){
+    //         var data: any = {
+    //           title: title,
+    //           description: description,
+    //           date: date,
+    //           time: time + ":00",
+    //           location: location,
+    //           image: image
+    //         }
+    //         console.log(data);
+    //         fetch("http://localhost:8080/api/events/" + id, {
+    //           //Will fail to fetch at the moment due to id's not existing for each event.
+    //           method: "PUT",
+    //           headers: { 
+    //             "Content-Type": "application/json",
+    //           },
+    //           body: JSON.stringify(data),
+    //         }).then((response) => {
+    //           response.json().then((res) => {
+    //             console.log('Task complete');
+    //             console.log(res);
+    //             router.push("../events");
+    //           })
+    //         })
+    //       } else {
+    //         console.log('Update event cancelled');
+    //       }
+    //     } else{
+    //       alert("Please complete all fields.")
+    //     }
+    //   }
+      async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
-        if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
-          //Error might be due to id's not existing for each event. 
-          if (confirm('Are you sure you want to update this event?')){
-            var data: any = {
-              title: title,
-              description: description,
-              date: date,
-              time: time + ":00",
-              location: location,
-              image: image
-            }
-            console.log(data);
-            fetch("http://localhost:8080/api/events/" + id, {
-              //Will fail to fetch at the moment due to id's not existing for each event.
-              method: "PUT",
-              headers: { 
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify(data),
-            }).then((response) => {
-              response.json().then((res) => {
-                console.log('Task complete');
-                console.log(res);
-                router.push("../events");
-              })
-            })
-          } else {
-            console.log('Update event cancelled');
-          }
-        } else{
-          alert("Please complete all fields.")
+
+        const id = localStorage.getItem("id")
+
+        var event: any = {
+            title: title,
+            date: date,
+            startTime: time + ":00",
+            description: description,
+            location: location,
+            image: image
         }
-        
-      }
+
+        var dateElement = document.getElementById("date")
+        var timeElement = document.getElementById("time")
+        var imageElement = document.getElementById("image")
+        var titleError = document.getElementById("titleError")
+        var dateError = document.getElementById("dateError")
+        var timeError = document.getElementById("timeError")
+        var locationError = document.getElementById("locationError")
+        var imageError = document.getElementById("imageError")
+
+        if (title.trim() === "" && titleError) {
+            alert("Please enter a title")
+        } else if (dateElement && dateError) {
+            alert("Please enter a date")
+        } else if (timeElement && timeError) {
+            alert("Please enter a time")
+        } else if (location.trim() === "" && locationError) {
+            alert("Please enter a location")
+        } else if (imageElement && imageError) {
+            alert("Please enter a valid image link")
+        } else  {
+            fetch("http://localhost:8080/api/events/" + id, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(event),
+            }).then((response) => {
+            response.json().then((res) => {
+                router.push("../events")
+            }).catch(err => alert(console.log(err)))
+            })
+        }
+    }
       async function deleteHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
         if (confirm('Are you sure you want to delete this event?')){
@@ -126,10 +172,14 @@ const EditEvent: NextPage = () => {
                     </div>
 
                     <form className={styles.eventForm}>
-                      <input className={styles.input} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
-                      <input className={styles.input} defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
-                      <input className={styles.input} defaultValue={time} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
-                      <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
+                      <input className={styles.input} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}/>
+                      <p className={styles.inputError} id="titleError"></p>
+                      <input className={styles.input} id = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
+                      <p className={styles.inputError} id="dateError"></p>
+                      <input className={styles.input} defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
+                      <p className={styles.inputError} id="timeError"></p>
+                      <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
+                      <p className={styles.inputError} id="locationError"></p>
                     </form>
 
                   </div>

@@ -38,6 +38,10 @@
     width: 80%;
     height: fit-content;
   }
+  .inputError {
+    font-size: var(--extra-extra-small);
+    margin: 0px;
+  }
   
    
   .editUpperIcon {
@@ -102,6 +106,12 @@
     
     /* background-color: green; */
   }
+  .form {
+    width: 100%;
+    padding: 50px 5% 50px 5%;
+    position: relative;
+    z-index: -999;
+}
 
   .eventForm {
     display: flex;
@@ -192,6 +202,7 @@
   margin-top: .55em;
   display: flex;
   border-radius: 7px;
+  
   font-family: var(--font-body);
 }
 
