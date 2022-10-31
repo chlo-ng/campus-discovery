@@ -53,9 +53,16 @@
 }
 
 .eventImage {
+  overflow: hidden;
+  object-fit: cover;
+  width: 30vw;
   height: 202px;
   border: 3px solid #424242;
   align-self: center;
+}
+
+.eventImage:hover {
+  cursor: pointer;
 }
 
 .eventDetails {
@@ -63,17 +70,23 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 35vw;
+  z-index: 3;
+  height: 200px;
+}
+
+.eventDetails:hover {
+  cursor: pointer;
 }
 
 .eventTitle {
   font-family: 'Roboto Slab';
   font-style: normal;
-  font-weight: 500;
-  font-size: 30px;
+  font-weight: bold;
+  font-size: var(--medium);
   line-height: 5px;
-  margin-bottom: 0px;
-  color: #000000;
-
+  margin: 0px;
+  color: var(--navy);
   vertical-align: middle;
 }
 
@@ -81,7 +94,7 @@
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 400;
-  font-size: 30px;
+  font-size: var(--small);
   line-height: 5px;
   margin-bottom: 0px;
 
@@ -105,6 +118,53 @@
   margin-left: 10px;
   height: 40px;
   width: 40px;
+}
+
+.eventList {
+  padding-right: 50px;
+  list-style: none;
+}
+
+.eventBox {
+  height: 271px;
+  /* 120 px is bc icons are 60 px. change if icon size changes*/
+  width: 70vw;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 35px;
+  margin: 2em;
+  display: flex;
+}
+
+.paginationWrapper {
+  display: flex;
+  gap: .5em;
+  color: var(--navy);
+  border: var(--navy);
+  
+  list-style: none;
+  margin-bottom: 1em;
+  margin-right: 1.5em;
+}
+
+.nextButton, .backButton {
+  width: 15px;
+  height: 15px;
+  color: var(--navy);
+}
+
+.editButton {
+  z-index: 5;
+  width: 25px;
+  height: 25px;
+  color: var(--dark-gold);
+  justify-self: flex-end;
+}
+
+.editButton:hover {
+  cursor: pointer;
 }
 
 
