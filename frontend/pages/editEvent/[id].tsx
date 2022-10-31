@@ -111,17 +111,19 @@ const EditEvent: NextPage = () => {
       async function deleteHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
         if (confirm('Are you sure you want to delete this event?')){
-          fetch("http://localhost:8080/api/" + id, {
+          fetch("http://localhost:8080/api/events/" + id, {
             //Will fail to fetch due to id again. Cancel button works though.
           method: "DELETE",
           headers: { 
               "Content-Type": "application/json",
           },
-          }).then((response) => {
-          response.json().then((res) => {
-              router.push("../events");
-          })
-          })  
+          }).then(res => {
+            if (res.ok) {
+              router.push("../events"); 
+            } else {
+              alert("Error when deleting please try again.");
+            }
+          });
         } 
 
       }
@@ -182,7 +184,7 @@ const EditEvent: NextPage = () => {
                       <p className={styles.inputError} id="timeError"></p>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
                       <p className={styles.inputError} id="locationError"></p>
-                      <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setImage(e.target.value)}/>
+                      <input className={styles.input}  defaultValue={image} size={64} required={true} onChange={e => setImage(e.target.value)}/>
                       <p className={styles.inputError} id="imageError"></p>
                     </form>
 
