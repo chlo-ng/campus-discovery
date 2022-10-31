@@ -190,12 +190,14 @@
 }
 
 .description {
+  padding: 1px 5px 1px 5px;
   display: flex;
   margin-bottom: .5em;
   text-align: center;
   font-size: 35px;
   font-weight: bold;
   border-radius: 7px;
+  text-decoration: solid;
 }
 
 .form{
@@ -210,6 +212,7 @@
   border-radius: 7px;
   height: 30vh;
   width: 60vw;
+  border: 2px solid #000000;
 }
 .input {
   padding: 1px 5px 1px 5px;

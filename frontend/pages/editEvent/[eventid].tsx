@@ -136,12 +136,13 @@ const EditEvent: NextPage = () => {
                             <input className={styles.input} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
                         </form>
                     </div>
-                    <div className={styles.iconBar}>
+                    {/* Just in case we want it later */}
+                    {/* <div className={styles.iconBar}>
                         <img className={styles.editUpperIcon} src="/editV2.png"/>
                         <img className={styles.editMiddleIcon} src="/calendarIcon.png"/>
                         <img className={styles.editIcon} src="/clockIcon.png"/>
                         <img className={styles.editIcon} src="/locationIcon.png"/>
-                    </div>
+                    </div> */}
                     </div>
               </div>
               <hr
@@ -149,7 +150,7 @@ const EditEvent: NextPage = () => {
 
                     color: 'black',
                     background: 'black',
-                    height: '5px',
+                    height: '1px',
                     width: '80%',
                 }}
                 />
@@ -166,8 +167,6 @@ const EditEvent: NextPage = () => {
             <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
             <button type="submit" className={styles.submitButton} onClick={returnHandler}>Back</button>
           </div>
-          <h1>Upload and Display Image usign React Hook's</h1>
-
         </main>
     </div>
   )
