@@ -32,6 +32,7 @@ const config: NextPage = () => {
         }).then((response) => {
           response.json().then((res) => {
             localStorage.setItem("id", res["id"]);
+            localStorage.setItem("role", res["role"])
             router.push("events");
           })
         });

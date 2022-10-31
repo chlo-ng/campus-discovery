@@ -46,7 +46,9 @@ export default function NavBar({
           </ul>}
           {loggedIn && <ul>
             <li><a>Manage Account</a></li>
-            <li><a>My Events</a></li>
+            <li><a onClick={()=>{
+              router.push("/createEvent")
+            }}>Create Event</a></li>
             <li><a onClick={() => {
               localStorage.removeItem("id")
               router.push("/")
