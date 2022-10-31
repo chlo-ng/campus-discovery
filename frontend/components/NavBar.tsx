@@ -41,7 +41,7 @@ export default function NavBar({
         </div>
         <nav className={styles.sideBarNav}>
           {!loggedIn && <ul>
-            <li><a>Login</a></li>
+            <li><a onClick={() => {router.push("login")}}>Login</a></li>
             <li><a onClick={() => {router.push("config")}}>Create Account</a></li>
           </ul>}
           {loggedIn && <ul>

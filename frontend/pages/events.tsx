@@ -26,7 +26,7 @@ const Events: NextPage = () => {
                   <img className={styles.triangleButton} src="/triangle.png"/>
                 </div>
                 <div className={styles.trendingBox}>
-                  <img className={styles.eventImage} src="/exampleEvent.png"></img>
+                  <img className={styles.eventImage} src="/moonfest.png"></img>
                   <div className={styles.eventDetails}>
                     <p className={styles.eventTitle}>GT VSA's Moon Fest</p>
                     <p className={styles.eventText}>Thursday, October 13th, 2022</p>
