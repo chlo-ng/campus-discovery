@@ -3,20 +3,21 @@ import React, {useState} from 'react'
 import { useEffect } from "react"
 import { useRouter } from "next/router"
 import Head from 'next/head'
-import NavBar from "../components/NavBar"
-import styles from '../styles/Events.module.css'
+import NavBar from "../../components/NavBar"
+import styles from '../../styles/Events.module.css'
 
 const Post = () => {
     const router = useRouter()
     const { id } = router.query
     const [name, setName] = useState('')
-    const [date, setDate] = useState('')
-    const [time, setTime] = useState('')
+    var [date, setDate] = useState('')
+    const [time, setTime] = useState(0)
     const [location, setLocation] = useState('')
     const [describe, setDescribe] = useState('')
     const [image, setImage] = useState('bookmark.png')
-    const date1 = new Date(date);
-    const hour = new Date(time);
+    const [bigImage, setBigImage] = useState('')
+    const [timeInd, setTimeind] = useState('')
+    const datetime = new Date(date + 'T'+time);
     
     fetch("http://localhost:8080/api/events/" + id).then((response) => {
           response.json().then((res) => {
@@ -26,12 +27,27 @@ const Post = () => {
             setDescribe(res["description"])
             setLocation(res["location"])
             setImage(res["self"])
+            setBigImage("../" + res["image"])
+            
           })
         });
 
     async function bookmarkHandler(e:React.ChangeEvent<any>) {
-        router.push('config')
+        router.push('../config')
     }
+
+    function timeHandler() {
+      setTime(datetime.getHours())
+        if (time > 12) {
+            setTimeind('PM')
+        } else {
+          setTimeind('AM')
+        }
+    }
+
+    useEffect (() => {
+      timeHandler();
+    }, []);
 
     return (
       <div>
@@ -46,11 +62,11 @@ const Post = () => {
         <main>
           <NavBar />
           <div className="container">
-            <div className={styles.topbox}>
-                <img className={styles.image} src = "/exampleEvent.png"></img>
-                <h2 className= {styles.topname}>{name}<br></br><p className = {styles.text}>{date1.getDate()}<br></br>{hour.getHours()} PM<br></br>{location}</p></h2> 
+            <div className={styles.topbox} >
+                <img className={styles.image} src = {bigImage}></img>
+                <h2 className= {styles.topname}>{name}<br></br><p className = {styles.text}>{date}<br></br>{datetime.getHours()}:{datetime.getMinutes()}{datetime.getMinutes()} {timeInd}<br></br>{location}</p></h2> 
                 
-                <img className= {styles.icon} src = {image} onClick={bookmarkHandler}></img>
+                <img className= {styles.icon} src = "../bookmark.png" onClick={bookmarkHandler}></img>
           </div>
             <div className={styles.bottombox}>
                 <img className={styles.line} src = "/divider.png"></img>
