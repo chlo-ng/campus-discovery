@@ -3,14 +3,6 @@
     margin: 100px 0px 0px 0px;
     align-items: center;
 }
-
-.upperContainer {
-  width: 80%;
-  margin: 0% 10% 0% 10%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
   
 .header {
   font-family: 'Roboto Slab';
@@ -45,16 +37,6 @@
     margin-right: auto;
     width: 80%;
     height: fit-content;
-  }
-  
-  .triangleButton {
-    height: 30px;
-    width: 30px;
-    margin: 15px;
-  }
-  
-  .triangleButtonRotate {
-    transform: rotate(180deg);
   }
   
    
@@ -135,54 +117,40 @@
     /* background-color: green; */
   }
 
-  .iconBar {
-    margin-left: 5px;
-    width: 30px;
-    /* background-color: greenyellow; */
-  }
+.iconBar {
+  margin-left: 5px;
+  width: 30px;
+  /* background-color: greenyellow; */
+}
+
+.eventTitle {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 5px;
+  margin-bottom: 0px;
+  color: #000000;
+
+  vertical-align: middle;
+}
+
+.eventText {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 5px;
+  margin-bottom: 0px;
+
+  color: #000000;
+}
   
-  .eventTitle {
-    font-family: 'Roboto Slab';
-    font-style: normal;
-    font-weight: 500;
-    font-size: 30px;
-    line-height: 5px;
-    margin-bottom: 0px;
-    color: #000000;
-  
-    vertical-align: middle;
-  }
-  
-  .eventText {
-    font-family: 'Roboto Slab';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 30px;
-    line-height: 5px;
-    margin-bottom: 0px;
-  
-    color: #000000;
-  }
-  
-  .searchBar {
-    width: 100%;
-    padding-left: 60px;
-    height: 40px;
-    display: flex;
-  }
-  
-  .searchBar input {
-    border-radius: 20px;
-    height: 40px;
-    /* font-weight: bold; */
-    padding: 1px 10px 1px 10px;
-  }
-  
-  .submitButton {
-    background-color: var(--navy);
-    font-family: var(--font-body);
-    font-size: var(--extra-small);
-    font-weight: var(--fw-bold);
+.submitButton {
+  background-color: var(--navy);
+  font-family: var(--font-body);
+  font-size: var(--extra-small);
+  font-weight: var(--fw-bold);
 
     border-radius: 10px;
     text-align: center;

@@ -37,7 +37,7 @@ const EditEvent: NextPage = () => {
               date: date,
               time: time + ":00",
               location: location,
-              image: image,
+              image: image
             }
             console.log(data);
             fetch("http://localhost:8080/api/events/" + id, {
