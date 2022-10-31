@@ -23,7 +23,7 @@ const Post: NextPage = () => {
       var userID = localStorage.getItem("id")
     }
     
-    if (time[3] == undefined) {
+    if (time[2] == undefined) {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
         response.json().then((res) => {
           setEvent(res)
