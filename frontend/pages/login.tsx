@@ -28,6 +28,7 @@ const config: NextPage = () => {
           response.json().then((res) => {
             console.log(res);
             localStorage.setItem("id", res["id"]);
+            localStorage.setItem("role", res["role"])
             router.push("events");
           }).catch(err => alert("Invalid login credentials. Please try again."))
         })
