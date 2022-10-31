@@ -62,7 +62,7 @@ const Post = () => {
                 </div>
                 <div>
                   <img className= {styles.icon} src="../bookmark.png" onClick={bookmarkHandler}></img>
-                  {(isAdmin || (userID == event?.creator.id)) &&
+                  {event && (isAdmin || (userID == event.creator?.id)) &&
                     <img className={styles.icon} src={"/editButton.png"} onClick={e => router.push("/editEvent/" + id)} />
                   }
                 </div>
