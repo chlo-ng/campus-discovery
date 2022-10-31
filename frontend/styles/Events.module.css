@@ -61,15 +61,22 @@
   align-self: center;
 }
 
+.eventImage:hover {
+  cursor: pointer;
+}
+
 .eventDetails {
   margin-left: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
-
   width: 35vw;
-
   z-index: 3;
+  height: 200px;
+}
+
+.eventDetails:hover {
+  cursor: pointer;
 }
 
 .eventTitle {
@@ -78,9 +85,8 @@
   font-weight: bold;
   font-size: var(--medium);
   line-height: 5px;
-  margin-bottom: 0px;
+  margin: 0px;
   color: var(--navy);
-
   vertical-align: middle;
 }
 
@@ -154,9 +160,11 @@
   width: 25px;
   height: 25px;
   color: var(--dark-gold);
-  
   justify-self: flex-end;
+}
 
+.editButton:hover {
+  cursor: pointer;
 }
 
 
