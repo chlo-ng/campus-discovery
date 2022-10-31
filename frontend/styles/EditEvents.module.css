@@ -23,10 +23,15 @@
   margin: 0px;
   /* padding-left: 60px; */
   /* margin: 50px 0px 10px 0px; */
+
+  display: flex;
 }
 
 .name {
-  margin: 0px;
+  display: flex;
+  gap: 1em;
+  margin-top: .6em;
+  height: max-content;
 }
   
   .verticalCenter {
@@ -39,7 +44,7 @@
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    padding-bottom: 50px;
+    height: fit-content;
   }
   
   .triangleButton {
@@ -77,7 +82,7 @@
     display: flex;
     flex-direction: column;
     justify-content: top;
-    align-items: end;
+    align-items: flex-end;
     width: calc(100%-120px);
     /* background-color: green; */
     right:0;
@@ -87,10 +92,13 @@
     /* 120 px is bc icons are 60 px. change if icon size changes*/
     width: 100%;
     height: 200px;
+    display: flex;
+    margin-bottom: 1em;
   }
   
   .eventImage {
-    width: 300px;
+    object-fit: cover;
+    width: 30vw;
     height: 200px;
     border: 3px solid black;
     align-self: center;
@@ -100,22 +108,31 @@
   }
   
   .eventDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
     margin-top: auto;
     margin-bottom: auto;
     padding-left: 20px;
-    width: 150px;
     height: 200px;
+    width: 7em;
+
+    
     /* background-color: green; */
-    display: inline-block;
   }
 
-  .eventInputs {
-    margin: 0px;
-    padding-left: 50px;
-    width: calc(100% - 450px);
+  .eventForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 20px;
     height: 200px;
-    /* background-color: blue; */
-    display: inline-block;
+    width: 15em;
+
+    justify-self: flex-end;
+    /* background-color: green; */
   }
 
   .iconBar {
@@ -171,8 +188,7 @@
     text-align: center;
     color: white;
     padding: 10px 15px;
-    margin-left: 204px;
-    margin-top: 50px;
+    margin-right: 1em;
 }
 
 .submitButton:hover {
@@ -190,43 +206,27 @@
   text-decoration: solid;
 }
 
-.form{
-  padding-left: 204px;
-}
-  
 .inputDescription {
   padding: 1px 5px 1px 5px;
   text-align: left;
-  margin: 0;
+  margin-top: .5em;
   display:flex;
   border-radius: 7px;
-  height: 30vh;
+  height: 80%;
   width: 60vw;
   border: 2px solid #000000;
   font-family: var(--font-body);
 }
+
 .input {
   padding: 1px 5px 1px 5px;
   text-align: left;
-  margin: 0;
-  width: 470px;
-  display:flex;
+  margin-top: .55em;
+  display: flex;
   border-radius: 7px;
   font-family: var(--font-body);
 }
 
-.bigInput {
-  padding: 1px 5px 1px 5px;
-  text-align: left;
-  font-weight: 800;
-  font-size: 40px;
-  margin: 0;
-  width: 470px;
-  display:flex;
-  border-radius: 7px;
-  line-height: 53px;
-  font-family: var(--font-body);
-}
 .textImage{
   font-weight: bold;
   font-size: 30px;

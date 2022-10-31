@@ -108,22 +108,30 @@ const EditEvent: NextPage = () => {
                     <input id="myInput" type = "image" onChange={(e)=>{setImage(e.target.files[0])}} type="file"/>
                   </div> */}
                   <img className={styles.eventImage} src={image} />
-                  <div className={styles.eventDetails}>
-                        <p className={styles.header}>Event:</p>
-                        <p className={styles.name}>Date:</p>
-                        <p className={styles.name}>Time:</p>
-                        <p className={styles.name}>Location:</p>
-                  </div>
-                  <div className={styles.eventInputs}>
-                    <form>
-                        <input className={styles.bigInput} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
-                        <br></br>
-                        <input className={styles.input} defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
-                        <br></br>
-                        <input className={styles.input} defaultValue={time} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
-                        <br></br>
-                        <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
+                  <div className={styles.editBox}>
+                          {/* <p className={styles.header}>Event:</p>
+                          <p className={styles.name}>Date:</p>
+                          <p className={styles.name}>Time:</p>
+                          <p className={styles.name}>Location:</p> */}
+
+                    <div className={styles.eventDetails}>
+                        <label className={styles.name}>Event Name:
+                        </label>
+                        <label className={styles.name}>Date:  
+                        </label>
+                        <label className={styles.name}>Time:  
+                        </label>
+                        <label className={styles.name}>Location:  
+                        </label>
+                    </div>
+
+                    <form className={styles.eventForm}>
+                      <input className={styles.input} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}></input>
+                      <input className={styles.input} defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
+                      <input className={styles.input} defaultValue={time} size={64} required={true} onChange={e => setTime(e.target.value)} type = "time"></input>
+                      <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}></input>
                     </form>
+
                   </div>
                     {/* Just in case we want it later */}
                     {/* <div className={styles.iconBar}>
@@ -137,15 +145,16 @@ const EditEvent: NextPage = () => {
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
                 <form>
-                    <p className={styles.description}>Event Description:</p>
+                    <label className={styles.name}>Event Description:</label>
                     <textarea className={styles.inputDescription} defaultValue = {description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
                 </form>
                 </div>
+                  <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
+                  <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
+                  <button type="submit" className={styles.submitButton} onClick={returnHandler}>Back</button>
               </div>
+
             </div>
-            <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
-            <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
-            <button type="submit" className={styles.submitButton} onClick={returnHandler}>Back</button>
           </div>
         </main>
     </div>
