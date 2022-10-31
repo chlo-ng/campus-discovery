@@ -23,6 +23,8 @@ export default function NavBar({
         <img className={styles.logos}
           src="/gtLogoLong.png"
           onClick={() => {
+            loggedIn ? 
+            router.push("/events") :
             router.push("/")
           }} />
         <img className={styles.icon}
