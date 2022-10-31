@@ -169,17 +169,21 @@ const EditEvent: NextPage = () => {
                         </label>
                         <label className={styles.name}>Location:  
                         </label>
+                        <label className={styles.name}>Image:  
+                        </label>
                     </div>
 
                     <form className={styles.eventForm}>
                       <input className={styles.input} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}/>
                       <p className={styles.inputError} id="titleError"></p>
-                      <input className={styles.input} id = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)} type = "date"></input>
+                      <input className={styles.dateandTimeInput}  id = "date"  type = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
                       <p className={styles.inputError} id="dateError"></p>
-                      <input className={styles.input} defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
+                      <input className={styles.dateandTimeInput} id = "time" defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
                       <p className={styles.inputError} id="timeError"></p>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
                       <p className={styles.inputError} id="locationError"></p>
+                      <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setImage(e.target.value)}/>
+                      <p className={styles.inputError} id="imageError"></p>
                     </form>
 
                   </div>

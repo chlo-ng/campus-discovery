@@ -37,6 +37,7 @@
     margin-right: auto;
     width: 80%;
     height: fit-content;
+    min-height: 250px;
   }
   .inputError {
     font-size: var(--extra-extra-small);
@@ -197,12 +198,21 @@
 }
 
 .input {
-  padding: 1px 5px 1px 5px;
+  /* padding: 1px 5px 1px 5px; */
   text-align: left;
-  margin-top: .55em;
+  /* margin-top: .25em; */
   display: flex;
   border-radius: 7px;
   
+  font-family: var(--font-body);
+}
+.dateandTimeInput {
+  /* padding: 1px 0px 1px 5px; */
+  text-align: left;
+  /* margin-top: .05em; */
+  display: flex;
+  border-radius: 7px;
+  min-height: 20px;
   font-family: var(--font-body);
 }
 
