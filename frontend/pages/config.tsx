@@ -16,7 +16,7 @@ const config: NextPage = () => {
     
     async function submitHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
-      if (["STUDENT", "ALUMNI", "TEACHER"].includes(role) && name.trim() !== "") {
+      if (["STUDENT", "ALUMNI", "TEACHER"].includes(role) && name.trim() !== "" && username.trim() !== "" && password.trim() !== "" && password == confirmPassword) {
         var data: any = {
           username: username,
           password: password,
@@ -38,8 +38,14 @@ const config: NextPage = () => {
         });
       } else if (!["STUDENT", "ALUMNI", "TEACHER"].includes(role)) {
         alert("Please select a role.")
+      } else if (name.trim() == "") {
+        alert("Please enter a valid name.")
+      } else if (username.trim() == "") {
+        alert("Please enter a valid email.")
+      } else if (password.trim() == "") {
+        alert("Please enter a valid password.")
       } else {
-        alert("Please use a valid name.")
+        alert("Passwords do not match.")
       }
     }
 
@@ -69,9 +75,9 @@ const config: NextPage = () => {
                 <p className={styles.name}>Email:</p>
                 <input className={styles.input} size={38} required={true} onChange={e => setUsername(e.target.value)}></input>
                 <p className={styles.name}>Password:</p>
-                <input className={styles.input} size={38} required={true} onChange={e => setPassword(e.target.value)}></input>
+                <input className={styles.input} type='password' size={38} required={true} onChange={e => setPassword(e.target.value)}></input>
                 <p className={styles.name}>Confirm Password:</p>
-                <input className={styles.input} size={38} required={true} onChange={e => setConfirmPassword(e.target.value)}></input>
+                <input className={styles.input} type='password'size={38} required={true} onChange={e => setConfirmPassword(e.target.value)}></input>
                 <button type="submit" className={styles.submitButton} onClick={submitHandler}>Sign Up</button>
               </form>
             </div>
