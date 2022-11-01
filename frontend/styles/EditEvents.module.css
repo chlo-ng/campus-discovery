@@ -23,8 +23,8 @@
   display: flex;
   gap: 1em;
   margin-top: -.05em;
-  margin-bottom: 1em ;
-  height: max-content;
+  margin-bottom: 5px;
+  height: 22px;
 }
   
   .verticalCenter {
@@ -42,7 +42,7 @@
   }
   .inputError {
     font-size: var(--extra-extra-small);
-    margin: 0px;
+    margin-bottom: 5px;
   }
   
    
@@ -104,8 +104,6 @@
     padding-left: 20px;
     height: 200px;
     width: 7em;
-
-    
     /* background-color: green; */
   }
   .form {
@@ -204,17 +202,20 @@
   /* margin-top: .25em; */
   display: flex;
   border-radius: 7px;
-  
+  height: 22px;
+  margin-bottom: 5px;
   font-family: var(--font-body);
 }
+
 .dateandTimeInput {
   /* padding: 1px 0px 1px 5px; */
   text-align: left;
   /* margin-top: .05em; */
   display: flex;
   border-radius: 7px;
-  min-height: 20px;
+  height: 22px;
   font-family: var(--font-body);
+  margin-bottom: 5px;
 }
 
 .textImage{

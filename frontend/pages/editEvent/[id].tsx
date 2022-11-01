@@ -15,17 +15,21 @@ const EditEvent: NextPage = () => {
     const [location, setLocation] = useState('')
     const [image, setImage] = useState('')
 
-    fetch("http://localhost:8080/api/events/" + id).then((response) => {
-      response.json().then((res) => {
-        setTitle(res["title"])
-        setDate(res["date"])
-        setTime(res["startTime"])
-        setDescription(res["description"])
-        setLocation(res["location"])
-        setImage(res["image"])
-        //Should populate fields with id contents initially. 
-      })
-    });
+    if (title == '') {
+      fetch("http://localhost:8080/api/events/" + id).then((response) => {
+        response.json().then((res) => {
+          if (res.creator != null) {
+            setTitle(res["title"])
+            setDate(res["date"])
+            setTime(res["startTime"])
+            setDescription(res["description"])
+            setLocation(res["location"])
+            setImage(res["image"])
+          }
+          //Should populate fields with id contents initially. 
+        })
+      });
+    }
     // async function submitHandler(e: React.ChangeEvent<any>) {
     //     e.preventDefault()
     //     if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
@@ -64,12 +68,12 @@ const EditEvent: NextPage = () => {
       async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
 
-        const id = localStorage.getItem("id")
+        const userID = localStorage.getItem("id")
 
         var event: any = {
             title: title,
             date: date,
-            startTime: time + ":00",
+            startTime: time.split(":").length == 3 ? time : time + ":00",
             description: description,
             location: location,
             image: image
@@ -78,30 +82,27 @@ const EditEvent: NextPage = () => {
         var dateElement = document.getElementById("date")
         var timeElement = document.getElementById("time")
         var imageElement = document.getElementById("image")
-        var titleError = document.getElementById("titleError")
-        var dateError = document.getElementById("dateError")
-        var timeError = document.getElementById("timeError")
-        var locationError = document.getElementById("locationError")
-        var imageError = document.getElementById("imageError")
 
-        if (title.trim() === "" && titleError) {
+        if (title.trim() === "") {
             alert("Please enter a title")
-        } else if (dateElement && dateError) {
+        } else if (!dateElement.checkValidity()) {
             alert("Please enter a date")
-        } else if (timeElement && timeError) {
+        } else if (!timeElement.checkValidity()) {
             alert("Please enter a time")
-        } else if (location.trim() === "" && locationError) {
+        } else if (location.trim() === "") {
             alert("Please enter a location")
-        } else if (imageElement && imageError) {
+        } else if (!imageElement.checkValidity()) {
             alert("Please enter a valid image link")
         } else  {
-            fetch("http://localhost:8080/api/events/" + id, {
+            fetch("http://localhost:8080/api/events/" + id +"/" + userID, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(event),
             }).then(res => {
+              console.log(event)
+              console.log(res)
               if (res.ok) {
                 alert("Event updated successfully");
                 router.push("../events"); 
@@ -180,15 +181,10 @@ const EditEvent: NextPage = () => {
 
                     <form className={styles.eventForm}>
                       <input className={styles.input} defaultValue={title} size={19} required={true} onChange={e => setTitle(e.target.value)}/>
-                      <p className={styles.inputError} id="titleError"></p>
                       <input className={styles.dateandTimeInput}  id = "date"  type = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
-                      <p className={styles.inputError} id="dateError"></p>
                       <input className={styles.dateandTimeInput} id = "time" defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
-                      <p className={styles.inputError} id="timeError"></p>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
-                      <p className={styles.inputError} id="locationError"></p>
-                      <input className={styles.input}  defaultValue={image} size={64} required={true} onChange={e => setImage(e.target.value)}/>
-                      <p className={styles.inputError} id="imageError"></p>
+                      <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
                     </form>
 
                   </div>
