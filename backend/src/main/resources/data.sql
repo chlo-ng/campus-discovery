@@ -28,7 +28,9 @@ VALUES
    ('WACC Resume Review', '2022-10-27','18:30:00', 'Join Meta this week for resume review, swag, and free food', 'CoC 102', 
    'https://scontent-atl3-1.xx.fbcdn.net/v/t39.30808-6/312809501_437750851813132_1382566330835633984_n.jpg?_nc_cat=104&ccb=1-7&_nc_sid=730e14&_nc_ohc=jjU5tqqdprsAX_rP0zT&_nc_ht=scontent-atl3-1.xx&oh=00_AfCIXSTvkl81QLK0xn1PJnwf0NiEZtNx1N3u8Y7WD6fJgA&oe=63653FCC', 1),
    ('SCPC Fall Concert', '2022-10-22', '19:00:00', '2022 Fall Concert featuring student openers and a nationally-recognized artist!', 'Tech Green',
-   'https://www.concertarchives.org/image_uploads/photo/image/505104/large_image.jpg', 2);
+   'https://www.concertarchives.org/image_uploads/photo/image/505104/large_image.jpg', 2),
+   ('KUSA Fall Mixer', '2022-10-21', '17:00:00', 'First fall mixer with music by Alex Heisey', 'Student Center',
+   'https://se-images.campuslabs.com/clink/images/8bca73f1-5c66-4924-b3ae-15af044168cd15220d48-b195-491d-b852-bb6687bdb80c.JPG?preset=med-sq', 3);
 
 
 
