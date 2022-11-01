@@ -19,6 +19,25 @@
   margin: 50px 0px 10px 0px;
 }
 
+.icon {
+  margin: 0px;
+  width: 30px;
+  height: fit-content;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.topname {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-size: 40px;
+  color: var(--navy);
+  margin: 0px;
+  width: 100%;
+}
+
 .verticalCenter {
   display: flex;
   flex-direction: column;
@@ -72,10 +91,37 @@
   display: flex;
 }
 
+.topbox {
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 250px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 50px;
+}
+
+.topboxDetails {
+  padding-left: 50px;
+  height: 80%;
+  width: calc(100% - 330px);
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
 .eventImage {
+  overflow: hidden;
+  object-fit: cover;
+  width: 30vw;
   height: 202px;
   border: 3px solid #424242;
   align-self: center;
+}
+
+.eventImage:hover {
+  cursor: pointer;
 }
 
 .eventDetails {
@@ -83,25 +129,36 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: 35vw;
+  z-index: 3;
+  height: 200px;
+}
+
+.eventDetails:hover {
+  cursor: pointer;
 }
 
 .eventTitle {
   font-family: 'Roboto Slab';
   font-style: normal;
-  font-weight: 500;
-  font-size: 30px;
+  font-weight: bold;
+  font-size: var(--medium);
   line-height: 5px;
-  margin-bottom: 0px;
-  color: #000000;
-
+  margin: 0px;
+  color: var(--navy);
   vertical-align: middle;
+}
+
+.eventbox {
+  width: 80%;
+  margin-top: 150px;
 }
 
 .eventText {
   font-family: 'Roboto Slab';
   font-style: normal;
   font-weight: 400;
-  font-size: 30px;
+  font-size: var(--small);
   line-height: 5px;
   margin-bottom: 0px;
   color: #000000;
@@ -124,6 +181,91 @@
   margin-left: 10px;
   height: 40px;
   width: 40px;
+}
+
+.text {
+  width: 100%;
+  margin: 0px;
+  color: black;
+}
+
+.line {
+  width:100%;
+  height:100px;
+}
+
+.subtext {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  min-width: 300px;
+  color: black;
+}
+
+.info {
+  margin: 0px;
+}
+
+.image {
+  margin: 0px;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.bottombox {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.eventList {
+  padding-right: 50px;
+  list-style: none;
+}
+
+.eventBox {
+  height: 271px;
+  /* 120 px is bc icons are 60 px. change if icon size changes*/
+  width: 70vw;
+  background: #FFFFFF;
+  border: 2px solid #000000;
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 15px;
+  padding: 35px;
+  margin: 2em;
+  display: flex;
+}
+
+.paginationWrapper {
+  display: flex;
+  gap: .5em;
+  color: var(--navy);
+  border: var(--navy);
+  
+  list-style: none;
+  margin-bottom: 1em;
+  margin-right: 1.5em;
+}
+
+.nextButton, .backButton {
+  width: 15px;
+  height: 15px;
+  color: var(--navy);
+}
+
+.editButton {
+  z-index: 5;
+  width: 25px;
+  height: 25px;
+  color: var(--dark-gold);
+  justify-self: flex-end;
+}
+
+.editButton:hover {
+  cursor: pointer;
 }
 
 

@@ -48,7 +48,7 @@ GET('/{id}'):** returns user object with specified id
 
 ## Events http://localhost:8080/api/events/
 Event Objects: 
-id, title, date (MUST BE IN MM-DD-YYYY format), startTime(MUST BE IN hh:mm:ss format), description, creator (User), rsvped (Set), 
+id, title, date (MUST BE IN MM-DD-YYYY format), startTime (MUST BE IN hh:mm:ss format), description, image (image url; defaults to gtLogo.png), creator (User), rsvped (Set), 
 
 Run the backend server and go to the link to test if there are Events objects.
 
@@ -60,10 +60,11 @@ Run the backend server and go to the link to test if there are Events objects.
 **GET('/{id}'):** returns event object with specified id
 
 ### POST
-**POST('/{creatorID}'}:** pass in json body with title, date, startTime, location, and description with creatorID in path variable to create new event
+**POST('/{creatorID}'}:** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to create new event
 
 ### PUT
-**PUT('/{id}/{creatorID}'):** pass in json body with title, date, startTime, location, and description with creatorID in path variable to update event with specified id
+**PUT('/{id}/{creatorID}'):** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to update event with specified id
+
 
 #### Request Parameter --> add ?parameter=value to the end of the request
 
