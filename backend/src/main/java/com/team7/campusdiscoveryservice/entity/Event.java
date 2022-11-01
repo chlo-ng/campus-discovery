@@ -26,13 +26,13 @@ public class Event {
     @Column(name = "start_time", nullable = false)
     private Time startTime;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = "description", nullable = false, length = 200)
     private String description;
 
     @Column(name = "location", nullable = false)
     private String location;
 
-    @Column(name = "image", nullable = false)
+    @Column(name = "image", nullable = false, length = 1000)
     private String image;
 
     @JsonIgnoreProperties({"rsvp", "createdEvents"})
