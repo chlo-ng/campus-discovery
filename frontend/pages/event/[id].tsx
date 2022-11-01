@@ -56,6 +56,7 @@ const Post: NextPage = () => {
                 <img className={styles.image} src={image}></img>
                 <div className={styles.topboxDetails}>
                   <h2 className={styles.topname}>{name}</h2> 
+                  <p className={styles.text}>{event?.creator?.username}</p>
                   <p className={styles.text}>{date.toLocaleDateString(undefined, options)}</p>
                   <p className={styles.text}>{time[0] > 12 ?
                     parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
