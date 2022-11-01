@@ -36,6 +36,7 @@
   .contentBox {
     margin-left: auto;
     margin-right: auto;
+    margin-bottom: 25px;
     width: 80%;
     height: fit-content;
     min-height: 250px;
