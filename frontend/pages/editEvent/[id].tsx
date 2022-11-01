@@ -101,11 +101,14 @@ const EditEvent: NextPage = () => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(event),
-            }).then((response) => {
-            response.json().then((res) => {
-                router.push("../events")
-            }).catch(err => alert(console.log(err)))
-            })
+            }).then(res => {
+              if (res.ok) {
+                alert("Event updated successfully");
+                router.push("../events"); 
+              } else {
+                alert("Error when updating please try again.");
+              }
+            });
         }
     }
       async function deleteHandler(e: React.ChangeEvent<any>) {
