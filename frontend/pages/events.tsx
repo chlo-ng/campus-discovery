@@ -110,7 +110,7 @@ const Events: NextPage = () => {
                   </a>
                 }
 
-                {(pageNumber < Math.floor(events.length/10)) && 
+                {(pageNumber < Math.floor((events.length - 1)/10)) && 
                   <a onClick={e => setPageNumber(pageNumber + 1)}>
                     <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                   </a>
