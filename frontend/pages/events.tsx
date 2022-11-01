@@ -54,6 +54,13 @@ const Events: NextPage = () => {
                     <p className={styles.eventText}>6:00 PM</p>
                     <p className={styles.eventText}>Tech Green</p>
                   </div>
+                  <div className={styles.upperRight}>
+                    <img className={styles.editButton} 
+                    src="/editV2.png" onClick={() => {
+                      const { id } = router.query
+                      router.push("editEvent/"+ id)
+                    }}/>
+                  </div>
                 </div>
                 <div className={styles.verticalCenter}>
                   <img className={`${styles.triangleButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
