@@ -28,6 +28,13 @@ public class RSVP implements java.io.Serializable {
     @Column(name = "rsvp", nullable = false)
     private RsvpValue rsvp;
 
+    public RSVP(RSVPId pk, User user, Event event, RsvpValue rsvp) {
+        this.pk = pk;
+        this.user = user;
+        this.event = event;
+        this.rsvp = rsvp;
+    }
+
     public RSVP() {
     }
 

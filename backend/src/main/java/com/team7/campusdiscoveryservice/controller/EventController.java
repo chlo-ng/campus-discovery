@@ -1,6 +1,8 @@
 package com.team7.campusdiscoveryservice.controller;
 
 import com.team7.campusdiscoveryservice.entity.Event;
+import com.team7.campusdiscoveryservice.entity.RSVP;
+import com.team7.campusdiscoveryservice.entity.RsvpValue;
 import com.team7.campusdiscoveryservice.service.EventService;
 import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,11 @@ public class EventController {
                                       @PathVariable Long creatorID) throws URISyntaxException {
         Event savedEvent = eventService.createEvent(event, creatorID);
         return ResponseEntity.created(new URI("/events/" + savedEvent.getId())).body(savedEvent);
+    }
+
+    @PostMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
+    public RSVP createRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
+        return eventService.addRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
     }
 
     @PutMapping("events/{id}/{creatorID}")

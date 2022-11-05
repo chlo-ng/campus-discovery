@@ -1,8 +1,8 @@
 package com.team7.campusdiscoveryservice.service;
 
-import com.team7.campusdiscoveryservice.entity.Event;
-import com.team7.campusdiscoveryservice.entity.User;
+import com.team7.campusdiscoveryservice.entity.*;
 import com.team7.campusdiscoveryservice.repository.EventRepository;
+import com.team7.campusdiscoveryservice.repository.RSVPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,9 @@ public class EventService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RSVPRepository rsvpRepository;
 
     public List<Event> getEvents() {
         return this.eventRepository.findAll();
@@ -119,5 +122,16 @@ public class EventService {
 
     public void deleteEvent(Long id) {
         eventRepository.deleteById(id);
+    }
+
+    public RSVP addRSVP(Long eventId, Long userId, RsvpValue rsvpValue) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        RSVP rsvp = new RSVP(new RSVPId(userId, eventId), user, event, rsvpValue);
+
+        rsvpRepository.save(rsvp);
+
+        return rsvp;
     }
 }
