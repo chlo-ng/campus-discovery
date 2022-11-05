@@ -40,11 +40,13 @@ public class Event {
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator = new User();
 
-    @JsonIgnoreProperties({"rsvp", "createdEvents"})
-    @ManyToMany(mappedBy = "rsvp")
-    private Set<User> rsvped = new LinkedHashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+    private Set<RSVP> rsvped = new LinkedHashSet<RSVP>();
+
 
     public static final String defaultImageURL = "gtLogo.png";
+
 
 
     public Event() {
@@ -59,9 +61,6 @@ public class Event {
         this.image = image;
     }
 
-    public void addRSVPed(User user) {
-
-    }
     public Long getId() {
         return id;
     }
@@ -105,13 +104,8 @@ public class Event {
     public void setCreator(User creator) {
         this.creator = creator;
     }
-    public Set<User> getRsvped() {
-        return rsvped;
-    }
 
-    public void setRsvped(Set<User> rsvped) {
-        this.rsvped = rsvped;
-    }
+
 
     public String getLocation() {
         return location;
@@ -129,14 +123,16 @@ public class Event {
         this.image = image;
     }
 
+    public Set<RSVP> getRsvped() {
+        return rsvped;
+    }
+
+    public void setRsvped(Set<RSVP> rsvped) {
+        this.rsvped = rsvped;
+    }
+
     @PreRemove
     private void removeConnections() {
-//        this.getCreator().removeCreatedEvent(this);
-        for (User u: rsvped) {
-            u.removeRSVPEvent(this);
-        }
-
-        this.rsvped.clear();
 
     }
 

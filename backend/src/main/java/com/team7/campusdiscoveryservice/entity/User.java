@@ -1,6 +1,5 @@
 package com.team7.campusdiscoveryservice.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -32,16 +31,13 @@ public class User {
     private Role role;
 
     @JsonIgnoreProperties({"creator", "rsvped"})
-    @ManyToMany
-    @JoinTable(name = "users_rsvp",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "event_id"))
-    private Set<Event> rsvp = new LinkedHashSet<>();
-
-    @JsonIgnoreProperties({"creator", "rsvped"})
     @OneToMany(mappedBy = "creator",
             orphanRemoval = true)
     private Set<Event> createdEvents = new LinkedHashSet<>();
+
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    private Set<RSVP> rsvp = new LinkedHashSet<RSVP>();
 
     public User() {
     }
@@ -88,32 +84,23 @@ public class User {
         this.createdEvents = createdEvents;
     }
 
-    public Set<Event> getRsvp() {
-        return rsvp;
-    }
 
-    public void setRsvp(Set<Event> rsvp) {
-        this.rsvp = rsvp;
-    }
-
-    public void addRSVPEvent(Event event) {
-        this.rsvp.add(event);
-        event.getRsvped().add(this);
-    }
 
     public void removeCreatedEvent(Event event) {
         this.createdEvents.remove(event);
     }
 
-    public void removeRSVPEvent(Event event) {
-        this.rsvp.remove(event);
+    public Set<RSVP> getRsvp() {
+        return rsvp;
+    }
+
+    public void setRsvp(Set<RSVP> rsvp) {
+        this.rsvp = rsvp;
     }
 
     @PreRemove
     private void removeConnections() {
-        for (Event e: rsvp) {
-            e.getRsvped().remove(this);
-        }
+
     }
 
 

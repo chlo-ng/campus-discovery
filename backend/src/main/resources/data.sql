@@ -19,7 +19,7 @@ VALUES
    'https://d1fdloi71mui9q.cloudfront.net/NMgs240RlqYTL9g2qVPg_8sMLFUswP06DHFoS', 4),
    ('China Care Cure Your Cravings', '2022-11-11', '18:30:00', 'Support education and care of vulnerable Asian children. Presale: $6', 'Klaus Atrium', 
    'https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-6/312407275_542051751256969_4805148845801499825_n.jpg?stp=dst-jpg_p526x296&_nc_cat=100&ccb=1-7&_nc_sid=730e14&_nc_ohc=63y-EK5idtYAX8mvqYf&_nc_ht=scontent-atl3-2.xx&oh=00_AfCChZNoj2rkkRnJJcCki309NOAIikWSm2wzME7dheI5ow&oe=636506EC', 1),
-   ('AASA Tour of Asia', '2022-11-04', '18:00:00', 'Free food, photo booths, portrait artists, and fun activies by cultural organizations', 'Tech Green',
+   ('AASA Tour of Asia', '2022-11-04', '18:00:00', 'Free food, photo booths, portrait artists, and fun activities by cultural organizations', 'Tech Green',
    'https://scontent-atl3-2.xx.fbcdn.net/v/t39.30808-6/273205220_356414153154840_7975113860451698751_n.jpg?stp=dst-jpg_p960x960&_nc_cat=105&ccb=1-7&_nc_sid=e3f864&_nc_ohc=toeKhbJU8XQAX9d6lPd&_nc_ht=scontent-atl3-2.xx&oh=00_AfDWUIwhipCroTPYd8_8KekB7LHqZZYg5GSyjl9uhpIeHg&oe=63657229', 2),
    ('GTIA Night Market', '2022-11-03', '18:00:00', 'Come enjoy a night of music, food, art, and traditions featured by cultural organizations','Tech Green',
    'https://www.gatech.edu/sites/default/files/hg_media/9e28d8e7-7da3-4842-bfec-9efbe550dd0f4e408401-7249-4f11-a566-c13396417b0f.png', 3),
@@ -32,18 +32,16 @@ VALUES
    ('KUSA Fall Mixer', '2022-10-21', '17:00:00', 'First fall mixer with music by Alex Heisey', 'Student Center',
    'https://se-images.campuslabs.com/clink/images/8bca73f1-5c66-4924-b3ae-15af044168cd15220d48-b195-491d-b852-bb6687bdb80c.JPG?preset=med-sq', 3);
 
-
-
-INSERT INTO users_rsvp (user_id, event_id) VALUES
-    (1, 2),
-    (2, 1),
-    (3, 3),
-    (1, 4),
-    (4, 5),
-    (5, 6),
-    (2, 7),
-    (3, 8),
-    (5, 9),
-    (4, 10);
+INSERT INTO rsvp (user_id, event_id, rsvp) VALUES
+    (1, 2, 'YES'),
+    (2, 1, 'YES'),
+    (3, 3, 'NO'),
+    (1, 4, 'YES'),
+    (4, 5, 'NO'),
+    (5, 6, 'MAYBE'),
+    (2, 7, 'NO'),
+    (3, 8,'MAYBE'),
+    (5, 9, 'MAYBE'),
+    (4, 10, 'YES');
 
 
