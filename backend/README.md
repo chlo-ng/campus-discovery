@@ -23,7 +23,7 @@ Access at: http://localhost:8080/api/
 
 ## Users http://localhost:8080/api/users/
 User Objects: 
-id, username, password, role (STUDENT, TEACHER, or ALUMNI) , rsvp (Set), createdEvents (Set)
+id, username, password, role (STUDENT, TEACHER, or ALUMNI) , rsvp (Set), createdEvents (Set<Event>), invited (Set<Event>)
 
 Run the backend server and go to the link to test if there are User objects.
 
@@ -31,24 +31,23 @@ Run the backend server and go to the link to test if there are User objects.
 
 ### GET
 **GET:** returns list of user objects
-**
-GET('/{id}'):** returns user object with specified id
+
+**GET('/{id}'):** returns user object with specified id
 
 ### POST
 **POST:** pass in json body with username, password, and role to create new user
-**POST('users/login/'):** pass in json body with username, password to login, will return an error if invalid credentials
-**POST('users/rsvp/{userID}/{eventID}'):** RSVPs the user with userID to the event with eventID
+
+  **POST('users/login/'):** pass in json body with username, password to login, will return an error if invalid credentials
 
 ### PUT
 **PUT('/{id}'):** pass in json body with username, password, and role to update user with specified id
 
 ### DELETE
 **DELETE('/{id}'):** removes user with specified id from the database, including from rsvped, as well as events they created
-**DELETE('users/rsvp/{userID}/{eventID}'):** removes the RSVP of user with userID to event with eventID
 
 ## Events http://localhost:8080/api/events/
 Event Objects: 
-id, title, date (MUST BE IN MM-DD-YYYY format), startTime (MUST BE IN hh:mm:ss format), description, image (image url; defaults to gtLogo.png), creator (User), rsvped (Set), 
+id, title, date (MUST BE IN MM-DD-YYYY format), startTime (MUST BE IN hh:mm:ss format), description, inviteOnly (default false), image (image url; defaults to gtLogo.png), creator (User), rsvped (Set<RSVP>), invites (Set<Users>)
 
 Run the backend server and go to the link to test if there are Events objects.
 
@@ -60,7 +59,11 @@ Run the backend server and go to the link to test if there are Events objects.
 **GET('/{id}'):** returns event object with specified id
 
 ### POST
-**POST('/{creatorID}'}:** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to create new event
+**POST('/{creatorID}'}:** pass in json body with title, date, startTime, location, description, inviteOnly (default will be false) and image (if nothing passed in then default) with creatorID in path variable to create new event
+
+**POST('events/{eventID}/{userID}'):** pass in eventID and userID as path variables to create new invite
+ 
+
 
 ### PUT
 **PUT('/{id}/{creatorID}'):** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to update event with specified id
@@ -82,6 +85,21 @@ Run the backend server and go to the link to test if there are Events objects.
 
 ### DELETE
 **DELETE('/{id}'):** removes event with specified id from the database, as well as from rsvp
+
+**DELETE('events/{eventID}/{userID}'):** removes the invite for user with userID to event with eventID
+  
+## RSVP http://localhost:8080/api/rsvp/
+  
+RSVP objects have a composite key called pk = (Long userId, Long eventID) and an enum type RsvpValue (YES, MAYBE, NO)
+
+### POST
+**POST('{eventID}/{userID}/{rsvpValue}'):** creates new RSVP with rsvpValue for user with userID for event with eventID
+
+### PUT
+**PUT('{eventID}/{userID}/{rsvpValue}'):** updates the RSVP for user with userID for event with eventID to the passed in rsvpValue
+ 
+### DELETE
+**DELETE('{eventID}/{userID}/'):** deletes RSVP for user with userID for event with eventID
 
 # Java
 
