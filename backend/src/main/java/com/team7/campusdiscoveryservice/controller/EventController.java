@@ -45,11 +45,6 @@ public class EventController {
         return ResponseEntity.created(new URI("/events/" + savedEvent.getId())).body(savedEvent);
     }
 
-    @PostMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
-    public RSVP createRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
-        return eventService.addRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
-    }
-
     @PutMapping("events/{id}/{creatorID}")
     public ResponseEntity updateEvent(@PathVariable Long id,
                                      @RequestBody Event event,
@@ -141,6 +136,22 @@ public class EventController {
         return ResponseEntity.ok().build();
     }
 
+    //RSVP API
 
+    @PostMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
+    public RSVP createRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
+        return eventService.addRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
+    }
+
+    @PutMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
+    public RSVP updateRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
+        return eventService.updateRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
+    }
+
+    @DeleteMapping("rsvp/{eventID}/{userID}")
+    public ResponseEntity deleteRSVP(@PathVariable Long eventID, @PathVariable Long userID) {
+        eventService.deleteRSVP(eventID, userID);
+        return ResponseEntity.ok().build();
+    }
 
 }

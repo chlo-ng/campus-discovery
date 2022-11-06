@@ -134,4 +134,21 @@ public class EventService {
 
         return rsvp;
     }
+
+    public RSVP updateRSVP(Long eventId, Long userId, RsvpValue rsvpValue) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        RSVPId rsvpId = new RSVPId(userId, eventId);
+        RSVP rsvp = rsvpRepository.findById(rsvpId).orElseThrow(RuntimeException::new);
+        rsvp.setRsvp(rsvpValue);
+        rsvpRepository.save(rsvp);
+
+        return rsvp;
+    }
+
+    public void deleteRSVP(Long eventId, Long userId) {
+        RSVPId rsvpId = new RSVPId(userId, eventId);
+        rsvpRepository.deleteById(rsvpId);
+    }
 }
