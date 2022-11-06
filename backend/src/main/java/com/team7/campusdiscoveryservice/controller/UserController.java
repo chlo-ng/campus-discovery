@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("users/login/")
-    public ResponseEntity login(@RequestBody Login login, WebRequest req) throws URISyntaxException {
+    public ResponseEntity login(@RequestBody Login login) throws URISyntaxException {
 
        User user = userService.checkLogin(login);
        if (user == null) {

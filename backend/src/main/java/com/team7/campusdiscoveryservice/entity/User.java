@@ -30,7 +30,7 @@ public class User {
     @Column(name = "role", nullable = false)
     private Role role;
 
-    @JsonIgnoreProperties({"creator", "rsvped"})
+    @JsonIgnoreProperties({"creator", "rsvped", "invites"})
     @OneToMany(mappedBy = "creator",
             orphanRemoval = true)
     private Set<Event> createdEvents = new LinkedHashSet<>();
@@ -38,6 +38,10 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<RSVP> rsvp = new LinkedHashSet<RSVP>();
+
+    @JsonIgnoreProperties({"creator", "rsvped", "invites"})
+    @ManyToMany(mappedBy = "invites")
+    private Set<Event> invited = new LinkedHashSet<>();
 
     public User() {
     }
@@ -84,8 +88,6 @@ public class User {
         this.createdEvents = createdEvents;
     }
 
-
-
     public void removeCreatedEvent(Event event) {
         this.createdEvents.remove(event);
     }
@@ -98,9 +100,23 @@ public class User {
         this.rsvp = rsvp;
     }
 
+    public Set<Event> getInvited() {
+        return invited;
+    }
+
+    public void setInvited(Set<Event> invited) {
+        this.invited = invited;
+    }
+
+    public void removeInvite(Event event) {
+        this.invited.remove(event);
+    }
+
     @PreRemove
     private void removeConnections() {
-
+        for (Event e: invited) {
+            e.getInvites().remove(this);
+        }
     }
 
 

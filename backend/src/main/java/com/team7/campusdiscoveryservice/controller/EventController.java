@@ -136,8 +136,22 @@ public class EventController {
         return ResponseEntity.ok().build();
     }
 
-    //RSVP API
 
+    //INVITES API
+    @PostMapping("events/{eventID}/{userID}")
+    public ResponseEntity addInvite(@PathVariable Long eventID, @PathVariable Long userID) {
+        eventService.addInvite(eventID, userID);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("events/{eventID}/{userID}")
+    public ResponseEntity deleteInvite(@PathVariable Long eventID, @PathVariable Long userID) {
+        eventService.deleteInvite(eventID, userID);
+        return ResponseEntity.ok().build();
+    }
+
+
+    //RSVP API
     @PostMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
     public RSVP createRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
         return eventService.addRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));

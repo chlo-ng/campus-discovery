@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,7 +37,10 @@ public class Event {
     @Column(name = "image", nullable = false, length = 1000)
     private String image;
 
-    @JsonIgnoreProperties({"rsvp", "createdEvents"})
+    @Column(name = "inviteOnly", nullable = false)
+    private boolean inviteOnly = false;
+
+    @JsonIgnoreProperties({"rsvp", "createdEvents", "invited"})
     @ManyToOne(optional = false)
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator = new User();
@@ -45,9 +50,14 @@ public class Event {
     private Set<RSVP> rsvped = new LinkedHashSet<RSVP>();
 
 
+    @JsonIgnoreProperties({"rsvp", "createdEvents", "invited"})
+    @ManyToMany
+    @JoinTable(name = "event_invite",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> invites = new LinkedHashSet<>();
+
     public static final String defaultImageURL = "gtLogo.png";
-
-
 
     public Event() {
     }
@@ -106,7 +116,6 @@ public class Event {
     }
 
 
-
     public String getLocation() {
         return location;
     }
@@ -131,9 +140,29 @@ public class Event {
         this.rsvped = rsvped;
     }
 
+    public Set<User> getInvites() {
+        return invites;
+    }
+
+    public void setInvites(Set<User> invites) {
+        this.invites = invites;
+    }
+
+    public boolean isInviteOnly() {
+        return inviteOnly;
+    }
+
+    public void setInviteOnly(boolean inviteOnly) {
+        this.inviteOnly = inviteOnly;
+    }
+
     @PreRemove
     private void removeConnections() {
+        for (User u: invites) {
+            u.removeInvite(this);
+        }
 
+        this.invites.clear();
     }
 
 

@@ -50,6 +50,7 @@ public class EventService {
         currentEvent.setDescription(event.getDescription());
         currentEvent.setStartTime(event.getStartTime());
         currentEvent.setLocation(event.getLocation());
+        currentEvent.setInviteOnly(event.isInviteOnly());
         if (event.getImage() == null) {
             currentEvent.setImage(Event.defaultImageURL);
         } else {
@@ -124,6 +125,24 @@ public class EventService {
         eventRepository.deleteById(id);
     }
 
+    public void addInvite(Long eventId, Long userId) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        event.getInvites().add(user);
+        eventRepository.save(event);
+    }
+
+    public void deleteInvite(Long eventId, Long userId) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        event.getInvites().remove(user);
+        eventRepository.save(event);
+    }
+
+
+    //RSVP Specific Methods
     public RSVP addRSVP(Long eventId, Long userId, RsvpValue rsvpValue) {
         User user = userService.getUser(userId);
         Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
@@ -151,4 +170,5 @@ public class EventService {
         RSVPId rsvpId = new RSVPId(userId, eventId);
         rsvpRepository.deleteById(rsvpId);
     }
+
 }
