@@ -1,8 +1,8 @@
 package com.team7.campusdiscoveryservice.service;
 
-import com.team7.campusdiscoveryservice.entity.Event;
-import com.team7.campusdiscoveryservice.entity.User;
+import com.team7.campusdiscoveryservice.entity.*;
 import com.team7.campusdiscoveryservice.repository.EventRepository;
+import com.team7.campusdiscoveryservice.repository.RSVPRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +18,9 @@ public class EventService {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RSVPRepository rsvpRepository;
 
     public List<Event> getEvents() {
         return this.eventRepository.findAll();
@@ -47,6 +50,7 @@ public class EventService {
         currentEvent.setDescription(event.getDescription());
         currentEvent.setStartTime(event.getStartTime());
         currentEvent.setLocation(event.getLocation());
+        currentEvent.setInviteOnly(event.isInviteOnly());
         if (event.getImage() == null) {
             currentEvent.setImage(Event.defaultImageURL);
         } else {
@@ -120,4 +124,51 @@ public class EventService {
     public void deleteEvent(Long id) {
         eventRepository.deleteById(id);
     }
+
+    public void addInvite(Long eventId, Long userId) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        event.getInvites().add(user);
+        eventRepository.save(event);
+    }
+
+    public void deleteInvite(Long eventId, Long userId) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        event.getInvites().remove(user);
+        eventRepository.save(event);
+    }
+
+
+    //RSVP Specific Methods
+    public RSVP addRSVP(Long eventId, Long userId, RsvpValue rsvpValue) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        RSVP rsvp = new RSVP(new RSVPId(userId, eventId), user, event, rsvpValue);
+
+        rsvpRepository.save(rsvp);
+
+        return rsvp;
+    }
+
+    public RSVP updateRSVP(Long eventId, Long userId, RsvpValue rsvpValue) {
+        User user = userService.getUser(userId);
+        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
+
+        RSVPId rsvpId = new RSVPId(userId, eventId);
+        RSVP rsvp = rsvpRepository.findById(rsvpId).orElseThrow(RuntimeException::new);
+        rsvp.setRsvp(rsvpValue);
+        rsvpRepository.save(rsvp);
+
+        return rsvp;
+    }
+
+    public void deleteRSVP(Long eventId, Long userId) {
+        RSVPId rsvpId = new RSVPId(userId, eventId);
+        rsvpRepository.deleteById(rsvpId);
+    }
+
 }

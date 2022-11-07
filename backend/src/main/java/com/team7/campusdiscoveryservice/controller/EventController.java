@@ -1,6 +1,8 @@
 package com.team7.campusdiscoveryservice.controller;
 
 import com.team7.campusdiscoveryservice.entity.Event;
+import com.team7.campusdiscoveryservice.entity.RSVP;
+import com.team7.campusdiscoveryservice.entity.RsvpValue;
 import com.team7.campusdiscoveryservice.service.EventService;
 import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -135,5 +137,35 @@ public class EventController {
     }
 
 
+    //INVITES API
+    @PostMapping("events/{eventID}/{userID}")
+    public ResponseEntity addInvite(@PathVariable Long eventID, @PathVariable Long userID) {
+        eventService.addInvite(eventID, userID);
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("events/{eventID}/{userID}")
+    public ResponseEntity deleteInvite(@PathVariable Long eventID, @PathVariable Long userID) {
+        eventService.deleteInvite(eventID, userID);
+        return ResponseEntity.ok().build();
+    }
+
+
+    //RSVP API
+    @PostMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
+    public RSVP createRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
+        return eventService.addRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
+    }
+
+    @PutMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
+    public RSVP updateRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
+        return eventService.updateRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
+    }
+
+    @DeleteMapping("rsvp/{eventID}/{userID}")
+    public ResponseEntity deleteRSVP(@PathVariable Long eventID, @PathVariable Long userID) {
+        eventService.deleteRSVP(eventID, userID);
+        return ResponseEntity.ok().build();
+    }
 
 }

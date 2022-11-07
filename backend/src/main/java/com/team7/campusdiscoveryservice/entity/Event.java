@@ -5,7 +5,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,17 +37,27 @@ public class Event {
     @Column(name = "image", nullable = false, length = 1000)
     private String image;
 
-    @JsonIgnoreProperties({"rsvp", "createdEvents"})
+    @Column(name = "inviteOnly", nullable = false)
+    private boolean inviteOnly = false;
+
+    @JsonIgnoreProperties({"rsvp", "createdEvents", "invited"})
     @ManyToOne(optional = false)
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator = new User();
 
-    @JsonIgnoreProperties({"rsvp", "createdEvents"})
-    @ManyToMany(mappedBy = "rsvp")
-    private Set<User> rsvped = new LinkedHashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
+    private Set<RSVP> rsvped = new LinkedHashSet<RSVP>();
+
+
+    @JsonIgnoreProperties({"rsvp", "createdEvents", "invited"})
+    @ManyToMany
+    @JoinTable(name = "event_invite",
+            joinColumns = @JoinColumn(name = "event_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<User> invites = new LinkedHashSet<>();
 
     public static final String defaultImageURL = "gtLogo.png";
-
 
     public Event() {
     }
@@ -59,9 +71,6 @@ public class Event {
         this.image = image;
     }
 
-    public void addRSVPed(User user) {
-
-    }
     public Long getId() {
         return id;
     }
@@ -105,13 +114,7 @@ public class Event {
     public void setCreator(User creator) {
         this.creator = creator;
     }
-    public Set<User> getRsvped() {
-        return rsvped;
-    }
 
-    public void setRsvped(Set<User> rsvped) {
-        this.rsvped = rsvped;
-    }
 
     public String getLocation() {
         return location;
@@ -129,15 +132,37 @@ public class Event {
         this.image = image;
     }
 
+    public Set<RSVP> getRsvped() {
+        return rsvped;
+    }
+
+    public void setRsvped(Set<RSVP> rsvped) {
+        this.rsvped = rsvped;
+    }
+
+    public Set<User> getInvites() {
+        return invites;
+    }
+
+    public void setInvites(Set<User> invites) {
+        this.invites = invites;
+    }
+
+    public boolean isInviteOnly() {
+        return inviteOnly;
+    }
+
+    public void setInviteOnly(boolean inviteOnly) {
+        this.inviteOnly = inviteOnly;
+    }
+
     @PreRemove
     private void removeConnections() {
-//        this.getCreator().removeCreatedEvent(this);
-        for (User u: rsvped) {
-            u.removeRSVPEvent(this);
+        for (User u: invites) {
+            u.removeInvite(this);
         }
 
-        this.rsvped.clear();
-
+        this.invites.clear();
     }
 
 

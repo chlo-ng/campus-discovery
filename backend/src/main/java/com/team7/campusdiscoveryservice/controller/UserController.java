@@ -2,6 +2,7 @@ package com.team7.campusdiscoveryservice.controller;
 
 import com.team7.campusdiscoveryservice.entity.Event;
 import com.team7.campusdiscoveryservice.entity.Login;
+import com.team7.campusdiscoveryservice.entity.RSVP;
 import com.team7.campusdiscoveryservice.entity.User;
 import com.team7.campusdiscoveryservice.service.EventService;
 import com.team7.campusdiscoveryservice.service.UserService;
@@ -38,7 +39,6 @@ public class UserController {
         return userService.getUser(id);
     }
 
-
     @PostMapping("users")
     public ResponseEntity createUser(@RequestBody User user) throws URISyntaxException {
         User savedUser = userService.createUser(user);
@@ -46,7 +46,7 @@ public class UserController {
     }
 
     @PostMapping("users/login/")
-    public ResponseEntity login(@RequestBody Login login, WebRequest req) throws URISyntaxException {
+    public ResponseEntity login(@RequestBody Login login) throws URISyntaxException {
 
        User user = userService.checkLogin(login);
        if (user == null) {
@@ -56,15 +56,6 @@ public class UserController {
         return ResponseEntity.created(new URI("/users/" + user.getId())).body(user);
 
 
-    }
-
-    @PostMapping("users/rsvp/{userID}/{eventID}")
-    public ResponseEntity rsvpToEvent(@PathVariable Long userID,
-                                      @PathVariable Long eventID) throws URISyntaxException {
-        User user = userService.getUser(userID);
-        Event event = eventService.getEvent(eventID);
-        User u = userService.rsvpToEvent(user, event);
-        return ResponseEntity.created(new URI("/users/" + u.getId())).body(u);
     }
 
     @PutMapping("users/{id}")
@@ -78,14 +69,6 @@ public class UserController {
     @DeleteMapping("users/{id}")
     public ResponseEntity deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("users/rsvp/{userID}/{eventID}")
-    public ResponseEntity unRsvpToEvent(@PathVariable Long userID,
-                                        @PathVariable Long eventID) {
-        userService.unRsvpToEvent(userService.getUser(userID),
-                eventService.getEvent(eventID));
         return ResponseEntity.ok().build();
     }
 
