@@ -54,4 +54,13 @@ public class RSVP implements java.io.Serializable {
     public void setRsvp(RsvpValue rsvp) {
         this.rsvp = rsvp;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Event getEvent() {
+        return event;
+    }
+
 }

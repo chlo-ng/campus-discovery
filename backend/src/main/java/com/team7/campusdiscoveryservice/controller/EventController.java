@@ -3,6 +3,7 @@ package com.team7.campusdiscoveryservice.controller;
 import com.team7.campusdiscoveryservice.entity.Event;
 import com.team7.campusdiscoveryservice.entity.RSVP;
 import com.team7.campusdiscoveryservice.entity.RsvpValue;
+import com.team7.campusdiscoveryservice.entity.User;
 import com.team7.campusdiscoveryservice.service.EventService;
 import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 
 //Example for REST controller class
@@ -152,6 +154,10 @@ public class EventController {
 
 
     //RSVP API
+    @GetMapping("rsvp/{eventID}")
+    public ResponseEntity getRSVPs(@PathVariable Long eventID) {
+        return ResponseEntity.ok(eventService.getRSVPs(eventID));
+    }
     @PostMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
     public RSVP createRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
         return eventService.addRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
