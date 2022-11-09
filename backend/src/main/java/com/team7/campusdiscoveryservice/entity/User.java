@@ -35,7 +35,7 @@ public class User {
             orphanRemoval = true)
     private Set<Event> createdEvents = new LinkedHashSet<>();
 
-
+    @JsonIgnoreProperties({"creator", "rsvped", "invites", "user"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private Set<RSVP> rsvp = new LinkedHashSet<RSVP>();
 

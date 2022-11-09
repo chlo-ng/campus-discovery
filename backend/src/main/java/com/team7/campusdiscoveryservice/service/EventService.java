@@ -8,10 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 
 @Service
@@ -147,32 +144,6 @@ public class EventService {
 
 
     //RSVP Specific Methods
-
-    public Map<String, List<BasicUser>> getRSVPs(Long eventId) {
-        Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
-        List<BasicUser> yes = new LinkedList<>();
-        List<BasicUser> no = new LinkedList<>();
-        List<BasicUser> maybe = new LinkedList<>();
-
-        for (RSVP r: event.getRsvped()) {
-            User user = r.getUser();
-            if (r.getRsvp() == RsvpValue.YES) {
-                yes.add(new BasicUser(user.getId(), user.getUsername(), user.getRole()));
-            } else if (r.getRsvp() == RsvpValue.NO) {
-                no.add(new BasicUser(user.getId(), user.getUsername(), user.getRole()));
-            } else {
-                maybe.add(new BasicUser(user.getId(), user.getUsername(), user.getRole()));
-            }
-        }
-
-        Map<String, List<BasicUser>> map = new HashMap<>();
-        map.put("YES", yes);
-        map.put("NO", no);
-        map.put("MAYBE", maybe);
-
-        return map;
-
-    }
     public RSVP addRSVP(Long eventId, Long userId, RsvpValue rsvpValue) {
         User user = userService.getUser(userId);
         Event event = eventRepository.findById(eventId).orElseThrow(RuntimeException::new);
