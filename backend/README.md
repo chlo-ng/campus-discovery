@@ -91,6 +91,9 @@ Run the backend server and go to the link to test if there are Events objects.
 ## RSVP http://localhost:8080/api/rsvp/
   
 RSVP objects have a composite key called pk = (Long userId, Long eventID) and an enum type RsvpValue (YES, MAYBE, NO)
+ 
+### GET
+ **GET('{eventID}'):** gets the basic user information (id, username, role_ for users what have rsvped to the event
 
 ### POST
 **POST('{eventID}/{userID}/{rsvpValue}'):** creates new RSVP with rsvpValue for user with userID for event with eventID
@@ -106,7 +109,7 @@ RSVP objects have a composite key called pk = (Long userId, Long eventID) and an
 The Java files are located in the src/main/java/com/team7/campusdiscoveryservice/ directory. 
 
 ## Entity
-The entity folder holds the data types/Objects held in each table. There is an example User class in the folder with more details.
+The entity folder holds the data types/Objects held in each table and additional objects as needed.
 
 ## Repository
 The resository folder holds the interface classes for the different repositories. It extends [JpaRepository](https://docs.spring.io/spring-data/jpa/docs/current/api/org/springframework/data/jpa/repository/JpaRepository.html), and thus inherits its methods. There is an example UserRepository located in the folder.
