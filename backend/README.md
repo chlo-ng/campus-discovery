@@ -47,7 +47,7 @@ Run the backend server and go to the link to test if there are User objects.
 
 ## Events http://localhost:8080/api/events/
 Event Objects: 
-id, title, date (MUST BE IN MM-DD-YYYY format), startTime (MUST BE IN hh:mm:ss format), description, inviteOnly (default false), image (image url; defaults to gtLogo.png), creator (User), rsvped (Set<RSVP>), invites (Set<Users>)
+id, title, date (MUST BE IN MM-DD-YYYY format), startTime (MUST BE IN hh:mm:ss format), description, capacity, inviteOnly (default false), image (image url; defaults to gtLogo.png), creator (User), rsvped (Set<RSVP>), invites (Set<Users>)
 
 Run the backend server and go to the link to test if there are Events objects.
 
@@ -59,14 +59,14 @@ Run the backend server and go to the link to test if there are Events objects.
 **GET('/{id}'):** returns event object with specified id
 
 ### POST
-**POST('/{creatorID}'}:** pass in json body with title, date, startTime, location, description, inviteOnly (default will be false) and image (if nothing passed in then default) with creatorID in path variable to create new event
+**POST('/{creatorID}'}:** pass in json body with title, date, startTime, location, description, capacity, inviteOnly (default will be false) and image (if nothing passed in then default) with creatorID in path variable to create new event
 
 **POST('events/{eventID}/{userID}'):** pass in eventID and userID as path variables to create new invite
  
 
 
 ### PUT
-**PUT('/{id}/{creatorID}'):** pass in json body with title, date, startTime, location, description, and image (if nothing passed in then default) with creatorID in path variable to update event with specified id
+**PUT('/{id}/{creatorID}'):** pass in json body with title, date, startTime, location, description, capacity, and image (if nothing passed in then default) with creatorID in path variable to update event with specified id
 
 
 #### Request Parameter --> add ?parameter=value to the end of the request
@@ -93,7 +93,7 @@ Run the backend server and go to the link to test if there are Events objects.
 RSVP objects have a composite key called pk = (Long userId, Long eventID) and an enum type RsvpValue (YES, MAYBE, NO)
  
 ### GET
- **GET('{eventID}'):** gets the basic user information (id, username, role_ for users what have rsvped to the event
+ **GET('{eventID}'):** gets the basic user information (id, username, role) for users what have rsvped to the event
 
 ### POST
 **POST('{eventID}/{userID}/{rsvpValue}'):** creates new RSVP with rsvpValue for user with userID for event with eventID
