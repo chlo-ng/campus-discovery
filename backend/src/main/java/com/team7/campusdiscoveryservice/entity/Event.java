@@ -37,6 +37,9 @@ public class Event {
     @Column(name = "image", nullable = false, length = 1000)
     private String image;
 
+    @Column(name = "capacity", nullable = false)
+    private int capacity;
+
     @Column(name = "inviteOnly", nullable = false)
     private boolean inviteOnly = false;
 
@@ -60,6 +63,17 @@ public class Event {
     public static final String defaultImageURL = "gtLogo.png";
 
     public Event() {
+    }
+
+    public Event(String title, Date date, Time startTime, String description, String location, String image, int capacity, boolean inviteOnly) {
+        this.title = title;
+        this.date = date;
+        this.startTime = startTime;
+        this.description = description;
+        this.location = location;
+        this.image = image;
+        this.capacity = capacity;
+        this.inviteOnly = inviteOnly;
     }
 
     public Event(String title, Date date, Time startTime, String description, String location, String image) {
@@ -154,6 +168,14 @@ public class Event {
 
     public void setInviteOnly(boolean inviteOnly) {
         this.inviteOnly = inviteOnly;
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(int capacity) {
+        this.capacity = capacity;
     }
 
     @PreRemove

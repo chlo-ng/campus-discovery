@@ -53,6 +53,7 @@ public class EventService {
         currentEvent.setDescription(event.getDescription());
         currentEvent.setStartTime(event.getStartTime());
         currentEvent.setLocation(event.getLocation());
+        currentEvent.setCapacity(event.getCapacity());
         currentEvent.setInviteOnly(event.isInviteOnly());
         if (event.getImage() == null) {
             currentEvent.setImage(Event.defaultImageURL);
