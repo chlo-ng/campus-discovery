@@ -272,6 +272,7 @@
 
 .tab {
   overflow: hidden;
+  margin-top: 1em;
 }
 
 .tablinks {

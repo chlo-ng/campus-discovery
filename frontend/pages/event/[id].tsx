@@ -84,7 +84,16 @@ const Post: NextPage = () => {
             <div className={styles.bottombox}>
                 <p className={styles.info}>Event Description:<br></br></p>
                 <p className={styles.subtext}>{describe}</p>
-
+                
+                
+                <p className={styles.info}> # of Attendees:
+                { rsvpList && rsvpList.filter((item) => {
+                  return item?.rsvp == "YES"
+                }).length
+                }
+                </p>
+                
+                
                 <div className={styles.tab}>
                     <button className={activeTab === "attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("attending")}> 
                       Attending </button>
@@ -103,7 +112,7 @@ const Post: NextPage = () => {
                   <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "YES" && <li className={styles.attendees}>{item?.pk?.userId}</li>
+                        item?.rsvp == "YES" && <li className={styles.attendees}>{item?.user?.username}</li>
                       );
                     })}
                   </ul>
@@ -114,7 +123,7 @@ const Post: NextPage = () => {
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "NO" && <li className={styles.attendees}>{item?.pk?.userId}</li>
+                        item?.rsvp == "NO" && <li className={styles.attendees}>{item?.user?.username}</li>
                       );
                     })}
                   </ul>
@@ -124,7 +133,7 @@ const Post: NextPage = () => {
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "MAYBE" && <li className={styles.attendees}>{item?.pk?.userId}</li>
+                        item?.rsvp == "MAYBE" && <li className={styles.attendees}>{item?.user?.username}</li>
                       );
                     })}
                   </ul>
