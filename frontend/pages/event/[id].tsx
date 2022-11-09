@@ -16,7 +16,12 @@ const Post: NextPage = () => {
     const [location, setLocation] = useState('')
     const [describe, setDescribe] = useState('')
     const [image, setImage] = useState('')
+    const [invite, setInvite] = useState(Boolean)
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+
+    const [rsvpList, setRSVPList] = useState([]);
+    const [inviteList, setInviteList] = useState([]);
+    const [activeTab, setActiveTab] = useState("attending");
 
     if (typeof localStorage !== 'undefined') {
       var isAdmin = localStorage.getItem("role") === "TEACHER"
@@ -26,6 +31,7 @@ const Post: NextPage = () => {
     if (time[2] == undefined) {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
         response.json().then((res) => {
+          console.log(res)
           setEvent(res)
           setName(res["title"])
           setDate(new Date(res["date"]))
@@ -33,9 +39,14 @@ const Post: NextPage = () => {
           setDescribe(res["description"])
           setLocation(res["location"])
           setImage(res["image"])
+          setInvite(res["inviteOnly"])
+          setRSVPList(res["rsvped"])
+          setInviteList(res["invites"])
         })
       });
     }
+
+    console.log(rsvpList);
 
     async function bookmarkHandler(e:React.ChangeEvent<any>) {
         router.push('../config')
@@ -73,7 +84,62 @@ const Post: NextPage = () => {
             <div className={styles.bottombox}>
                 <p className={styles.info}>Event Description:<br></br></p>
                 <p className={styles.subtext}>{describe}</p>
+
+                <div className={styles.tab}>
+                    <button className={activeTab === "attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("attending")}> 
+                      Attending </button>
+                    <button className={activeTab === "not-attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("not-attending")}> 
+                      Not Attending </button>
+                    <button className={activeTab === "undecided" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks}onClick={() => setActiveTab("undecided")}> 
+                      Undecided </button>
+
+                    { event && (invite == true) &&
+                      <button className={activeTab === "no-reply" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks}  onClick={() => setActiveTab("no-reply")}> 
+                        No Reply </button>
+                    }
+                </div>
+
+                <div className={`${styles.tabcontent} ${activeTab === "attending" ? styles.activeTab : ''}`}>
+                  <ul className={styles.attendeeList}>
+                    {rsvpList && rsvpList.map((item) => {
+                      return (
+                        item?.rsvp == "YES" && <li className={styles.attendees}>{item?.pk?.userId}</li>
+                      );
+                    })}
+                  </ul>
+                  
+                </div>
+
+                <div className={`${styles.tabcontent} ${activeTab === "not-attending" ? styles.activeTab : ''}`}>
+                    <ul className={styles.attendeeList}>
+                    {rsvpList && rsvpList.map((item) => {
+                      return (
+                        item?.rsvp == "NO" && <li className={styles.attendees}>{item?.pk?.userId}</li>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                <div className={`${styles.tabcontent} ${activeTab === "undecided" ? styles.activeTab : ''}`}>
+                    <ul className={styles.attendeeList}>
+                    {rsvpList && rsvpList.map((item) => {
+                      return (
+                        item?.rsvp == "MAYBE" && <li className={styles.attendees}>{item?.pk?.userId}</li>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                { event && (invite == true) &&
+                  <div className={`${styles.tabcontent} ${activeTab === "no-reply" ? styles.activeTab : ''}`}>
+                    <ul className={styles.attendeeList}>
+                      <li className={styles.attendees}>display no reply</li>
+                    </ul>
+                  </div>
+                }
+
             </div>
+
           </div>
         </main>
     </div>

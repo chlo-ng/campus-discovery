@@ -270,6 +270,46 @@
   cursor: pointer;
 }
 
+.tab {
+  overflow: hidden;
+}
+
+.tablinks {
+  color: var(--gray);
+  background-color: #D9D9D9;
+  border: .5px solid;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-weight: bold;
+}
+
+.activeButton {
+  color: white;
+  background-color: var(--dark-gold);
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  width: 65%;
+}
+
+.activeTab {
+  display: block;
+}
+
+.attendeeList {
+  list-style-type: none;
+}
+
+.attendees {
+  padding-right: 5em;
+}
+
+
+
 
 
 
