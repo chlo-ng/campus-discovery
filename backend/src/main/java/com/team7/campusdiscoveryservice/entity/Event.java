@@ -5,9 +5,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -48,7 +46,7 @@ public class Event {
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator = new User();
 
-
+    @JsonIgnoreProperties({"rsvp", "createdEvents", "invited", "event"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
     private Set<RSVP> rsvped = new LinkedHashSet<RSVP>();
 

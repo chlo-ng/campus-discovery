@@ -154,10 +154,6 @@ public class EventController {
 
 
     //RSVP API
-    @GetMapping("rsvp/{eventID}")
-    public ResponseEntity getRSVPs(@PathVariable Long eventID) {
-        return ResponseEntity.ok(eventService.getRSVPs(eventID));
-    }
     @PostMapping("rsvp/{eventID}/{userID}/{rsvpValue}")
     public RSVP createRSVP(@PathVariable Long eventID, @PathVariable Long userID, @PathVariable String rsvpValue) {
         return eventService.addRSVP(eventID, userID, RsvpValue.valueOf(rsvpValue));
