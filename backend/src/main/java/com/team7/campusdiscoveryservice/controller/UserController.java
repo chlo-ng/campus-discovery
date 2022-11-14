@@ -1,8 +1,6 @@
 package com.team7.campusdiscoveryservice.controller;
 
-import com.team7.campusdiscoveryservice.entity.Event;
 import com.team7.campusdiscoveryservice.entity.Login;
-import com.team7.campusdiscoveryservice.entity.RSVP;
 import com.team7.campusdiscoveryservice.entity.User;
 import com.team7.campusdiscoveryservice.service.EventService;
 import com.team7.campusdiscoveryservice.service.UserService;
@@ -10,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 
 import java.net.URI;
 import java.net.URISyntaxException;

@@ -37,7 +37,7 @@ Run the backend server and go to the link to test if there are User objects.
 ### POST
 **POST:** pass in json body with username, password, and role to create new user
 
-  **POST('users/login/'):** pass in json body with username, password to login, will return an error if invalid credentials
+**POST('users/login/'):** pass in json body with username, password to login, will return an error if invalid credentials
 
 ### PUT
 **PUT('/{id}'):** pass in json body with username, password, and role to update user with specified id
@@ -91,9 +91,6 @@ Run the backend server and go to the link to test if there are Events objects.
 ## RSVP http://localhost:8080/api/rsvp/
   
 RSVP objects have a composite key called pk = (Long userId, Long eventID) and an enum type RsvpValue (YES, MAYBE, NO)
- 
-### GET
- **GET('{eventID}'):** gets the basic user information (id, username, role) for users what have rsvped to the event
 
 ### POST
 **POST('{eventID}/{userID}/{rsvpValue}'):** creates new RSVP with rsvpValue for user with userID for event with eventID
