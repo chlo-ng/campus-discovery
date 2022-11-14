@@ -283,6 +283,7 @@
   padding: 14px 16px;
   transition: 0.3s;
   font-weight: bold;
+  width: 12vw;
 }
 
 .activeButton {
@@ -294,7 +295,7 @@
   display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
-  width: 65%;
+  width: 48vw;
 }
 
 .activeTab {
@@ -303,12 +304,27 @@
 
 .attendeeList {
   list-style-type: none;
+  margin-left: 0;
 }
 
 .attendees {
-  padding-right: 5em;
+  display: flex;
+  justify-content: space-between;
+  border: .5px solid var(--gray);
+  border-radius: 3px;
+  
+  padding: 1em 1em;
+  width: 92%;
 }
 
+.removeButton {
+  width: 20px;
+  height: 20px;
+  justify-self: flex-end;
+  align-self: center;
+
+  cursor: pointer;
+}
 
 
 

@@ -5,6 +5,7 @@ import { useRouter } from "next/router"
 import Head from 'next/head'
 import NavBar from "../../components/NavBar"
 import styles from '../../styles/Events.module.css'
+import { NavItem } from "react-bootstrap"
 
 const Post: NextPage = () => {
     const router = useRouter()
@@ -22,6 +23,7 @@ const Post: NextPage = () => {
     const [rsvpList, setRSVPList] = useState([]);
     const [inviteList, setInviteList] = useState([]);
     const [activeTab, setActiveTab] = useState("attending");
+    const [rsvpUser, setrsvpUser] = useState('')
 
     if (typeof localStorage !== 'undefined') {
       var isAdmin = localStorage.getItem("role") === "TEACHER"
@@ -50,6 +52,28 @@ const Post: NextPage = () => {
 
     async function bookmarkHandler(e:React.ChangeEvent<any>) {
         router.push('../config')
+    }
+
+    function deleteHandler(rsvpUser: Number) {
+
+      console.log(rsvpUser)
+      console.log("http://localhost:8080/rsvp/" + id + "/" + rsvpUser)
+      if (confirm('Are you sure you want to remove this user?')) {
+        fetch("http://localhost:8080/rsvp/" + id + "/" + rsvpUser, {
+
+        //Will fail to fetch due to id again. 
+        method: "DELETE",
+        headers: { 
+            "Content-Type": "application/json",
+        },
+        }).then(res => {
+          if (res.ok) {
+            router.push("../events"); 
+          } else {
+            alert("Error when deleting please try again.");
+          }
+        });
+      } 
     }
 
     return (
@@ -112,7 +136,13 @@ const Post: NextPage = () => {
                   <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "YES" && <li className={styles.attendees}>{item?.user?.username}</li>
+                        item?.rsvp == "YES" && 
+                        <li className={styles.attendees}>
+                          {item?.user?.username}
+                          {(isAdmin || (userID == event.creator.id)) &&
+                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item.user.id)}/>
+                          }
+                          </li>
                       );
                     })}
                   </ul>
@@ -123,7 +153,10 @@ const Post: NextPage = () => {
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "NO" && <li className={styles.attendees}>{item?.user?.username}</li>
+                        item?.rsvp == "NO" && 
+                        <li className={styles.attendees}>
+                          {item?.user?.username}
+                        </li>
                       );
                     })}
                   </ul>
