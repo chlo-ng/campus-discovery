@@ -24,9 +24,7 @@ const Post: NextPage = () => {
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
     const [rsvpList, setRSVPList] = useState([]);
-    const [inviteList, setInviteList] = useState([]);
     const [activeTab, setActiveTab] = useState("attending");
-    const [rsvpUser, setrsvpUser] = useState('')
     const [pageNumber, setPageNumber] = useState(0);
 
     if (typeof localStorage !== 'undefined') {
@@ -55,8 +53,7 @@ const Post: NextPage = () => {
             }
             setInviteOnly(res["inviteOnly"])
           }
-          // setRSVPList(res["rsvped"])
-          // setInviteList(res["invites"])
+          setRSVPList(res["rsvped"])
           setPageNumber(0)
         })
       });
@@ -102,7 +99,7 @@ const Post: NextPage = () => {
       });
     }
 
-    function deleteHandler(rsvpUser: Number) {
+    function removeUser(rsvpUser: Number) {
 
       if (confirm('Are you sure you want to remove this user?')) {
         fetch("http://localhost:8080/api/rsvp/" + id + "/" + rsvpUser, {
@@ -173,7 +170,7 @@ const Post: NextPage = () => {
                     <button className={activeTab === "undecided" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks}onClick={() => setActiveTab("undecided")}> 
                       Undecided </button>
 
-                    { event && (invite == true) &&
+                    { event && (inviteOnly == true) &&
                       <button className={activeTab === "no-reply" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks}  onClick={() => setActiveTab("no-reply")}> 
                         No Reply </button>
                     }
@@ -187,7 +184,7 @@ const Post: NextPage = () => {
                         <li className={styles.attendees}>
                           {item?.user?.username}
                           {(isAdmin || (userID == event.creator.id)) &&
-                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
+                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => removeUser(item?.user?.id)}/>
                           }
                           </li>
                       );
@@ -216,10 +213,12 @@ const Post: NextPage = () => {
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "NO" && !invite &&
+                        item?.rsvp == "NO" && !inviteOnly &&
                         <li className={styles.attendees}>
                           {item?.user?.username}
-                          <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
+                          {(isAdmin || (userID == event.creator.id)) &&
+                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => removeUser(item?.user?.id)}/>
+                          }
                         </li>
                       );
                     })}
@@ -233,7 +232,7 @@ const Post: NextPage = () => {
                     }
 
                     {(pageNumber < Math.floor((rsvpList && rsvpList.filter((item) => {
-                        return item?.rsvp == "NO" && !invite
+                        return item?.rsvp == "NO" && !inviteOnly
                       }).length - 1)/3)) && 
                       <a onClick={e => setPageNumber(pageNumber + 1)}>
                         <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
@@ -249,7 +248,9 @@ const Post: NextPage = () => {
                       return (
                         item?.rsvp == "MAYBE" && <li className={styles.attendees}>
                           {item?.user?.username}
-                          <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
+                          {(isAdmin || (userID == event.creator.id)) &&
+                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => removeUser(item?.user?.id)}/>
+                          }
                           </li>
                       );
                     })}
@@ -272,14 +273,16 @@ const Post: NextPage = () => {
                   </ul>   
                 </div>
 
-                { event && (invite == true) &&
+                { event && (inviteOnly == true) &&
                   <div className={`${styles.tabcontent} ${activeTab === "no-reply" ? styles.activeTab : ''}`}>
                     <ul className={styles.attendeeList}>
                       {rsvpList && rsvpList.map((item) => {
                       return (
                         item?.rsvp == "NO" && <li className={styles.attendees}>
                           {item?.user?.username}
-                          <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
+                          {(isAdmin || (userID == event.creator.id)) &&
+                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => removeUser(item?.user?.id)}/>
+                          }
                           </li>
                       );
                     })}
