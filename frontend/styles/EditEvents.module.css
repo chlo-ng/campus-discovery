@@ -23,7 +23,7 @@
   display: flex;
   gap: 1em;
   margin-top: -.05em;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   height: 22px;
 }
   
@@ -87,8 +87,8 @@
   
   .eventImage {
     object-fit: cover;
-    width: 30vw;
-    height: 200px;
+    width: 40vw;
+    height: 225px;
     border: 3px solid black;
     align-self: center;
     overflow: hidden;
@@ -99,12 +99,12 @@
   .eventDetails {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 0.6em;
     margin-top: auto;
     margin-bottom: auto;
     padding-left: 20px;
     /* padding-top: 10px; */
-    height: 260px;
+    height: 220px;
     width: 7em;
     /* background-color: green; */
   }
@@ -118,15 +118,14 @@
   .eventForm {
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: 0.5em;
     margin-top: auto;
     margin-bottom: auto;
     padding-left: 20px;
-    height: 280px;
+    height: 220px;
     width: 15em;
 
     justify-self: flex-end;
-    /* background-color: green; */
   }
 
 .iconBar {
@@ -190,7 +189,7 @@
   padding: 1px 5px 1px 5px;
   text-align: left;
   margin-top: .5em;
-  display:flex;
+  display: flex;
   border-radius: 7px;
   height: 80%;
   width: 60vw;
@@ -205,7 +204,7 @@
   display: flex;
   border-radius: 7px;
   height: 22px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   font-family: var(--font-body);
 }
 
@@ -238,6 +237,6 @@
   margin: 0px;
   height: 22px;
   width: 22px;
-  margin-bottom: 5px;
+  margin-bottom: 2px;
   accent-color: var(--navy);
 }
