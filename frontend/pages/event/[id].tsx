@@ -12,6 +12,7 @@ const Post: NextPage = () => {
     const { id } = router.query
     const [event, setEvent] = useState()
     const [name, setName] = useState('')
+    const [capacity, setCapacity] = useState(0)
     var [date, setDate] = useState(new Date())
     const [time, setTime] = useState(['00', '00'])
     const [location, setLocation] = useState('')
@@ -35,6 +36,7 @@ const Post: NextPage = () => {
         response.json().then((res) => {
           console.log(res)
           setEvent(res)
+          setCapacity(res["capacity"])
           setName(res["title"])
           setDate(new Date(res["date"]))
           setTime(res["startTime"] ? res["startTime"].split(":") : ['00', '00'])
@@ -48,8 +50,6 @@ const Post: NextPage = () => {
       });
     }
 
-    console.log(rsvpList);
-
     async function bookmarkHandler(e:React.ChangeEvent<any>) {
         router.push('../config')
     }
@@ -59,7 +59,7 @@ const Post: NextPage = () => {
       console.log(rsvpUser)
       console.log("http://localhost:8080/rsvp/" + id + "/" + rsvpUser)
       if (confirm('Are you sure you want to remove this user?')) {
-        fetch("http://localhost:8080/rsvp/" + id + "/" + rsvpUser, {
+        fetch("http://localhost:8080/api/rsvp/" + id + "/" + rsvpUser, {
 
         //Will fail to fetch due to id again. 
         method: "DELETE",
@@ -68,7 +68,7 @@ const Post: NextPage = () => {
         },
         }).then(res => {
           if (res.ok) {
-            router.push("../events"); 
+            router.reload(); 
           } else {
             alert("Error when deleting please try again.");
           }
@@ -110,11 +110,12 @@ const Post: NextPage = () => {
                 <p className={styles.subtext}>{describe}</p>
                 
                 
-                <p className={styles.info}> # of Attendees:
+                <p className={styles.info}> Capacity: 
                 { rsvpList && rsvpList.filter((item) => {
                   return item?.rsvp == "YES"
-                }).length
-                }
+                }).length }
+                 / 
+                {capacity}
                 </p>
                 
                 
@@ -140,7 +141,7 @@ const Post: NextPage = () => {
                         <li className={styles.attendees}>
                           {item?.user?.username}
                           {(isAdmin || (userID == event.creator.id)) &&
-                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item.user.id)}/>
+                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
                           }
                           </li>
                       );
@@ -153,7 +154,7 @@ const Post: NextPage = () => {
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "NO" && 
+                        item?.rsvp == "NO" && !invite &&
                         <li className={styles.attendees}>
                           {item?.user?.username}
                         </li>
@@ -166,7 +167,9 @@ const Post: NextPage = () => {
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "MAYBE" && <li className={styles.attendees}>{item?.user?.username}</li>
+                        item?.rsvp == "MAYBE" && <li className={styles.attendees}>
+                          {item?.user?.username}
+                          </li>
                       );
                     })}
                   </ul>
@@ -175,7 +178,13 @@ const Post: NextPage = () => {
                 { event && (invite == true) &&
                   <div className={`${styles.tabcontent} ${activeTab === "no-reply" ? styles.activeTab : ''}`}>
                     <ul className={styles.attendeeList}>
-                      <li className={styles.attendees}>display no reply</li>
+                      {rsvpList && rsvpList.map((item) => {
+                      return (
+                        item?.rsvp == "NO" && <li className={styles.attendees}>
+                          {item?.user?.username}
+                          </li>
+                      );
+                    })}
                     </ul>
                   </div>
                 }
