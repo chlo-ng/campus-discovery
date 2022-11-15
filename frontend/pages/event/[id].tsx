@@ -25,6 +25,7 @@ const Post: NextPage = () => {
     const [inviteList, setInviteList] = useState([]);
     const [activeTab, setActiveTab] = useState("attending");
     const [rsvpUser, setrsvpUser] = useState('')
+    const [pageNumber, setPageNumber] = useState(0);
 
     if (typeof localStorage !== 'undefined') {
       var isAdmin = localStorage.getItem("role") === "TEACHER"
@@ -46,6 +47,7 @@ const Post: NextPage = () => {
           setInvite(res["inviteOnly"])
           setRSVPList(res["rsvped"])
           setInviteList(res["invites"])
+          setPageNumber(0)
         })
       });
     }
@@ -56,8 +58,6 @@ const Post: NextPage = () => {
 
     function deleteHandler(rsvpUser: Number) {
 
-      console.log(rsvpUser)
-      console.log("http://localhost:8080/rsvp/" + id + "/" + rsvpUser)
       if (confirm('Are you sure you want to remove this user?')) {
         fetch("http://localhost:8080/api/rsvp/" + id + "/" + rsvpUser, {
 
@@ -135,7 +135,7 @@ const Post: NextPage = () => {
 
                 <div className={`${styles.tabcontent} ${activeTab === "attending" ? styles.activeTab : ''}`}>
                   <ul className={styles.attendeeList}>
-                    {rsvpList && rsvpList.map((item) => {
+                    {rsvpList && rsvpList.slice(pageNumber * 3, pageNumber*3 + 3)?.map((item) => {
                       return (
                         item?.rsvp == "YES" && 
                         <li className={styles.attendees}>
@@ -148,6 +148,22 @@ const Post: NextPage = () => {
                     })}
                   </ul>
                   
+                  <ul className={styles.paginationWrapper}> 
+                    {pageNumber > 0 &&
+                      <a onClick={e => setPageNumber(pageNumber - 1)}> 
+                        <img className={`${styles.backButton}`} src="/triangle.png"/>
+                      </a>
+                    }
+
+                    {(pageNumber < Math.floor((rsvpList && rsvpList.filter((item) => {
+                        return item?.rsvp == "YES"
+                      }).length - 1)/3)) && 
+                      <a onClick={e => setPageNumber(pageNumber + 1)}>
+                        <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
+                      </a>
+                    }
+                  </ul>   
+
                 </div>
 
                 <div className={`${styles.tabcontent} ${activeTab === "not-attending" ? styles.activeTab : ''}`}>
@@ -157,22 +173,57 @@ const Post: NextPage = () => {
                         item?.rsvp == "NO" && !invite &&
                         <li className={styles.attendees}>
                           {item?.user?.username}
+                          <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
                         </li>
                       );
                     })}
                   </ul>
+                  
+                  <ul className={styles.paginationWrapper}> 
+                    {pageNumber > 0 &&
+                      <a onClick={e => setPageNumber(pageNumber - 1)}> 
+                        <img className={`${styles.backButton}`} src="/triangle.png"/>
+                      </a>
+                    }
+
+                    {(pageNumber < Math.floor((rsvpList && rsvpList.filter((item) => {
+                        return item?.rsvp == "NO" && !invite
+                      }).length - 1)/3)) && 
+                      <a onClick={e => setPageNumber(pageNumber + 1)}>
+                        <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
+                      </a>
+                    }
+                  </ul>   
+
                 </div>
 
                 <div className={`${styles.tabcontent} ${activeTab === "undecided" ? styles.activeTab : ''}`}>
-                    <ul className={styles.attendeeList}>
+                  <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
                         item?.rsvp == "MAYBE" && <li className={styles.attendees}>
                           {item?.user?.username}
+                          <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
                           </li>
                       );
                     })}
                   </ul>
+
+                  <ul className={styles.paginationWrapper}> 
+                    {pageNumber > 0 &&
+                      <a onClick={e => setPageNumber(pageNumber - 1)}> 
+                        <img className={`${styles.backButton}`} src="/triangle.png"/>
+                      </a>
+                    }
+
+                    {(pageNumber < Math.floor((rsvpList && rsvpList.filter((item) => {
+                        return item?.rsvp == "MAYBE"
+                      }).length - 1)/3)) && 
+                      <a onClick={e => setPageNumber(pageNumber + 1)}>
+                        <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
+                      </a>
+                    }
+                  </ul>   
                 </div>
 
                 { event && (invite == true) &&
@@ -182,10 +233,27 @@ const Post: NextPage = () => {
                       return (
                         item?.rsvp == "NO" && <li className={styles.attendees}>
                           {item?.user?.username}
+                          <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteHandler(item?.user?.id)}/>
                           </li>
                       );
                     })}
                     </ul>
+
+                    <ul className={styles.paginationWrapper}> 
+                    {pageNumber > 0 &&
+                      <a onClick={e => setPageNumber(pageNumber - 1)}> 
+                        <img className={`${styles.backButton}`} src="/triangle.png"/>
+                      </a>
+                    }
+
+                    {(pageNumber < Math.floor((rsvpList && rsvpList.filter((item) => {
+                        return item?.rsvp == "NO"
+                      }).length - 1)/3)) && 
+                      <a onClick={e => setPageNumber(pageNumber + 1)}>
+                        <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
+                      </a>
+                    }
+                  </ul>
                   </div>
                 }
 
