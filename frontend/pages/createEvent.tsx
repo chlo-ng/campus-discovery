@@ -13,6 +13,7 @@ const CreateEvent: NextPage = () => {
     const [location, setLocation] = useState('')
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
+    const [inviteOnly, setInviteOnly] = useState('')
     const [capacity, setCapacity] = useState('')
 
 
@@ -29,7 +30,8 @@ const CreateEvent: NextPage = () => {
             description: description,
             location: location,
             image: image,
-            capacity: capacity
+            capacity: capacity,
+            inviteOnly: inviteOnly
         }
 
         var dateElement = document.getElementById("date")
@@ -159,6 +161,12 @@ const CreateEvent: NextPage = () => {
               <div className={styles.question}>
                 <p className={styles.label}>Description:</p>
                 <textarea className={styles.description} required={true} onChange={e => setDescription(e.target.value)} />
+              </div>
+              <div className={styles.question}>
+                <p className={styles.label}>Invite Only:</p>
+                <div className={styles.inputContainer}>
+                <input className={styles.input}  id = "inviteOnly"  type = "checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/>
+                </div>
               </div>
               <button className={styles.submitButton} type="submit" onClick={submitHandler}>Submit</button>
             </form>
