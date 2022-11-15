@@ -9,6 +9,7 @@ import styles from '../../styles/Event.module.css'
 const Post: NextPage = () => {
     const router = useRouter()
     const { id } = router.query
+    const [reload, setReload] = useState(true)
     const [event, setEvent] = useState()
     const [name, setName] = useState('')
     const [capacity, setCapacity] = useState(0)
@@ -22,25 +23,26 @@ const Post: NextPage = () => {
     const [hasRsvp, setHasRsvp] = useState(false)
     const [inviteOnly, setInviteOnly] = useState(false)
     const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-
     const [rsvpList, setRSVPList] = useState([]);
     const [activeTab, setActiveTab] = useState("attending");
     const [pageNumber, setPageNumber] = useState(0);
+    const [invites, setInvites] = useState([])
+    const [invited, setInvited] = useState(false)
+    const [invitePopup, setInvitePopup] = useState(false)
+    const [invitedUser, setInvitedUser] = useState('')
 
     if (typeof localStorage !== 'undefined') {
       var isAdmin = localStorage.getItem("role") === "TEACHER"
       var userID = localStorage.getItem("id")
     }
     
-    if (time[2] == undefined) {
+    if (reload) {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
         response.json().then((res) => {
           if (res.id) {
-            console.log(res)
-            console.log(res)
-          setEvent(res)
+            setEvent(res)
             setCapacity(res["capacity"])
-          setName(res["title"])
+            setName(res["title"])
             setDate(new Date(res["date"]))
             setTime(res["startTime"] ? res["startTime"].split(":") : ['00', '00'])
             setDescribe(res["description"])
@@ -52,9 +54,13 @@ const Post: NextPage = () => {
               setRsvp(res.rsvped.find((item: any) => (item.user.id == userID)).rsvp)
             }
             setInviteOnly(res["inviteOnly"])
+            setRSVPList(res["rsvped"])
+            const rsvpIds = res.rsvped.map((item: any) => {return item.pk.userId})
+            setInvites(res["invites"].filter((invite: any) => {return !rsvpIds.includes(invite.id)}))
+            setInvited(res["invites"].map((invite: any) => {return invite.id.toString()}).includes(userID))
+            setReload(false)
+            setPageNumber(0)
           }
-          setRSVPList(res["rsvped"])
-          setPageNumber(0)
         })
       });
     }
@@ -67,14 +73,14 @@ const Post: NextPage = () => {
             method: "PUT"}).then(res => {
               setHasRsvp(true)
               setPopup(false)
-              router.reload()
+              setReload(true)
           });
         } else {
           fetch("http://localhost:8080/api/rsvp/" + id + "/" + userID + "/" + rsvp, {
             method: "POST"}).then(res => {
               setHasRsvp(true)
               setPopup(false)
-              router.reload()
+              setReload(true)
           });
         }
       } else {
@@ -92,11 +98,46 @@ const Post: NextPage = () => {
             setRsvp('')
             setHasRsvp(false)
             setPopup(false)
-            router.reload()
+            setReload(true)
           } else {
             alert("Error when deleting please try again.");
           }
       });
+    }
+
+    async function deleteInvite(rsvpUser: Number) {
+      fetch("http://localhost:8080/api/events/" + id + "/" + rsvpUser, {
+        method: "DELETE"}).then(res => {
+          if (res.ok) {
+            alert("Invite deleted.")
+            setReload(true)
+          } else {
+            alert("Error when deleting please try again.");
+          }
+      });
+    }
+
+    async function inviteSubmitHandler(e: React.ChangeEvent<any>) {
+      e.preventDefault()
+      if (invitedUser !== '') {
+        fetch("http://localhost:8080/api/users/username/" + invitedUser, {
+          method: "GET"}).then(res => {
+            if (res.ok) {
+              res.json().then(user => {
+                fetch("http://localhost:8080/api/events/" + id + "/" + user.id, {
+                  method: "POST"}).then(res => {
+                    setInvitedUser('')
+                    setInvitePopup(false)
+                    setReload(true)
+                });
+              })
+            } else {
+              alert("This user does not exist.")
+            }
+        });
+      } else {
+        alert("Please type in a username.")
+      }
     }
 
     function removeUser(rsvpUser: Number) {
@@ -111,7 +152,7 @@ const Post: NextPage = () => {
         },
         }).then(res => {
           if (res.ok) {
-            router.reload(); 
+            setReload(true)
           } else {
             alert("Error when deleting please try again.");
           }
@@ -142,7 +183,7 @@ const Post: NextPage = () => {
                   <p className={styles.text}>{location}</p>
                 </div>
                 <div>
-                  {!inviteOnly && <img className= {styles.icon} src="../bookmark.png" onClick={e => setPopup(true)}></img>}
+                  {(!inviteOnly || invited) && <img className= {styles.icon} src="../bookmark.png" onClick={e => setPopup(true)}></img>}
                   {event && (isAdmin || (userID == event.creator?.id)) &&
                     <img className={styles.icon} src={"/editButton.png"} onClick={e => router.push("/editEvent/" + id)} />
                   }
@@ -152,15 +193,18 @@ const Post: NextPage = () => {
                 <p className={styles.info}>Event Description:<br></br></p>
                 <p className={styles.subtext}>{describe}</p>
                 
-                
-                <p className={styles.info}> Capacity: 
-                { rsvpList && rsvpList.filter((item) => {
-                  return item?.rsvp == "YES"
-                }).length }
-                 / 
-                {capacity}
-                </p>
-                
+                <div className={styles.capacityRow}>
+                  <p className={`${styles.info} ${styles.capacityText}`}>Capacity:&nbsp;
+                  {rsvpList && rsvpList.filter((item) => {
+                    return item?.rsvp == "YES"
+                  }).length }
+                  / 
+                  {capacity}
+                  </p>
+                  {event && inviteOnly && (isAdmin || (userID == event.creator?.id)) &&
+                    <button className={`${styles.popupButton} ${styles.inviteButton}`} onClick={e => setInvitePopup(true)}>Invite</button>
+                  }
+                </div>
                 
                 <div className={styles.tab}>
                     <button className={activeTab === "attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("attending")}> 
@@ -213,7 +257,7 @@ const Post: NextPage = () => {
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
                       return (
-                        item?.rsvp == "NO" && !inviteOnly &&
+                        item?.rsvp == "NO" &&
                         <li className={styles.attendees}>
                           {item?.user?.username}
                           {(isAdmin || (userID == event.creator.id)) &&
@@ -232,7 +276,7 @@ const Post: NextPage = () => {
                     }
 
                     {(pageNumber < Math.floor((rsvpList && rsvpList.filter((item) => {
-                        return item?.rsvp == "NO" && !inviteOnly
+                        return item?.rsvp == "NO"
                       }).length - 1)/3)) && 
                       <a onClick={e => setPageNumber(pageNumber + 1)}>
                         <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
@@ -276,12 +320,12 @@ const Post: NextPage = () => {
                 { event && (inviteOnly == true) &&
                   <div className={`${styles.tabcontent} ${activeTab === "no-reply" ? styles.activeTab : ''}`}>
                     <ul className={styles.attendeeList}>
-                      {rsvpList && rsvpList.map((item) => {
+                      {invites.map((item: any) => {
                       return (
-                        item?.rsvp == "NO" && <li className={styles.attendees}>
-                          {item?.user?.username}
+                        <li className={styles.attendees}>
+                          {item.username}
                           {(isAdmin || (userID == event.creator.id)) &&
-                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => removeUser(item?.user?.id)}/>
+                            <img className={styles.removeButton} src={"/remove.png"} onClick={() => deleteInvite(item.id)}/>
                           }
                           </li>
                       );
@@ -295,9 +339,7 @@ const Post: NextPage = () => {
                       </a>
                     }
 
-                    {(pageNumber < Math.floor((rsvpList && rsvpList.filter((item) => {
-                        return item?.rsvp == "NO"
-                      }).length - 1)/3)) && 
+                    {(pageNumber < Math.floor((invites.length - 1)/3)) && 
                       <a onClick={e => setPageNumber(pageNumber + 1)}>
                         <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                       </a>
@@ -315,7 +357,7 @@ const Post: NextPage = () => {
                     setPopup(false)
                   }}/>
                 <div className={styles.popupContainer}>
-                  <p className= {styles.info}>Please select your RSVP.</p>
+                  <p className={styles.info}>Please select your RSVP.</p>
                   <div className={styles.popupButtons}>
                     {["YES", "NO", "MAYBE"].map((item) => {
                       return (
@@ -333,6 +375,24 @@ const Post: NextPage = () => {
                 </div>
               </div>
             </div>}
+
+            {invitePopup && <div className={styles.popup}>
+              <div className={styles.popupForm}>
+                <img className={styles.popupExitIcon} 
+                  src="/cross.png"
+                  onClick={() => {
+                    setInvitePopup(false)
+                  }}/>
+                <div className={styles.popupContainer}>
+                  <p className={styles.info}>Please type the username of the user you wish to invite.</p>
+                  <input className={styles.inviteInput} onChange={e => setInvitedUser(e.target.value)}></input>
+                  <div className={styles.popupSubmitButtons}>
+                    <button className={`${styles.popupSubmitButton} ${styles.popupButton}`} onClick={inviteSubmitHandler}>SUBMIT</button>
+                  </div>
+                </div>
+              </div>
+            </div>}
+
           </div>
         </main>
     </div>

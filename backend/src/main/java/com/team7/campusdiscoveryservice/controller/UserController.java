@@ -36,6 +36,17 @@ public class UserController {
         return userService.getUser(id);
     }
 
+    @GetMapping("users/username/{username}")
+    public ResponseEntity getUser(@PathVariable String username) {
+        User user = userService.getUserByUsername(username);
+
+        if (user == null) {
+            return new ResponseEntity<String>("Invalid username",
+                    HttpStatus.BAD_REQUEST);
+        }
+        return ResponseEntity.ok(user);
+    }
+
     @PostMapping("users")
     public ResponseEntity createUser(@RequestBody User user) throws URISyntaxException {
         User savedUser = userService.createUser(user);
