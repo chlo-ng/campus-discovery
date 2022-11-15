@@ -59,12 +59,6 @@
   transform: rotate(180deg);
 }
 
-.editButton {
-  height: 30px;
-  width: 30px;
-  margin: 15px;
-}
-
 .upperRight {
   display: flex;
   flex-direction: column;
@@ -260,8 +254,8 @@
 
 .editButton {
   z-index: 5;
-  width: 25px;
-  height: 25px;
+  width: 30px;
+  height: 30px;
   color: var(--dark-gold);
   justify-self: flex-end;
 }
@@ -269,6 +263,7 @@
 .editButton:hover {
   cursor: pointer;
 }
+
 
 
 
