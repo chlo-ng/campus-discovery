@@ -135,6 +135,9 @@ const EditEvent: NextPage = () => {
       async function returnHandler(e: React.ChangeEvent<any>) {
         router.push("../events"); 
       }
+      async function InviteHandler(e: React.ChangeEvent<any>) {
+        //DO SMTH
+      }
 
 
     return (
@@ -203,10 +206,14 @@ const EditEvent: NextPage = () => {
                     <label className={styles.name}>Event Description:</label>
                     <textarea className={styles.inputDescription} defaultValue = {description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
                 </form>
+                
                 </div>
+                <button type="submit" className={styles.submitButton} onClick={InviteHandler}>Invite Users</button>
+                <div>
                   <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
                   <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
                   <button type="submit" className={styles.submitButton} onClick={returnHandler}>Back</button>
+                </div>
               </div>
 
             </div>
