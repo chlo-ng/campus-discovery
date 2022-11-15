@@ -120,14 +120,23 @@ const Post: NextPage = () => {
     async function inviteSubmitHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
       if (invitedUser !== '') {
-        fetch("http://localhost:8080/api/events/" + id + "/" + invitedUser, {
-          method: "POST"}).then(res => {
-            setInvitedUser('')
-            setInvitePopup(false)
-            setReload(true)
+        fetch("http://localhost:8080/api/users/username/" + invitedUser, {
+          method: "GET"}).then(res => {
+            if (res.ok) {
+              res.json().then(user => {
+                fetch("http://localhost:8080/api/events/" + id + "/" + user.id, {
+                  method: "POST"}).then(res => {
+                    setInvitedUser('')
+                    setInvitePopup(false)
+                    setReload(true)
+                });
+              })
+            } else {
+              alert("This user does not exist.")
+            }
         });
       } else {
-        alert("Please type in an ID.")
+        alert("Please type in a username.")
       }
     }
 
@@ -375,7 +384,7 @@ const Post: NextPage = () => {
                     setInvitePopup(false)
                   }}/>
                 <div className={styles.popupContainer}>
-                  <p className={styles.info}>Please type the ID of the user you wish to invite.</p>
+                  <p className={styles.info}>Please type the username of the user you wish to invite.</p>
                   <input className={styles.inviteInput} onChange={e => setInvitedUser(e.target.value)}></input>
                   <div className={styles.popupSubmitButtons}>
                     <button className={`${styles.popupSubmitButton} ${styles.popupButton}`} onClick={inviteSubmitHandler}>SUBMIT</button>
