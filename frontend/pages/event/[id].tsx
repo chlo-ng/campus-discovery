@@ -40,7 +40,6 @@ const Post: NextPage = () => {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
         response.json().then((res) => {
           if (res.id) {
-            console.log(res)
             setEvent(res)
             setCapacity(res["capacity"])
             setName(res["title"])
@@ -123,7 +122,6 @@ const Post: NextPage = () => {
       if (invitedUser !== '') {
         fetch("http://localhost:8080/api/events/" + id + "/" + invitedUser, {
           method: "POST"}).then(res => {
-            console.log(res)
             setInvitedUser('')
             setInvitePopup(false)
             setReload(true)
@@ -249,9 +247,6 @@ const Post: NextPage = () => {
                 <div className={`${styles.tabcontent} ${activeTab === "not-attending" ? styles.activeTab : ''}`}>
                     <ul className={styles.attendeeList}>
                     {rsvpList && rsvpList.map((item) => {
-                      console.log(item)
-                      console.log(item?.rsvp == "NO")
-                      console.log(!inviteOnly)
                       return (
                         item?.rsvp == "NO" &&
                         <li className={styles.attendees}>
