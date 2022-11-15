@@ -18,7 +18,7 @@ const Events: NextPage = () => {
     }
 
     if (events.length === 0) {
-      fetch("http://localhost:8080/api/events/" ).then((resp) => resp.json())
+      fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
       .then((apiData) => {
           setEvents(apiData);
           setPageNumber(0);
@@ -76,8 +76,8 @@ const Events: NextPage = () => {
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 return (
                      <li className={styles.eventBox}>
-                        <img className={styles.eventImage} src={item.image} onClick={e => router.push("/event/" + item.id)} />
-                        <div className={styles.eventDetails} onClick={e => router.push("/event/" + item.id)}>
+                        <img className={styles.eventImage} src={item.image} onClick={() => router.push("/event/" + item.id)} />
+                        <div className={styles.eventDetails} onClick={() => router.push("/event/" + item.id)}>
                           <p className={styles.eventTitle}>{item.title}</p>
                           <p className={styles.eventText}>{item.creator.username}</p>
                           <p className={styles.eventText}>{date.toLocaleDateString(undefined, options)}</p>
@@ -88,7 +88,7 @@ const Events: NextPage = () => {
                         </div>
 
                         {(isAdmin || (userID == item.creator.id)) &&
-                          <img className={styles.editButton} src={"/editButton.png"} onClick={e => router.push("/editEvent/" + item.id)} />
+                          <img className={styles.editButton} src={"/editButton.png"} onClick={() => router.push("/editEvent/" + item.id)} />
                         }
                     </li>
                   );
