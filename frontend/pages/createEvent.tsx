@@ -13,6 +13,9 @@ const CreateEvent: NextPage = () => {
     const [location, setLocation] = useState('')
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
+    const [inviteOnly, setInviteOnly] = useState('')
+    const [capacity, setCapacity] = useState('')
+
 
 
     async function submitHandler(e: React.ChangeEvent<any>) {
@@ -26,7 +29,9 @@ const CreateEvent: NextPage = () => {
             startTime: time + ":00",
             description: description,
             location: location,
-            image: image
+            image: image,
+            capacity: capacity,
+            inviteOnly: inviteOnly
         }
 
         var dateElement = document.getElementById("date")
@@ -36,6 +41,7 @@ const CreateEvent: NextPage = () => {
         var dateError = document.getElementById("dateError")
         var timeError = document.getElementById("timeError")
         var locationError = document.getElementById("locationError")
+        var capacityError = document.getElementById("capacityError")
         var imageError = document.getElementById("imageError")
 
         var validInput = true
@@ -66,6 +72,13 @@ const CreateEvent: NextPage = () => {
             validInput = false
         } else if (locationError) {
             locationError.innerHTML = ""
+        }
+
+        if (capacity == "" && capacityError) {
+            capacityError.innerHTML = "Please add the capacity of your event."
+            validInput = false
+        } else if (capacityError) {
+            capacityError.innerHTML = ""
         }
         
         if (imageElement && !imageElement.checkValidity() && imageError) {
@@ -140,8 +153,21 @@ const CreateEvent: NextPage = () => {
                 </div>
               </div>
               <div className={styles.question}>
+                <p className={styles.label}>Capacity:</p>
+                <div className={styles.inputContainer}>
+                  <input className={styles.input} type="number" required={true} onChange={e => setCapacity(e.target.value)} />
+                  <p className={styles.inputError} id="capacityError"></p>
+                </div>
+              </div>
+              <div className={styles.question}>
                 <p className={styles.label}>Description:</p>
                 <textarea className={styles.description} required={true} onChange={e => setDescription(e.target.value)} />
+              </div>
+              <div className={styles.question}>
+                <p className={styles.label}>Invite Only:</p>
+                <div className={styles.inputContainer}>
+                <input className={styles.inviteCheckbox}  id="inviteOnly" type="checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/>
+                </div>
               </div>
               <button className={styles.submitButton} type="submit" onClick={submitHandler}>Submit</button>
             </form>

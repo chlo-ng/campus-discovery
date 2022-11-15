@@ -47,6 +47,13 @@
     font-family: var(--font-body);
 }
 
+.inviteCheckbox {
+    margin: 0px;
+    height: 30px;
+    width: 30px;
+    accent-color: var(--navy);
+}
+
 .inputError {
     font-size: var(--extra-extra-small);
     margin: 0px;

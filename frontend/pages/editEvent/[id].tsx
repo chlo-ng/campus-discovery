@@ -13,16 +13,20 @@ const EditEvent: NextPage = () => {
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
     const [location, setLocation] = useState('')
+    const [capacity, setCapacity] = useState('')
+    const [inviteOnly, setInviteOnly] = useState(false)
     const [image, setImage] = useState('')
 
     if (title == '') {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
         response.json().then((res) => {
-          if (res.creator != null) {
+          if (res.id) {
             setTitle(res["title"])
             setDate(res["date"])
             setTime(res["startTime"])
             setDescription(res["description"])
+            setCapacity(res["capacity"])
+            setInviteOnly(Boolean(res["inviteOnly"]))
             setLocation(res["location"])
             setImage(res["image"])
           }
@@ -30,6 +34,9 @@ const EditEvent: NextPage = () => {
         })
       });
     }
+    const inviteChange = () => {
+      setInviteOnly(inviteOnly => !inviteOnly);
+    };
     // async function submitHandler(e: React.ChangeEvent<any>) {
     //     e.preventDefault()
     //     if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
@@ -76,7 +83,9 @@ const EditEvent: NextPage = () => {
             startTime: time.split(":").length == 3 ? time : time + ":00",
             description: description,
             location: location,
-            image: image
+            capacity: capacity,
+            image: image,
+            inviteOnly: inviteOnly
         }
 
         var dateElement = document.getElementById("date")
@@ -91,9 +100,11 @@ const EditEvent: NextPage = () => {
             alert("Please enter a time")
         } else if (location.trim() === "") {
             alert("Please enter a location")
+        } else if (capacity == "" ) {
+            alert("Please enter a valid capacity")
         } else if (!imageElement.checkValidity()) {
-            alert("Please enter a valid image link")
-        } else  {
+          alert("Please enter a valid image link")
+      } else  {
             fetch("http://localhost:8080/api/events/" + id +"/" + userID, {
             method: "PUT",
             headers: {
@@ -101,8 +112,6 @@ const EditEvent: NextPage = () => {
             },
             body: JSON.stringify(event),
             }).then(res => {
-              console.log(event)
-              console.log(res)
               if (res.ok) {
                 alert("Event updated successfully");
                 router.push("../events"); 
@@ -116,7 +125,6 @@ const EditEvent: NextPage = () => {
         e.preventDefault()
         if (confirm('Are you sure you want to delete this event?')){
           fetch("http://localhost:8080/api/events/" + id, {
-            //Will fail to fetch due to id again. Cancel button works though.
           method: "DELETE",
           headers: { 
               "Content-Type": "application/json",
@@ -152,19 +160,8 @@ const EditEvent: NextPage = () => {
           <div className={styles.editEventsContainer}>
               <div className={styles.contentBox} style={{borderBottom: "1px solid black"}}>
                 <div className={styles.editBox}>
-                  {/* <div className="image-upload">
-                    <label for="myInput">
-                      <img className={styles.eventImage} src="/moonfest.png" ></img>
-                    </label>
-                    <br></br>
-                    <input id="myInput" type = "image" onChange={(e)=>{setImage(e.target.files[0])}} type="file"/>
-                  </div> */}
                   <img className={styles.eventImage} src={image} />
                   <div className={styles.editBox}>
-                          {/* <p className={styles.header}>Event:</p>
-                          <p className={styles.name}>Date:</p>
-                          <p className={styles.name}>Time:</p>
-                          <p className={styles.name}>Location:</p> */}
 
                     <div className={styles.eventDetails}>
                         <label className={styles.name}>Event Name:
@@ -175,7 +172,11 @@ const EditEvent: NextPage = () => {
                         </label>
                         <label className={styles.name}>Location:  
                         </label>
+                        <label className={styles.name}>Capacity:  
+                        </label>
                         <label className={styles.name}>Image:  
+                        </label>
+                        <label className={styles.name}>Invite Only:  
                         </label>
                     </div>
 
@@ -184,29 +185,27 @@ const EditEvent: NextPage = () => {
                       <input className={styles.dateandTimeInput}  id = "date"  type = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
                       <input className={styles.dateandTimeInput} id = "time" defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
-                      <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
+                      <input className={styles.input}  id="capacity" type = "number" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
+                      <input className={styles.input}  id="image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
+                      {title != '' && <input className={styles.inviteCheckbox}  id="inviteOnly" defaultChecked={inviteOnly} type = "checkbox" required={true} onChange={inviteChange}/>}
+
                     </form>
 
                   </div>
-                    {/* Just in case we want it later */}
-                    {/* <div className={styles.iconBar}>
-                        <img className={styles.editUpperIcon} src="/editV2.png"/>
-                        <img className={styles.editMiddleIcon} src="/calendarIcon.png"/>
-                        <img className={styles.editIcon} src="/clockIcon.png"/>
-                        <img className={styles.editIcon} src="/locationIcon.png"/>
-                    </div> */}
                   </div>
               </div>
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
-                <form>
-                    <label className={styles.name}>Event Description:</label>
-                    <textarea className={styles.inputDescription} defaultValue = {description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
-                </form>
+                  <form>
+                      <label className={styles.name}>Event Description:</label>
+                      <textarea className={styles.inputDescription} defaultValue = {description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
+                  </form>
                 </div>
+                <div>
                   <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
                   <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
                   <button type="submit" className={styles.submitButton} onClick={returnHandler}>Back</button>
+                </div>
               </div>
 
             </div>
