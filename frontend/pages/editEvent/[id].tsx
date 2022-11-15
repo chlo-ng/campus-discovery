@@ -4,7 +4,6 @@ import Head from 'next/head'
 import React, {useState} from 'react'
 import NavBar from "../../components/NavBar"
 import styles from '../../styles/EditEvents.module.css'
-import ToggleSwitch from "./components/ToggleSwitch";
 
 const EditEvent: NextPage = () => {
     const router = useRouter()
@@ -126,7 +125,6 @@ const EditEvent: NextPage = () => {
         e.preventDefault()
         if (confirm('Are you sure you want to delete this event?')){
           fetch("http://localhost:8080/api/events/" + id, {
-            //Will fail to fetch due to id again. Cancel button works though.
           method: "DELETE",
           headers: { 
               "Content-Type": "application/json",
@@ -145,9 +143,6 @@ const EditEvent: NextPage = () => {
       async function returnHandler(e: React.ChangeEvent<any>) {
         router.push("../events"); 
       }
-      async function InviteHandler(e: React.ChangeEvent<any>) {
-        //DO SMTH
-      }
 
 
     return (
@@ -165,19 +160,8 @@ const EditEvent: NextPage = () => {
           <div className={styles.editEventsContainer}>
               <div className={styles.contentBox} style={{borderBottom: "1px solid black"}}>
                 <div className={styles.editBox}>
-                  {/* <div className="image-upload">
-                    <label for="myInput">
-                      <img className={styles.eventImage} src="/moonfest.png" ></img>
-                    </label>
-                    <br></br>
-                    <input id="myInput" type = "image" onChange={(e)=>{setImage(e.target.files[0])}} type="file"/>
-                  </div> */}
                   <img className={styles.eventImage} src={image} />
                   <div className={styles.editBox}>
-                          {/* <p className={styles.header}>Event:</p>
-                          <p className={styles.name}>Date:</p>
-                          <p className={styles.name}>Time:</p>
-                          <p className={styles.name}>Location:</p> */}
 
                     <div className={styles.eventDetails}>
                         <label className={styles.name}>Event Name:
@@ -203,19 +187,11 @@ const EditEvent: NextPage = () => {
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
                       <input className={styles.input}  id="capacity" type = "number" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
                       <input className={styles.input}  id="image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
-                      {/* <input className={styles.input}  id = "inviteOnly"  type = "checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/> */}
                       {title != '' && <input className={styles.inviteCheckbox}  id="inviteOnly" defaultChecked={inviteOnly} type = "checkbox" required={true} onChange={inviteChange}/>}
 
                     </form>
 
                   </div>
-                    {/* Just in case we want it later */}
-                    {/* <div className={styles.iconBar}>
-                        <img className={styles.editUpperIcon} src="/editV2.png"/>
-                        <img className={styles.editMiddleIcon} src="/calendarIcon.png"/>
-                        <img className={styles.editIcon} src="/clockIcon.png"/>
-                        <img className={styles.editIcon} src="/locationIcon.png"/>
-                    </div> */}
                   </div>
               </div>
               <div className={styles.contentBox}>
