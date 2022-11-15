@@ -73,6 +73,7 @@ const Events: NextPage = () => {
               {events.slice(pageNumber * 10, pageNumber*10 + 10)?.map((item) => {
                 var time = item.startTime.split(":")
                 var date = new Date(item.date)
+                date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                 return (
                      <li className={styles.eventBox}>

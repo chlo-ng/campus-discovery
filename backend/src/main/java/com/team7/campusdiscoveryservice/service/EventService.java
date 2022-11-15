@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.sql.Time;
 import java.util.List;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 
 @Service
@@ -36,6 +38,8 @@ public class EventService {
         if (event.getImage() == null) {
             event.setImage(Event.defaultImageURL);
         }
+        Calendar calendar = new GregorianCalendar();
+        event.setDate(new Date(event.getDate().getTime()-(calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET))));
         Event savedEvent = eventRepository.save(event);
         return savedEvent;
     }
@@ -46,7 +50,8 @@ public class EventService {
         Event currentEvent =
                 eventRepository.findById(id).orElseThrow(RuntimeException::new);
         currentEvent.setTitle(event.getTitle());
-        currentEvent.setDate(event.getDate());
+        Calendar calendar = new GregorianCalendar();
+        currentEvent.setDate(new Date(event.getDate().getTime()-(calendar.get(Calendar.ZONE_OFFSET) + calendar.get(Calendar.DST_OFFSET))));
         currentEvent.setDescription(event.getDescription());
         currentEvent.setStartTime(event.getStartTime());
         currentEvent.setLocation(event.getLocation());
