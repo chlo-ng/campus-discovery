@@ -194,7 +194,9 @@ const Post: NextPage = () => {
                   / 
                   {capacity}
                   </p>
-                  <button className={`${styles.popupButton} ${styles.inviteButton}`} onClick={e => setInvitePopup(true)}>Invite</button>
+                  {event && inviteOnly && (isAdmin || (userID == event.creator?.id)) &&
+                    <button className={`${styles.popupButton} ${styles.inviteButton}`} onClick={e => setInvitePopup(true)}>Invite</button>
+                  }
                 </div>
                 
                 <div className={styles.tab}>
