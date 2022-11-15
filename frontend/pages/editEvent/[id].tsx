@@ -77,8 +77,8 @@ const EditEvent: NextPage = () => {
             startTime: time.split(":").length == 3 ? time : time + ":00",
             description: description,
             location: location,
+            capacity: capacity,
             image: image,
-            // capacity: capacity
         }
 
         var dateElement = document.getElementById("date")
@@ -93,9 +93,11 @@ const EditEvent: NextPage = () => {
             alert("Please enter a time")
         } else if (location.trim() === "") {
             alert("Please enter a location")
+        } else if (capacity.trim()==="") {
+            alert("Please enter a valid capacity")
         } else if (!imageElement.checkValidity()) {
-            alert("Please enter a valid image link")
-        } else  {
+          alert("Please enter a valid image link")
+      } else  {
             fetch("http://localhost:8080/api/events/" + id +"/" + userID, {
             method: "PUT",
             headers: {
