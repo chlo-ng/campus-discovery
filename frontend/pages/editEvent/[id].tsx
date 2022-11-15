@@ -15,7 +15,7 @@ const EditEvent: NextPage = () => {
     const [time, setTime] = useState('')
     const [location, setLocation] = useState('')
     const [capacity, setCapacity] = useState('')
-    const [inviteOnly, setInviteOnly] = useState('')
+    const [inviteOnly, setInviteOnly] = useState(false)
     const [image, setImage] = useState('')
 
     if (title == '') {
@@ -35,6 +35,9 @@ const EditEvent: NextPage = () => {
         })
       });
     }
+    const inviteChange = () => {
+      setInviteOnly(current => !current);
+    };
     // async function submitHandler(e: React.ChangeEvent<any>) {
     //     e.preventDefault()
     //     if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
@@ -202,7 +205,9 @@ const EditEvent: NextPage = () => {
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
                       <input className={styles.input}  id = "capacity" type = "int" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
                       <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
-                      <input className={styles.input}  id = "inviteOnly"  type = "checkbox" defaultChecked={inviteOnly} required={true} onChange={e => setInviteOnly(e.target.value)}/>
+                      {/* <input className={styles.input}  id = "inviteOnly"  type = "checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/> */}
+                      <input className={styles.input}  id = "inviteOnly" defaultChecked = {inviteOnly} type = "checkbox" required={true} onChange={inviteChange}/>
+
                     </form>
 
                   </div>
