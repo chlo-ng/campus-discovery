@@ -1,0 +1,142 @@
+.icon {
+  margin: 0px;
+  width: 30px;
+  height: fit-content;
+}
+
+.icon:hover {
+  cursor: pointer;
+}
+
+.popupExitIcon {
+  width: 30px;
+  height: fit-content;
+  position: absolute;
+  right: 25px;
+  top: 25px;
+}
+
+.popupExitIcon:hover {
+  cursor: pointer;
+}
+
+.topname {
+  font-family: 'Roboto Slab';
+  font-style: normal;
+  font-size: 40px;
+  color: var(--navy);
+  margin: 0px;
+  width: 100%;
+}
+
+.topbox {
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  height: 250px;
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid black;
+  padding-bottom: 50px;
+}
+
+.topboxDetails {
+  padding-left: 50px;
+  height: 80%;
+  width: calc(100% - 330px);
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.text {
+  width: 100%;
+  margin: 0px;
+  color: black;
+}
+
+.subtext {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 15px;
+  min-width: 300px;
+  color: black;
+}
+
+.info {
+  margin: 0px;
+}
+
+.image {
+  margin: 0px;
+  width: 300px;
+  height: 200px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.bottombox {
+  margin-top: 50px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 80%;
+}
+
+.popup {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  top: 0px;
+  margin: 0px;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+}
+
+.popupForm {
+  width: 400px;
+  height: 300px;
+  margin: auto;
+  border-radius: 25px;
+  border: 1px solid black;
+  background-color: white;
+}
+
+.popupContainer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 300px;
+  padding: 75px 0px 25px 0px;
+}
+
+.popupButtons {
+  margin-top: 25px;
+}
+
+.popupButton {
+  width: 100px;
+  height: 50px;
+  border-radius: 7px;
+  border: 1px solid black;
+  font-family: var(--font-body);
+  background-color: white;
+}
+
+.popupButton:hover {
+  cursor: pointer;
+}
+
+.popupSubmitButtons {
+  margin-top: 25px;
+}
+
+.popupSubmitButton {
+  background-color: var(--navy);
+  color: white;
+}
+
+.popupDeleteButton {
+  margin-left: 100px;
+  background-color: var(--navy);
+  color: white;
+}
