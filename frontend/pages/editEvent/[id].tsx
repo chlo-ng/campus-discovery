@@ -16,6 +16,7 @@ const EditEvent: NextPage = () => {
     const [capacity, setCapacity] = useState('')
     const [inviteOnly, setInviteOnly] = useState(false)
     const [image, setImage] = useState('')
+    const [creator, setCreator] = useState('')
 
     if (title == '') {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
@@ -29,12 +30,13 @@ const EditEvent: NextPage = () => {
             setInviteOnly(Boolean(res["inviteOnly"]))
             setLocation(res["location"])
             setImage(res["image"])
+            setCreator(res["creator"].id)
           }
           //Should populate fields with id contents initially. 
         })
       });
     }
-    
+
     // async function submitHandler(e: React.ChangeEvent<any>) {
     //     e.preventDefault()
     //     if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
@@ -103,7 +105,7 @@ const EditEvent: NextPage = () => {
         } else if (!imageElement.checkValidity()) {
           alert("Please enter a valid image link")
       } else  {
-            fetch("http://localhost:8080/api/events/" + id +"/" + userID, {
+            fetch("http://localhost:8080/api/events/" + id +"/" + creator, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
