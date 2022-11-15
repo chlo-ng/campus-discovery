@@ -16,6 +16,7 @@ const EditEvent: NextPage = () => {
     const [capacity, setCapacity] = useState('')
     const [inviteOnly, setInviteOnly] = useState(false)
     const [image, setImage] = useState('')
+    const [creator, setCreator] = useState('')
 
     if (title == '') {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
@@ -29,14 +30,13 @@ const EditEvent: NextPage = () => {
             setInviteOnly(Boolean(res["inviteOnly"]))
             setLocation(res["location"])
             setImage(res["image"])
+            setCreator(res["creator"].id)
           }
           //Should populate fields with id contents initially. 
         })
       });
     }
-    const inviteChange = () => {
-      setInviteOnly(inviteOnly => !inviteOnly);
-    };
+
     // async function submitHandler(e: React.ChangeEvent<any>) {
     //     e.preventDefault()
     //     if (title.trim() !== "" && date.trim() !== "" && time.trim()!=""&& description.trim() != "" && location.trim() != "") {
@@ -105,7 +105,7 @@ const EditEvent: NextPage = () => {
         } else if (!imageElement.checkValidity()) {
           alert("Please enter a valid image link")
       } else  {
-            fetch("http://localhost:8080/api/events/" + id +"/" + userID, {
+            fetch("http://localhost:8080/api/events/" + id +"/" + creator, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -187,7 +187,7 @@ const EditEvent: NextPage = () => {
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
                       <input className={styles.input}  id="capacity" type = "number" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
                       <input className={styles.input}  id="image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
-                      {title != '' && <input className={styles.inviteCheckbox}  id="inviteOnly" defaultChecked={inviteOnly} type = "checkbox" required={true} onChange={inviteChange}/>}
+                      {title != '' && <input className={styles.inviteCheckbox}  id="inviteOnly" defaultChecked={inviteOnly} type = "checkbox" required={true} onChange={e => setInviteOnly(!inviteOnly)}/>}
 
                     </form>
 
