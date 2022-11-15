@@ -46,7 +46,7 @@ public class Event {
     @JoinColumn(name = "creator_id", nullable = false)
     private User creator = new User();
 
-    @JsonIgnoreProperties({"rsvp", "createdEvents", "invited", "event"})
+    @JsonIgnoreProperties({"createdEvents", "invited", "event"})
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "event")
     private Set<RSVP> rsvped = new LinkedHashSet<RSVP>();
 
