@@ -13,6 +13,7 @@ const EditEvent: NextPage = () => {
     const [date, setDate] = useState('')
     const [time, setTime] = useState('')
     const [location, setLocation] = useState('')
+    const [capacity, setCapacity] = useState('')
     const [image, setImage] = useState('')
 
     if (title == '') {
@@ -23,8 +24,8 @@ const EditEvent: NextPage = () => {
             setDate(res["date"])
             setTime(res["startTime"])
             setDescription(res["description"])
+            setCapacity(res["capacity"])
             setLocation(res["location"])
-            setImage(res["image"])
           }
           //Should populate fields with id contents initially. 
         })
@@ -76,7 +77,8 @@ const EditEvent: NextPage = () => {
             startTime: time.split(":").length == 3 ? time : time + ":00",
             description: description,
             location: location,
-            image: image
+            image: image,
+            // capacity: capacity
         }
 
         var dateElement = document.getElementById("date")
@@ -178,6 +180,8 @@ const EditEvent: NextPage = () => {
                         </label>
                         <label className={styles.name}>Location:  
                         </label>
+                        <label className={styles.name}>Capacity:  
+                        </label>
                         <label className={styles.name}>Image:  
                         </label>
                     </div>
@@ -187,6 +191,7 @@ const EditEvent: NextPage = () => {
                       <input className={styles.dateandTimeInput}  id = "date"  type = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
                       <input className={styles.dateandTimeInput} id = "time" defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
+                      <input className={styles.input}  id = "capacity" defaultValue={image} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
                       <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
                     </form>
 
@@ -209,6 +214,7 @@ const EditEvent: NextPage = () => {
                 
                 </div>
                 <button type="submit" className={styles.submitButton} onClick={InviteHandler}>Invite Users</button>
+                <p></p>
                 <div>
                   <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
                   <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>
