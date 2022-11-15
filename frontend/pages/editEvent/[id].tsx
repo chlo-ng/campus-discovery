@@ -21,13 +21,13 @@ const EditEvent: NextPage = () => {
     if (title == '') {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
         response.json().then((res) => {
-          if (res.creator != null) {
+          if (res.id) {
             setTitle(res["title"])
             setDate(res["date"])
             setTime(res["startTime"])
             setDescription(res["description"])
             setCapacity(res["capacity"])
-            setInviteOnly(res["inviteOnly"])
+            setInviteOnly(Boolean(res["inviteOnly"]))
             setLocation(res["location"])
             setImage(res["image"])
           }
@@ -36,7 +36,7 @@ const EditEvent: NextPage = () => {
       });
     }
     const inviteChange = () => {
-      setInviteOnly(current => !current);
+      setInviteOnly(inviteOnly => !inviteOnly);
     };
     // async function submitHandler(e: React.ChangeEvent<any>) {
     //     e.preventDefault()
@@ -101,7 +101,7 @@ const EditEvent: NextPage = () => {
             alert("Please enter a time")
         } else if (location.trim() === "") {
             alert("Please enter a location")
-        } else if (capacity == 0 ) {
+        } else if (capacity == "" ) {
             alert("Please enter a valid capacity")
         } else if (!imageElement.checkValidity()) {
           alert("Please enter a valid image link")
@@ -113,8 +113,6 @@ const EditEvent: NextPage = () => {
             },
             body: JSON.stringify(event),
             }).then(res => {
-              console.log(event)
-              console.log(res)
               if (res.ok) {
                 alert("Event updated successfully");
                 router.push("../events"); 
@@ -203,10 +201,10 @@ const EditEvent: NextPage = () => {
                       <input className={styles.dateandTimeInput}  id = "date"  type = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
                       <input className={styles.dateandTimeInput} id = "time" defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
-                      <input className={styles.input}  id = "capacity" type = "int" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
-                      <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
+                      <input className={styles.input}  id="capacity" type = "number" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
+                      <input className={styles.input}  id="image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
                       {/* <input className={styles.input}  id = "inviteOnly"  type = "checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/> */}
-                      <input className={styles.input}  id = "inviteOnly" defaultChecked = {inviteOnly} type = "checkbox" required={true} onChange={inviteChange}/>
+                      {title != '' && <input className={styles.inviteCheckbox}  id="inviteOnly" defaultChecked={inviteOnly} type = "checkbox" required={true} onChange={inviteChange}/>}
 
                     </form>
 
@@ -222,14 +220,11 @@ const EditEvent: NextPage = () => {
               </div>
               <div className={styles.contentBox}>
                 <div className={styles.editBox}>
-                <form>
-                    <label className={styles.name}>Event Description:</label>
-                    <textarea className={styles.inputDescription} defaultValue = {description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
-                </form>
-                
+                  <form>
+                      <label className={styles.name}>Event Description:</label>
+                      <textarea className={styles.inputDescription} defaultValue = {description} required={true} onChange={e => setDescription(e.target.value)}></textarea>
+                  </form>
                 </div>
-                <button type="submit" className={styles.submitButton} onClick={InviteHandler}>Invite Users</button>
-                <p></p>
                 <div>
                   <button type="submit" className={styles.submitButton} onClick={submitHandler}>Save Changes</button>
                   <button type="submit" className={styles.submitButton} onClick={deleteHandler}>Delete Event</button>

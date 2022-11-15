@@ -73,12 +73,13 @@ const CreateEvent: NextPage = () => {
         } else if (locationError) {
             locationError.innerHTML = ""
         }
-        if (capacity.trim() === "" && capacityError) {
-          capacityError.innerHTML = "Please add the capacity of your event."
-          validInput = false
-      } else if (capacityError) {
-          capacityError.innerHTML = ""
-      }
+
+        if (capacity == "" && capacityError) {
+            capacityError.innerHTML = "Please add the capacity of your event."
+            validInput = false
+        } else if (capacityError) {
+            capacityError.innerHTML = ""
+        }
         
         if (imageElement && !imageElement.checkValidity() && imageError) {
             imageError.innerHTML = "Please input a valid image url."
@@ -154,7 +155,7 @@ const CreateEvent: NextPage = () => {
               <div className={styles.question}>
                 <p className={styles.label}>Capacity:</p>
                 <div className={styles.inputContainer}>
-                  <input className={styles.input} required={true} onChange={e => setCapacity(e.target.value)} />
+                  <input className={styles.input} type="number" required={true} onChange={e => setCapacity(e.target.value)} />
                   <p className={styles.inputError} id="capacityError"></p>
                 </div>
               </div>
@@ -165,7 +166,7 @@ const CreateEvent: NextPage = () => {
               <div className={styles.question}>
                 <p className={styles.label}>Invite Only:</p>
                 <div className={styles.inputContainer}>
-                <input className={styles.input}  id = "inviteOnly"  type = "checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/>
+                <input className={styles.inviteCheckbox}  id="inviteOnly" type="checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/>
                 </div>
               </div>
               <button className={styles.submitButton} type="submit" onClick={submitHandler}>Submit</button>

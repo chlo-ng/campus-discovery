@@ -233,3 +233,11 @@
   display: none;
   visibility: hidden;
 }
+
+.inviteCheckbox {
+  margin: 0px;
+  height: 22px;
+  width: 22px;
+  margin-bottom: 5px;
+  accent-color: var(--navy);
+}
