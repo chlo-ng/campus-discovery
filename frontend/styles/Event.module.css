@@ -154,7 +154,7 @@
   padding: 14px 16px;
   transition: 0.3s;
   font-weight: bold;
-  width: 12vw;
+  width: 25%;
 }
 
 .activeButton {
@@ -166,7 +166,7 @@
   display: none;
   padding: 6px 12px;
   border: 1px solid #ccc;
-  width: 48vw;
+  width: 100%;
   margin-bottom: 3em;
 }
 
@@ -220,4 +220,28 @@
 
 .triangleButtonRotate {
   transform: rotate(180deg);
+}
+
+.capacityRow {
+  display: flex;
+  width: 100%;
+}
+
+.inviteButton {
+  right: 0px;
+  height: 30px !important;
+}
+
+.inviteButton:hover {
+  background-color: var(--dark-gold);
+}
+
+.capacityText {
+  width: calc(100% - 100px);
+  margin-top: auto;
+}
+
+.inviteInput {
+  margin-top: 20px;
+  width: 100%;
 }
