@@ -29,6 +29,7 @@ const EditEvent: NextPage = () => {
             setCapacity(res["capacity"])
             setInviteOnly(res["inviteOnly"])
             setLocation(res["location"])
+            setImage(res["image"])
           }
           //Should populate fields with id contents initially. 
         })
@@ -97,7 +98,7 @@ const EditEvent: NextPage = () => {
             alert("Please enter a time")
         } else if (location.trim() === "") {
             alert("Please enter a location")
-        } else if (capacity.trim()==="") {
+        } else if (capacity == 0 ) {
             alert("Please enter a valid capacity")
         } else if (!imageElement.checkValidity()) {
           alert("Please enter a valid image link")
@@ -199,9 +200,9 @@ const EditEvent: NextPage = () => {
                       <input className={styles.dateandTimeInput}  id = "date"  type = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
                       <input className={styles.dateandTimeInput} id = "time" defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
-                      <input className={styles.input}  id = "capacity" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
+                      <input className={styles.input}  id = "capacity" type = "int" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
                       <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
-                      <input className={styles.input}  id = "inviteOnly"  type = "checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/>
+                      <input className={styles.input}  id = "inviteOnly"  type = "checkbox" defaultChecked={inviteOnly} required={true} onChange={e => setInviteOnly(e.target.value)}/>
                     </form>
 
                   </div>
