@@ -78,7 +78,7 @@ const EditEvent: NextPage = () => {
             description: description,
             location: location,
             capacity: capacity,
-            image: image,
+            image: image
         }
 
         var dateElement = document.getElementById("date")
@@ -193,7 +193,7 @@ const EditEvent: NextPage = () => {
                       <input className={styles.dateandTimeInput}  id = "date"  type = "date" defaultValue={date} size={64} required={true} onChange={e => setDate(e.target.value)}></input>
                       <input className={styles.dateandTimeInput} id = "time" defaultValue={time} size={64} type = "time" required={true} onChange={e => setTime(e.target.value)}></input>
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
-                      <input className={styles.input}  id = "capacity" defaultValue={image} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
+                      <input className={styles.input}  id = "capacity" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
                       <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
                     </form>
 

@@ -13,6 +13,8 @@ const CreateEvent: NextPage = () => {
     const [location, setLocation] = useState('')
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
+    const [capacity, setCapacity] = useState('')
+
 
 
     async function submitHandler(e: React.ChangeEvent<any>) {
@@ -26,7 +28,8 @@ const CreateEvent: NextPage = () => {
             startTime: time + ":00",
             description: description,
             location: location,
-            image: image
+            image: image,
+            capacity: capacity
         }
 
         var dateElement = document.getElementById("date")
@@ -36,6 +39,7 @@ const CreateEvent: NextPage = () => {
         var dateError = document.getElementById("dateError")
         var timeError = document.getElementById("timeError")
         var locationError = document.getElementById("locationError")
+        var capacityError = document.getElementById("capacityError")
         var imageError = document.getElementById("imageError")
 
         var validInput = true
@@ -67,6 +71,12 @@ const CreateEvent: NextPage = () => {
         } else if (locationError) {
             locationError.innerHTML = ""
         }
+        if (capacity.trim() === "" && capacityError) {
+          capacityError.innerHTML = "Please add the capacity of your event."
+          validInput = false
+      } else if (capacityError) {
+          capacityError.innerHTML = ""
+      }
         
         if (imageElement && !imageElement.checkValidity() && imageError) {
             imageError.innerHTML = "Please input a valid image url."
@@ -137,6 +147,13 @@ const CreateEvent: NextPage = () => {
                 <div className={styles.inputContainer}>
                   <input className={styles.input} id="image" type="url" required={true} onChange={e => setImage(e.target.value)} />
                   <p className={styles.inputError} id="imageError"></p>
+                </div>
+              </div>
+              <div className={styles.question}>
+                <p className={styles.label}>Capacity:</p>
+                <div className={styles.inputContainer}>
+                  <input className={styles.input} required={true} onChange={e => setCapacity(e.target.value)} />
+                  <p className={styles.inputError} id="capacityError"></p>
                 </div>
               </div>
               <div className={styles.question}>
