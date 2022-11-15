@@ -68,20 +68,24 @@ const Post: NextPage = () => {
     async function popupSubmitHandler(e: React.ChangeEvent<any>) {
       e.preventDefault()
       if (rsvp !== '') {
-        if (hasRsvp) {
-          fetch("http://localhost:8080/api/rsvp/" + id + "/" + userID + "/" + rsvp, {
-            method: "PUT"}).then(res => {
-              setHasRsvp(true)
-              setPopup(false)
-              setReload(true)
-          });
+        if (rsvp === "YES" && (rsvpList && rsvpList.filter((item) => {return item?.rsvp == "YES"}).length >= capacity)) {
+          alert("Event is at full capacity.")
         } else {
-          fetch("http://localhost:8080/api/rsvp/" + id + "/" + userID + "/" + rsvp, {
-            method: "POST"}).then(res => {
-              setHasRsvp(true)
-              setPopup(false)
-              setReload(true)
-          });
+          if (hasRsvp) {
+            fetch("http://localhost:8080/api/rsvp/" + id + "/" + userID + "/" + rsvp, {
+              method: "PUT"}).then(res => {
+                setHasRsvp(true)
+                setPopup(false)
+                setReload(true)
+            });
+          } else {
+            fetch("http://localhost:8080/api/rsvp/" + id + "/" + userID + "/" + rsvp, {
+              method: "POST"}).then(res => {
+                setHasRsvp(true)
+                setPopup(false)
+                setReload(true)
+            });
+          }
         }
       } else {
         alert("Please select an RSVP response.")
