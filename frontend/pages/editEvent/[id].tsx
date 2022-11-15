@@ -4,6 +4,7 @@ import Head from 'next/head'
 import React, {useState} from 'react'
 import NavBar from "../../components/NavBar"
 import styles from '../../styles/EditEvents.module.css'
+import ToggleSwitch from "./components/ToggleSwitch";
 
 const EditEvent: NextPage = () => {
     const router = useRouter()
@@ -14,6 +15,7 @@ const EditEvent: NextPage = () => {
     const [time, setTime] = useState('')
     const [location, setLocation] = useState('')
     const [capacity, setCapacity] = useState('')
+    const [inviteOnly, setInviteOnly] = useState('')
     const [image, setImage] = useState('')
 
     if (title == '') {
@@ -25,6 +27,7 @@ const EditEvent: NextPage = () => {
             setTime(res["startTime"])
             setDescription(res["description"])
             setCapacity(res["capacity"])
+            setInviteOnly(res["inviteOnly"])
             setLocation(res["location"])
           }
           //Should populate fields with id contents initially. 
@@ -78,7 +81,8 @@ const EditEvent: NextPage = () => {
             description: description,
             location: location,
             capacity: capacity,
-            image: image
+            image: image,
+            inviteOnly: inviteOnly
         }
 
         var dateElement = document.getElementById("date")
@@ -186,6 +190,8 @@ const EditEvent: NextPage = () => {
                         </label>
                         <label className={styles.name}>Image:  
                         </label>
+                        <label className={styles.name}>Invite Only:  
+                        </label>
                     </div>
 
                     <form className={styles.eventForm}>
@@ -195,6 +201,7 @@ const EditEvent: NextPage = () => {
                       <input className={styles.input}  defaultValue={location} size={64} required={true} onChange={e => setLocation(e.target.value)}/>
                       <input className={styles.input}  id = "capacity" defaultValue={capacity} size={64}  required={true} onChange={e => setCapacity(e.target.value)}/>
                       <input className={styles.input}  id = "image" defaultValue={image} size={64} type = "url" required={true} onChange={e => setImage(e.target.value)}/>
+                      <input className={styles.input}  id = "inviteOnly"  type = "checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/>
                     </form>
 
                   </div>

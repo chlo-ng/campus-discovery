@@ -39,7 +39,7 @@
     margin-bottom: 25px;
     width: 80%;
     height: fit-content;
-    min-height: 250px;
+    min-height: 290px;
   }
   .inputError {
     font-size: var(--extra-extra-small);
@@ -80,7 +80,7 @@
   .editBox {
     /* 120 px is bc icons are 60 px. change if icon size changes*/
     width: 100%;
-    height: 200px;
+    height: 260px;
     display: flex;
     margin-bottom: 1em;
   }
@@ -103,7 +103,8 @@
     margin-top: auto;
     margin-bottom: auto;
     padding-left: 20px;
-    height: 200px;
+    /* padding-top: 10px; */
+    height: 260px;
     width: 7em;
     /* background-color: green; */
   }
@@ -121,7 +122,7 @@
     margin-top: auto;
     margin-bottom: auto;
     padding-left: 20px;
-    height: 240px;
+    height: 280px;
     width: 15em;
 
     justify-self: flex-end;
