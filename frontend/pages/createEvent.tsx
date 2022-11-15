@@ -13,7 +13,7 @@ const CreateEvent: NextPage = () => {
     const [location, setLocation] = useState('')
     const [image, setImage] = useState('')
     const [description, setDescription] = useState('')
-    const [inviteOnly, setInviteOnly] = useState('')
+    const [inviteOnly, setInviteOnly] = useState(false)
     const [capacity, setCapacity] = useState('')
 
 
@@ -166,7 +166,7 @@ const CreateEvent: NextPage = () => {
               <div className={styles.question}>
                 <p className={styles.label}>Invite Only:</p>
                 <div className={styles.inputContainer}>
-                <input className={styles.inviteCheckbox}  id="inviteOnly" type="checkbox" required={true} onChange={e => setInviteOnly(e.target.value)}/>
+                <input className={styles.inviteCheckbox}  id="inviteOnly" type="checkbox" required={true} onChange={e => setInviteOnly(!inviteOnly)}/>
                 </div>
               </div>
               <button className={styles.submitButton} type="submit" onClick={submitHandler}>Submit</button>
