@@ -49,6 +49,9 @@ export default function NavBar({
           {loggedIn && <ul>
             <li><a>Manage Account</a></li>
             <li><a onClick={()=>{
+              router.push("/myEvents")
+            }}>My Events</a></li>
+            <li><a onClick={()=>{
               router.push("/createEvent")
             }}>Create Event</a></li>
             <li><a onClick={() => {
