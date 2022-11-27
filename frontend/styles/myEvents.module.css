@@ -1,0 +1,20 @@
+.container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.coreContainer{
+    margin: 70px 70px 50px 50px;
+    display: flex;
+    /* background-color: green; */
+}
+
+.heading {
+    font-size: var(--large);
+    font-weight: var(--fw-bold);
+    margin: 0px;
+    width: 100vw;
+    padding-bottom: 10px;
+    border-bottom: solid 1px black;
+}
