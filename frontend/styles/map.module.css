@@ -1,0 +1,64 @@
+.map {
+    z-index: "-999";
+    width: 100%;
+    height: 100%;
+}
+
+.filter {
+    position: fixed;
+    top: 75px;
+    right: 25px;
+    max-width: 20%;
+    z-index: 99;
+}
+
+.filterButton {
+    position: absolute;
+    right: 0px;
+    width: 75px;
+    height: 25px;
+    border-radius: 7px;
+    border: 0px solid white;
+    font-family: 'Roboto Slab';
+    background-color: var(--gold);
+    color: white;
+}
+
+.filterButton:hover {
+    cursor: pointer;
+    color: var(--navy)
+}
+
+.filterList {
+    width: 20vw;
+    max-height: calc(100vh - 135px);
+    margin-top: 35px;
+    background-color: white;
+    border: 1px solid var(--gold);
+    border-radius: 7px;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.filterTitle {
+    font-family: var(--font-headings);
+    font-size: 2.25vh;
+    margin: 5px 0px 5px 0px;
+    color: var(--navy);
+}
+
+.filterText {
+    font-family: var(--font-headings);
+    font-size: 1.75vh;
+    margin: 0px;
+    width: 40%;
+}
+
+.filterDiv {
+    display: flex;
+}
+
+.input {
+    right: 0px;
+    width: 60%;
+}
