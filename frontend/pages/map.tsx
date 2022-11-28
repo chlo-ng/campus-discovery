@@ -14,11 +14,6 @@ declare global {
 const Home: NextPage = () => {
     const router = useRouter()
 
-    const [dateChange, setDateChange] = useState(false)
-    const [timeChange, setTimeChange] = useState(false)
-    const [locationChange, setLocationChange] = useState(false)
-    const [hostChange, setHostChange] = useState(false)
-
     const [events, setEvents] = useState([])
     const [filterTab, setFilterTab] = useState(false)
     const [startDate, setStartDate] = useState('')
@@ -29,6 +24,28 @@ const Home: NextPage = () => {
     const [host, setHost] = useState('')
     const [selectedEvent, setSelectedEvent] = useState({})
     const [markers, setMarkers] = useState([])
+    const [mapGlobal, setMapGlobal] = useState();
+
+    function submitFilter(): void {
+        markers.forEach(markerPair => {
+            const eventDetail = markerPair[0]
+            const marker = markerPair[1]
+            var display = true
+
+            display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
+                Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
+            display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
+                Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+            display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
+            display = host.trim() != "" && eventDetail.creator.username != host ? false : display
+
+            if (display) {
+                marker.setMap(mapGlobal)
+            } else {
+                marker.setMap(null)
+            }
+        })
+    }
 
     function fetchLatLong(address: string, id: number, map: google.maps.Map): void {
         var geocoder = new google.maps.Geocoder();
@@ -47,7 +64,7 @@ const Home: NextPage = () => {
                 foundEvent.stringDate = date.toLocaleDateString(undefined, options)
                 setSelectedEvent(foundEvent)
               });
-              markers.push([id, marker])
+              markers.push([events.find(event => event.id == id), marker])
             } else {
               alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -57,7 +74,7 @@ const Home: NextPage = () => {
     function initMap(): void {
         var mapCanvas = document.getElementById("map");
         var map = new google.maps.Map(mapCanvas, {center: new google.maps.LatLng(33.7755642724629, -84.39713258041849), zoom: 16.25, MapTypeId: 'terrian' })
-        
+        setMapGlobal(map)
         while (events.length === 0) {}
 
         events.forEach((event) => {fetchLatLong(event.location, event.id, map)})
@@ -99,11 +116,11 @@ const Home: NextPage = () => {
                     <div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>Start Date: </p>
-                            <input className={styles.input} id="startDate" type="date" required={true} onChange={e => {setStartDate(e.target.value); setDateChange(true)}} />
+                            <input className={styles.input} defaultValue={startDate} id="startDate" type="date" required={true} onChange={e => setStartDate(e.target.value)} />
                         </div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>End Date: </p>
-                            <input className={styles.input} id="endDate" type="date" required={true} onChange={e => {setEndDate(e.target.value); setDateChange(true)}} />
+                            <input className={styles.input} defaultValue={endDate} id="endDate" type="date" required={true} onChange={e => setEndDate(e.target.value)} />
                         </div>
                     </div>
 
@@ -111,25 +128,27 @@ const Home: NextPage = () => {
                     <div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>Start Time: </p>
-                            <input className={styles.input} id="startTime" type="time" required={true} onChange={e => {setStartTime(e.target.value); setTimeChange(true)}} />
+                            <input className={styles.input} defaultValue={startTime} id="startTime" type="time" required={true} onChange={e => setStartTime(e.target.value)} />
                         </div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>End Time: </p>
-                            <input className={styles.input} id="endTime" type="time" required={true} onChange={e => {setEndTime(e.target.value); setTimeChange(true)}} />
+                            <input className={styles.input} defaultValue={endTime} id="endTime" type="time" required={true} onChange={e => setEndTime(e.target.value)} />
                         </div>
                     </div>
 
                     <p className={styles.filterTitle}>Location</p>
                     <div className={styles.filterDiv}>
                         <p className={styles.filterText}>Search: </p>
-                        <input className={styles.input} required={true} onChange={e => {setLocation(e.target.value); setLocationChange(true)}} />
+                        <input className={styles.input} defaultValue={location} required={true} onChange={e => setLocation(e.target.value)} />
                     </div>
 
                     <p className={styles.filterTitle}>Host</p>
                     <div className={styles.filterDiv}>
                         <p className={styles.filterText}>Username: </p>
-                        <input className={styles.input} required={true} onChange={e => {setHost(e.target.value); setHostChange(true)}} />
+                        <input className={styles.input} defaultValue={host} required={true} onChange={e => setHost(e.target.value)} />
                     </div>
+
+                    <button className={styles.filterSubmitButton} onClick={() => {setFilterTab(!filterTab); submitFilter()}}>Submit</button>
                 </div>}
 
                 {selectedEvent.id && <div className={styles.selectedEvent}>

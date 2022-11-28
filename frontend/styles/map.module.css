@@ -58,6 +58,20 @@
     display: flex;
 }
 
+.filterSubmitButton {
+    margin-top: 5px;
+    border-radius: 7px;
+    border: 0px solid white;
+    font-family: 'Roboto Slab';
+    background-color: var(--navy);
+    color: white;
+}
+
+.filterSubmitButton:hover {
+    cursor: pointer;
+    color: var(--gold)
+}
+
 .input {
     right: 0px;
     width: 60%;
