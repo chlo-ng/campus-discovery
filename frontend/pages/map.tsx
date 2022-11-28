@@ -117,7 +117,7 @@ const Home: NextPage = () => {
             apiData.forEach((event) => {
                 fetchLatLong(event.location, event, map, apiData);
                 var startTime = new Date().getTime();
-                while (new Date().getTime() < startTime + 500);
+                while (new Date().getTime() < startTime + 1000);
             })
         });
     }
