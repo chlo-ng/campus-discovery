@@ -20,7 +20,11 @@ const Events: NextPage = () => {
 
     const [events, setEvents] = useState([]);
     const [allEvents, setAllEvents] = useState([]);
+  
     const [pageNumber, setPageNumber] = useState(0);
+
+    const [userID, setUserID] = useState('')
+    const [isAdmin, setIsAdmin] = useState('')
 
     if (typeof localStorage !== 'undefined' && localStorageLoaded) {
       setLocalStorageLoaded(false)
@@ -30,8 +34,8 @@ const Events: NextPage = () => {
       setEndTime(localStorage.getItem("endTime") ? localStorage.getItem("endTime") : '')
       setLocation(localStorage.getItem("location") ? localStorage.getItem("location") : '')
       setHost(localStorage.getItem("host") ? localStorage.getItem("host") : '')
-      var isAdmin = localStorage.getItem("role") === "TEACHER"
-      var userID = localStorage.getItem("id")
+      setIsAdmin(localStorage.getItem("role") === "TEACHER")
+      setUserID(localStorage.getItem("id"))
       setEvents(allEvents.filter((eventDetail: any) => {
         var display = true
         display = startDate != '' && Date.parse(eventDetail.date) < Date.parse(startDate) ? false : display
@@ -58,7 +62,6 @@ const Events: NextPage = () => {
             display = host.trim() != "" && eventDetail.creator.username != host ? false : display
             return display
           }));
-          setPageNumber(0);
       });
     }
 
@@ -80,8 +83,10 @@ const Events: NextPage = () => {
         display = host.trim() != "" && eventDetail.creator.username != host ? false : display
         return display
       }))
-    } 
 
+      setPageNumber(0)
+    } 
+    
     return (
       <div>
         <Head>
@@ -97,9 +102,9 @@ const Events: NextPage = () => {
             <div className={styles.eventsContainer}>
               <p className={styles.header}>Trending this week</p>
               <div className={styles.trending}>
-                <div className={styles.verticalCenter}>
+                {/* <div className={styles.verticalCenter}>
                   <img className={styles.triangleButton} src="/triangle.png"/>
-                </div>
+                </div> */}
                 <div className={styles.trendingBox}>
                   <img className={styles.eventImage} src="/moonfest.png"></img>
                   <div className={styles.eventDetails}>
@@ -110,9 +115,9 @@ const Events: NextPage = () => {
                     <p className={styles.eventText}>Tech Green</p>
                   </div>
                 </div>
-                <div className={styles.verticalCenter}>
+                {/* <div className={styles.verticalCenter}>
                   <img className={`${styles.triangleButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className={styles.eventsContainer}>
@@ -156,7 +161,7 @@ const Events: NextPage = () => {
                   </div>
 
                   <button className={styles.filterSubmitButton} onClick={() => submitFilter()}>Submit</button>
-                </div>
+                </div>  
               </div>
 
               <ul className={styles.eventList}>
@@ -186,19 +191,26 @@ const Events: NextPage = () => {
                 })}
               </ul>
 
-              {}
-              <ul className={styles.paginationWrapper}> 
-                {pageNumber > 0 &&
-                  <a onClick={e => setPageNumber(pageNumber - 1)}> 
-                    <img className={`${styles.backButton}`} src="/triangle.png"/>
-                  </a>
-                }
+              <ul className={styles.paginationWrapper}>
 
-                {(pageNumber < Math.floor((events.length - 1)/10)) && 
-                  <a onClick={e => setPageNumber(pageNumber + 1)}>
-                    <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
-                  </a>
+                
+                <a onClick={e => setPageNumber(pageNumber - 1)} style={{visibility: pageNumber > 0 ? 'visible' : 'hidden'}}> 
+                  <img className={`${styles.backButton}`} src="/triangle.png"/>
+                </a>
+                
+                {Array.from(Array(Math.floor((events.length + 9) / 10)).keys()).map(x => x + 1).map(page => {
+                  return(
+                    <a className={styles.pageNumber} onClick={e => setPageNumber(page - 1)} style={{color: page - 1 == pageNumber ? 'var(--navy)' : 'black'}}>
+                      {page}
+                    </a>
+                  )
+                  })
                 }
+                
+                <a onClick={e => setPageNumber(pageNumber + 1)} style={{visibility: pageNumber < Math.floor((events.length - 1)/10) ? 'visible' : 'hidden'}}>
+                  <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
+                </a>
+                
               </ul>   
             </div>
 

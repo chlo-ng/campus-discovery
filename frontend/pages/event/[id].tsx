@@ -213,11 +213,14 @@ const Post: NextPage = () => {
                 </div>
                 
                 <div className={styles.tab}>
-                    <button className={activeTab === "attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("attending")}> 
+                    <button className={activeTab === "attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("attending")}
+                      style={{width: inviteOnly ? '25%' : '33.3333%'}}> 
                       Attending </button>
-                    <button className={activeTab === "not-attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("not-attending")}> 
+                    <button className={activeTab === "not-attending" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks} onClick={() => setActiveTab("not-attending")}
+                      style={{width: inviteOnly ? '25%' : '33.3333%'}}> 
                       Not Attending </button>
-                    <button className={activeTab === "undecided" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks}onClick={() => setActiveTab("undecided")}> 
+                    <button className={activeTab === "undecided" ? ` ${styles.tablinks} ${styles.activeButton}` : styles.tablinks}onClick={() => setActiveTab("undecided")}
+                      style={{width: inviteOnly ? '25%' : '33.3333%'}}> 
                       Undecided </button>
 
                     { event && (inviteOnly == true) &&
@@ -241,7 +244,7 @@ const Post: NextPage = () => {
                     })}
                   </ul>
                   
-                  <ul className={styles.paginationWrapper}> 
+                  {/* <ul className={styles.paginationWrapper}> 
                     {pageNumber > 0 &&
                       <a onClick={e => setPageNumber(pageNumber - 1)}> 
                         <img className={`${styles.backButton}`} src="/triangle.png"/>
@@ -255,7 +258,7 @@ const Post: NextPage = () => {
                         <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                       </a>
                     }
-                  </ul>   
+                  </ul>*/}
 
                 </div>
 
@@ -274,7 +277,7 @@ const Post: NextPage = () => {
                     })}
                   </ul>
                   
-                  <ul className={styles.paginationWrapper}> 
+                  {/* <ul className={styles.paginationWrapper}> 
                     {pageNumber > 0 &&
                       <a onClick={e => setPageNumber(pageNumber - 1)}> 
                         <img className={`${styles.backButton}`} src="/triangle.png"/>
@@ -288,7 +291,7 @@ const Post: NextPage = () => {
                         <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                       </a>
                     }
-                  </ul>   
+                  </ul>*/}
 
                 </div>
 
@@ -306,7 +309,7 @@ const Post: NextPage = () => {
                     })}
                   </ul>
 
-                  <ul className={styles.paginationWrapper}> 
+                  {/* <ul className={styles.paginationWrapper}> 
                     {pageNumber > 0 &&
                       <a onClick={e => setPageNumber(pageNumber - 1)}> 
                         <img className={`${styles.backButton}`} src="/triangle.png"/>
@@ -320,7 +323,7 @@ const Post: NextPage = () => {
                         <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                       </a>
                     }
-                  </ul>   
+                  </ul>*/}
                 </div>
 
                 { event && (inviteOnly == true) &&
@@ -338,7 +341,7 @@ const Post: NextPage = () => {
                     })}
                     </ul>
 
-                    <ul className={styles.paginationWrapper}> 
+                    {/* <ul className={styles.paginationWrapper}> 
                     {pageNumber > 0 &&
                       <a onClick={e => setPageNumber(pageNumber - 1)}> 
                         <img className={`${styles.backButton}`} src="/triangle.png"/>
@@ -350,7 +353,7 @@ const Post: NextPage = () => {
                         <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                       </a>
                     }
-                  </ul>
+                    </ul>*/}
                   </div>
                 }
 

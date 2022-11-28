@@ -38,7 +38,7 @@ div {
 }
 
 .container {
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 50px);
   margin-top: 50px;
   z-index: -999;
@@ -51,6 +51,7 @@ div {
   --navy: #003057;
   --black: #1E1E1E;
   --gray: #424242;
+  --red: #E04F39;
 
   --font-body: 'Roboto', sans-serif;
   --font-headings: 'Roboto Slab', mono;
