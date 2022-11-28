@@ -21,6 +21,7 @@ const myEvents: NextPage = () => {
           <div className="container">
             <div className={styles.coreContainer}>
               <p className={styles.heading}>My Events</p>
+              
             </div>
           </div>
         </main>
