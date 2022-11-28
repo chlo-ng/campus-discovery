@@ -114,7 +114,11 @@ const Home: NextPage = () => {
         fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
         .then((apiData) => {
             setEvents(apiData);
-            apiData.forEach((event) => {fetchLatLong(event.location, event, map, apiData)})
+            apiData.forEach((event) => {
+                fetchLatLong(event.location, event, map, apiData);
+                var startTime = new Date().getTime();
+                while (new Date().getTime() < startTime + 500);
+            })
         });
     }
 
