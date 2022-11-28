@@ -20,10 +20,8 @@ const Events: NextPage = () => {
 
     const [events, setEvents] = useState([]);
     const [allEvents, setAllEvents] = useState([]);
-
-    // const [totalPages, setTotalPages] = useState(1);    
+  
     const [pageNumber, setPageNumber] = useState(0);
-    const pages = [];
 
     if (typeof localStorage !== 'undefined' && localStorageLoaded) {
       setLocalStorageLoaded(false)
@@ -61,6 +59,7 @@ const Events: NextPage = () => {
             display = host.trim() != "" && eventDetail.creator.username != host ? false : display
             return display
           }));
+          console.log((apiData.length + 9) / 10)
       });
     }
 
@@ -72,6 +71,8 @@ const Events: NextPage = () => {
       localStorage.setItem("location", location)
       localStorage.setItem("host", host)
 
+      console.log("hello")
+
       setEvents(allEvents.filter((eventDetail: any) => {
         var display = true
         display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
@@ -82,15 +83,9 @@ const Events: NextPage = () => {
         display = host.trim() != "" && eventDetail.creator.username != host ? false : display
         return display
       }))
+
+      setPageNumber(0)
     } 
-
-    // init totalPages
-    let totalPages = events.length;
-
-    // init pages
-    for (var i = 0; i <= (totalPages - 1) / 10; i++) {
-      pages[i] = i + 1;
-    }
     
     return (
       <div>
@@ -166,7 +161,7 @@ const Events: NextPage = () => {
                   </div>
 
                   <button className={styles.filterSubmitButton} onClick={() => submitFilter()}>Submit</button>
-                </div>
+                </div>  
               </div>
 
               <ul className={styles.eventList}>
@@ -198,26 +193,24 @@ const Events: NextPage = () => {
 
               <ul className={styles.paginationWrapper}>
 
-                {pageNumber > 0 &&
-                  <a onClick={e => setPageNumber(pageNumber - 1)}> 
-                    <img className={`${styles.backButton}`} src="/triangle.png"/>
-                  </a>
-                }
-
-                {pages.map(page => {
+                
+                <a onClick={e => setPageNumber(pageNumber - 1)} style={{visibility: pageNumber > 0 ? 'visible' : 'hidden'}}> 
+                  <img className={`${styles.backButton}`} src="/triangle.png"/>
+                </a>
+                
+                {Array.from(Array(Math.floor((events.length + 9) / 10)).keys()).map(x => x + 1).map(page => {
                   return(
-                    <a onClick={e => setPageNumber(page - 1)}>
+                    <a className={styles.pageNumber} onClick={e => setPageNumber(page - 1)} style={{color: page - 1 == pageNumber ? 'var(--navy)' : 'black'}}>
                       {page}
                     </a>
                   )
                   })
                 }
-
-                {pageNumber < Math.floor((totalPages - 1)/10) && 
-                  <a onClick={e => setPageNumber(pageNumber + 1)}>
-                    <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
-                  </a>
-                }
+                
+                <a onClick={e => setPageNumber(pageNumber + 1)} style={{visibility: pageNumber < Math.floor((events.length - 1)/10) ? 'visible' : 'hidden'}}>
+                  <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
+                </a>
+                
               </ul>   
             </div>
 

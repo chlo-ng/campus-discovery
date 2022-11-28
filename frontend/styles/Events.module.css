@@ -253,6 +253,10 @@
   color: var(--navy);
 }
 
+.nextButton:hover, .backButton:hover {
+  cursor: pointer;
+}
+
 .editButton {
   z-index: 5;
   width: 30px;
@@ -346,5 +350,11 @@
   width: 60%;
 }
 
+.pageNumber {
+  font-family: var(--font-body);
+}
 
+.pageNumber:hover {
+  cursor: pointer;
+}
 
