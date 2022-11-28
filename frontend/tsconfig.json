@@ -13,7 +13,8 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "types": ["googlemaps"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "pages/Regex.js"],
   "exclude": ["node_modules"]

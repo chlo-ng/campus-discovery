@@ -9,23 +9,78 @@ import { eventNames } from "process"
 const Events: NextPage = () => {
     const router = useRouter()
 
+    const [localStorageLoaded, setLocalStorageLoaded] = useState(true)
+
+    const [startDate, setStartDate] = useState('')
+    const [endDate, setEndDate] = useState('')
+    const [startTime, setStartTime] = useState('')
+    const [endTime, setEndTime] = useState('')
+    const [location, setLocation] = useState('')
+    const [host, setHost] = useState('')
+
     const [events, setEvents] = useState([]);
+    const [allEvents, setAllEvents] = useState([]);
     const [pageNumber, setPageNumber] = useState(0);
 
-    if (typeof localStorage !== 'undefined') {
+    if (typeof localStorage !== 'undefined' && localStorageLoaded) {
+      setLocalStorageLoaded(false)
+      setStartDate(localStorage.getItem("startDate") ? localStorage.getItem("startDate") : '')
+      setEndDate(localStorage.getItem("endDate") ? localStorage.getItem("endDate") : '')
+      setStartTime(localStorage.getItem("startTime") ? localStorage.getItem("startTime") : '')
+      setEndTime(localStorage.getItem("endTime") ? localStorage.getItem("endTime") : '')
+      setLocation(localStorage.getItem("location") ? localStorage.getItem("location") : '')
+      setHost(localStorage.getItem("host") ? localStorage.getItem("host") : '')
       var isAdmin = localStorage.getItem("role") === "TEACHER"
       var userID = localStorage.getItem("id")
+      setEvents(allEvents.filter((eventDetail: any) => {
+        var display = true
+        display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
+            Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
+        display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
+            Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+        display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
+        display = host.trim() != "" && eventDetail.creator.username != host ? false : display
+        return display
+      }));
     }
 
     if (events.length === 0) {
       fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
       .then((apiData) => {
-          setEvents(apiData);
+          setAllEvents(apiData);
+          setEvents(apiData.filter((eventDetail: any) => {
+            var display = true
+            display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
+                Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
+            display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
+                Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+            display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
+            display = host.trim() != "" && eventDetail.creator.username != host ? false : display
+            return display
+          }));
           setPageNumber(0);
       });
     }
 
-    console.log(events);
+    function submitFilter(): void {
+      localStorage.setItem("startDate", startDate)
+      localStorage.setItem("endDate", endDate)
+      localStorage.setItem("startTime", startTime)
+      localStorage.setItem("endTime", endTime)
+      localStorage.setItem("location", location)
+      localStorage.setItem("host", host)
+
+      setEvents(allEvents.filter((eventDetail: any) => {
+        var display = true
+        display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
+            Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
+        display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
+            Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+        display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
+        display = host.trim() != "" && eventDetail.creator.username != host ? false : display
+        return display
+      }))
+    } 
 
     return (
       <div>
@@ -62,12 +117,47 @@ const Events: NextPage = () => {
             </div>
             <div className={styles.eventsContainer}>
               <p className={styles.header}>Browse Events</p>
-              <div className={styles.searchBar}>
-                <input type="search" placeholder="Start browsing..." aria-label="Search" aria-describedby="search-addon" size={70} />
-                <span id="search-addon">
-                  <img className={styles.searchIcon} src="/search.png"/>
-                </span>
-              </div> 
+              <div className={styles.filterListContainer}>
+                <div className={styles.filterList}>
+                  <p className={styles.filterTitle}>Date</p>
+                  <div>
+                      <div className={styles.filterDiv}>
+                          <p className={styles.filterText}>Start Date: </p>
+                          <input className={styles.input} defaultValue={startDate} id="startDate" type="date" required={true} onChange={e => setStartDate(e.target.value)} />
+                      </div>
+                      <div className={styles.filterDiv}>
+                          <p className={styles.filterText}>End Date: </p>
+                          <input className={styles.input} defaultValue={endDate} id="endDate" type="date" required={true} onChange={e => setEndDate(e.target.value)} />
+                      </div>
+                  </div>
+
+                  <p className={styles.filterTitle}>Time</p>
+                  <div>
+                      <div className={styles.filterDiv}>
+                          <p className={styles.filterText}>Start Time: </p>
+                          <input className={styles.input} defaultValue={startTime} id="startTime" type="time" required={true} onChange={e => setStartTime(e.target.value)} />
+                      </div>
+                      <div className={styles.filterDiv}>
+                          <p className={styles.filterText}>End Time: </p>
+                          <input className={styles.input} defaultValue={endTime} id="endTime" type="time" required={true} onChange={e => setEndTime(e.target.value)} />
+                      </div>
+                  </div>
+
+                  <p className={styles.filterTitle}>Location</p>
+                  <div className={styles.filterDiv}>
+                      <p className={styles.filterText}>Search: </p>
+                      <input className={styles.input} defaultValue={location} required={true} onChange={e => setLocation(e.target.value)} />
+                  </div>
+
+                  <p className={styles.filterTitle}>Host</p>
+                  <div className={styles.filterDiv}>
+                      <p className={styles.filterText}>Username: </p>
+                      <input className={styles.input} defaultValue={host} required={true} onChange={e => setHost(e.target.value)} />
+                  </div>
+
+                  <button className={styles.filterSubmitButton} onClick={() => submitFilter()}>Submit</button>
+                </div>
+              </div>
 
               <ul className={styles.eventList}>
               {events.slice(pageNumber * 10, pageNumber*10 + 10)?.map((item) => {
@@ -85,7 +175,7 @@ const Events: NextPage = () => {
                           <p className={styles.eventText}>{time[0] > 12 ?
                             parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
                             parseInt(time[0]) + ":" + time[1] + " AM"}</p>
-                          <p className={styles.eventText}>{item.location}</p>
+                          <p className={styles.eventText}>{item.location.split(",")[0]}</p>
                         </div>
 
                         {(isAdmin || (userID == item.creator.id)) &&
