@@ -38,7 +38,7 @@ div {
 }
 
 .container {
-  width: 100vw;
+  width: 100%;
   height: calc(100vh - 50px);
   margin-top: 50px;
   z-index: -999;

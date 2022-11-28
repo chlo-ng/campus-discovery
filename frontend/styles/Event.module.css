@@ -152,7 +152,6 @@
   border: .5px solid;
   cursor: pointer;
   padding: 14px 16px;
-  transition: 0.3s;
   font-weight: bold;
   width: 25%;
 }

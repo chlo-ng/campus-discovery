@@ -102,9 +102,9 @@ const Events: NextPage = () => {
             <div className={styles.eventsContainer}>
               <p className={styles.header}>Trending this week</p>
               <div className={styles.trending}>
-                <div className={styles.verticalCenter}>
+                {/* <div className={styles.verticalCenter}>
                   <img className={styles.triangleButton} src="/triangle.png"/>
-                </div>
+                </div> */}
                 <div className={styles.trendingBox}>
                   <img className={styles.eventImage} src="/moonfest.png"></img>
                   <div className={styles.eventDetails}>
@@ -115,9 +115,9 @@ const Events: NextPage = () => {
                     <p className={styles.eventText}>Tech Green</p>
                   </div>
                 </div>
-                <div className={styles.verticalCenter}>
+                {/* <div className={styles.verticalCenter}>
                   <img className={`${styles.triangleButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
-                </div>
+                </div> */}
               </div>
             </div>
             <div className={styles.eventsContainer}>
