@@ -4,9 +4,9 @@ import Head from 'next/head'
 import NavBar from "../components/NavBar"
 import styles from "../styles/myEvents.module.css"
 import React, {useState} from 'react'
-import { eventNames } from "process"
 
 const myEvents: NextPage = () => {
+    const router = useRouter()
 
     var userID = null
     var isAdmin = null
