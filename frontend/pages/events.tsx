@@ -23,6 +23,9 @@ const Events: NextPage = () => {
   
     const [pageNumber, setPageNumber] = useState(0);
 
+    const [userID, setUserID] = useState('')
+    const [isAdmin, setIsAdmin] = useState('')
+
     if (typeof localStorage !== 'undefined' && localStorageLoaded) {
       setLocalStorageLoaded(false)
       setStartDate(localStorage.getItem("startDate") ? localStorage.getItem("startDate") : '')
@@ -31,8 +34,8 @@ const Events: NextPage = () => {
       setEndTime(localStorage.getItem("endTime") ? localStorage.getItem("endTime") : '')
       setLocation(localStorage.getItem("location") ? localStorage.getItem("location") : '')
       setHost(localStorage.getItem("host") ? localStorage.getItem("host") : '')
-      var isAdmin = localStorage.getItem("role") === "TEACHER"
-      var userID = localStorage.getItem("id")
+      setIsAdmin(localStorage.getItem("role") === "TEACHER")
+      setUserID(localStorage.getItem("id"))
       setEvents(allEvents.filter((eventDetail: any) => {
         var display = true
         display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
@@ -170,6 +173,8 @@ const Events: NextPage = () => {
                 var date = new Date(item.date)
                 date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                console.log(item)
+                console.log(userID)
                 return (
                      <li className={styles.eventBox}>
                         <img className={styles.eventImage} src={item.image} onClick={() => router.push("/event/" + item.id)} />
@@ -180,7 +185,7 @@ const Events: NextPage = () => {
                           <p className={styles.eventText}>{time[0] > 12 ?
                             parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
                             parseInt(time[0]) + ":" + time[1] + " AM"}</p>
-                          <p className={styles.eventText}>{item.location}</p>
+                          <p className={styles.eventText}>{item.location.split(",")[0]}</p>
                         </div>
 
                         {(isAdmin || (userID == item.creator.id)) &&

@@ -67,63 +67,53 @@ const Home: NextPage = () => {
         })
     }
 
-    function fetchLatLong(address: string, eventDetail: object, map: google.maps.Map): void {
-        var geocoder = new google.maps.Geocoder();
-        geocoder.geocode({'address': address}, function(results, status) {
-            if (status == 'OK') {
-              var marker = new google.maps.Marker({
-                  position: results[0].geometry.location
-              });
-              marker.addListener("click", () => {
-                var foundEvent = events.find(event => event.id == eventDetail.id)
-                foundEvent.time = foundEvent.startTime.split(":")
-                var date = new Date(foundEvent.date)
-                date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
-                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                foundEvent.stringDate = date.toLocaleDateString(undefined, options)
-                setSelectedEvent(foundEvent)
-              });
+    function fetchLatLong(eventDetail: object, map: google.maps.Map, eventsLocal: Array): void {
+        var marker = new google.maps.Marker({
+            position: { lat: eventDetail.latitude, lng: eventDetail.longitude }
+        });
+        marker.addListener("click", () => {
+          var foundEvent = eventsLocal.find(event => event.id == eventDetail.id)
+          foundEvent.time = foundEvent.startTime.split(":")
+          var date = new Date(foundEvent.date)
+          date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
+          const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+          foundEvent.stringDate = date.toLocaleDateString(undefined, options)
+          setSelectedEvent(foundEvent)
+        });
 
-              var display = true
-              display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
-                  Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
-              display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
-                  Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
-              display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
-              display = host.trim() != "" && eventDetail.creator.username != host ? false : display
-  
-              console.log(display)
-              if (display) {
-                  marker.setMap(map)
-              } else {
-                  marker.setMap(null)
-              }
+        var display = true
+        display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
+            Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
+        display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
+            Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+        display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
+        display = host.trim() != "" && eventDetail.creator.username != host ? false : display
 
-              markers.push([events.find(event => event.id == eventDetail.id), marker])
-            } else {
-              alert('Geocode was not successful for the following reason: ' + status);
-            }
-          });
+        if (display) {
+            marker.setMap(map)
+        } else {
+            marker.setMap(null)
+        }
+
+        markers.push([eventsLocal.find(event => event.id == eventDetail.id), marker])
     }
 
     function initMap(): void {
         var mapCanvas = document.getElementById("map");
         var map = new google.maps.Map(mapCanvas, {center: new google.maps.LatLng(33.7755642724629, -84.39713258041849), zoom: 16.25, MapTypeId: 'terrian' })
         setMapGlobal(map)
-        while (events.length === 0) {}
 
-        events.forEach((event) => {fetchLatLong(event.location, event, map)})
+        fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
+        .then((apiData) => {
+            setEvents(apiData);
+            apiData.forEach((event) => {
+                fetchLatLong(event, map, apiData);
+            })
+        });
     }
 
     if (typeof window !== "undefined") {
         window.initMap = initMap;
-    }
-
-    if (events.length === 0) {
-        fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
-        .then((apiData) => {
-            setEvents(apiData);
-        });
     }
 
     return (
@@ -191,7 +181,7 @@ const Home: NextPage = () => {
                     <p className={styles.eventText}>{selectedEvent.time[0] > 12 ?
                             parseInt(selectedEvent.time[0]) - 12 + ":" + selectedEvent.time[1] + " PM" :
                             parseInt(selectedEvent.time[0]) + ":" + selectedEvent.time[1] + " AM"}</p>
-                    <p className={styles.eventText}>{selectedEvent.location}</p>
+                    <p className={styles.eventText}>{selectedEvent.location.split(",")[0]}</p>
                 </div>}
             </div>
         </div>
