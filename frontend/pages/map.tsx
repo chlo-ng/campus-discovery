@@ -67,7 +67,7 @@ const Home: NextPage = () => {
         })
     }
 
-    function fetchLatLong(address: string, eventDetail: object, map: google.maps.Map): void {
+    function fetchLatLong(address: string, eventDetail: object, map: google.maps.Map, eventsLocal: Array): void {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({'address': address}, function(results, status) {
             if (status == 'OK') {
@@ -75,7 +75,7 @@ const Home: NextPage = () => {
                   position: results[0].geometry.location
               });
               marker.addListener("click", () => {
-                var foundEvent = events.find(event => event.id == eventDetail.id)
+                var foundEvent = eventsLocal.find(event => event.id == eventDetail.id)
                 foundEvent.time = foundEvent.startTime.split(":")
                 var date = new Date(foundEvent.date)
                 date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
@@ -99,7 +99,7 @@ const Home: NextPage = () => {
                   marker.setMap(null)
               }
 
-              markers.push([events.find(event => event.id == eventDetail.id), marker])
+              markers.push([eventsLocal.find(event => event.id == eventDetail.id), marker])
             } else {
               alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -110,20 +110,16 @@ const Home: NextPage = () => {
         var mapCanvas = document.getElementById("map");
         var map = new google.maps.Map(mapCanvas, {center: new google.maps.LatLng(33.7755642724629, -84.39713258041849), zoom: 16.25, MapTypeId: 'terrian' })
         setMapGlobal(map)
-        while (events.length === 0) {}
 
-        events.forEach((event) => {fetchLatLong(event.location, event, map)})
+        fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
+        .then((apiData) => {
+            setEvents(apiData);
+            apiData.forEach((event) => {fetchLatLong(event.location, event, map, apiData)})
+        });
     }
 
     if (typeof window !== "undefined") {
         window.initMap = initMap;
-    }
-
-    if (events.length === 0) {
-        fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
-        .then((apiData) => {
-            setEvents(apiData);
-        });
     }
 
     return (
