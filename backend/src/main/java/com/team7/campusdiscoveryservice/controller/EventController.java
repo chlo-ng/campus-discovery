@@ -3,9 +3,7 @@ package com.team7.campusdiscoveryservice.controller;
 import com.team7.campusdiscoveryservice.entity.Event;
 import com.team7.campusdiscoveryservice.entity.RSVP;
 import com.team7.campusdiscoveryservice.entity.RsvpValue;
-import com.team7.campusdiscoveryservice.entity.User;
 import com.team7.campusdiscoveryservice.service.EventService;
-import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 
 //Example for REST controller class
@@ -23,10 +19,6 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("api/")
 public class EventController {
-
-    @Autowired
-    private UserService userService;
-
     @Autowired
     private EventService eventService;
 

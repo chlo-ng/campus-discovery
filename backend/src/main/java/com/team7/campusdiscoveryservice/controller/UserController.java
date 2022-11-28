@@ -2,7 +2,6 @@ package com.team7.campusdiscoveryservice.controller;
 
 import com.team7.campusdiscoveryservice.entity.Login;
 import com.team7.campusdiscoveryservice.entity.User;
-import com.team7.campusdiscoveryservice.service.EventService;
 import com.team7.campusdiscoveryservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,9 +21,6 @@ public class UserController {
 
     @Autowired
     private UserService userService;
-
-    @Autowired
-    private EventService eventService;
 
     @GetMapping("users")
     public List<User> getUsers() {

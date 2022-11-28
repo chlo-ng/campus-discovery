@@ -17,6 +17,16 @@ const EditEvent: NextPage = () => {
     const [inviteOnly, setInviteOnly] = useState(false)
     const [image, setImage] = useState('')
     const [creator, setCreator] = useState('')
+    const [geocoder, setGeocoder] = useState()
+
+    function initMap(): void {
+      var geocode = new google.maps.Geocoder()
+      setGeocoder(geocode)
+    } 
+
+    if (typeof window !== "undefined") {
+      window.initMap = initMap;
+    }
 
     if (title == '') {
       fetch("http://localhost:8080/api/events/" + id).then((response) => {
@@ -77,17 +87,6 @@ const EditEvent: NextPage = () => {
 
         const userID = localStorage.getItem("id")
 
-        var event: any = {
-            title: title,
-            date: date,
-            startTime: time.split(":").length == 3 ? time : time + ":00",
-            description: description,
-            location: location,
-            capacity: capacity,
-            image: image,
-            inviteOnly: inviteOnly
-        }
-
         var dateElement = document.getElementById("date")
         var timeElement = document.getElementById("time")
         var imageElement = document.getElementById("image")
@@ -104,23 +103,43 @@ const EditEvent: NextPage = () => {
             alert("Please enter a valid capacity")
         } else if (!imageElement.checkValidity()) {
           alert("Please enter a valid image link")
-      } else  {
-            fetch("http://localhost:8080/api/events/" + id +"/" + creator, {
-            method: "PUT",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(event),
-            }).then(res => {
-              if (res.ok) {
-                alert("Event updated successfully");
-                router.push("../events"); 
-              } else {
-                alert("Error when updating please try again.");
-              }
-            });
+        } else  {
+          geocoder.geocode({'address': location}, function(results, status) {
+            if (status == 'OK') {
+              var event: any = {
+                title: title,
+                date: date,
+                startTime: time.split(":").length == 3 ? time : time + ":00",
+                description: description,
+                location: location,
+                latitude: results[0].geometry.location.lat(),
+                longitude: results[0].geometry.location.lng(),
+                image: image,
+                capacity: capacity,
+                inviteOnly: inviteOnly
+              }  
+
+              fetch("http://localhost:8080/api/events/" + id +"/" + creator, {
+              method: "PUT",
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              body: JSON.stringify(event),
+              }).then(res => {
+                if (res.ok) {
+                  alert("Event updated successfully");
+                  router.push("../events"); 
+                } else {
+                  alert("Error when updating please try again.");
+                }
+              });
+            } else {
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
+          });
         }
-    }
+      }
+
       async function deleteHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
         if (confirm('Are you sure you want to delete this event?')){
@@ -153,6 +172,7 @@ const EditEvent: NextPage = () => {
           <link rel="icon" href="/gtLogo.png" />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS0al4nwlBsz5w4RflXdYf5imYuXozR2g&callback=initMap" defer></script>
         </Head>
         <main>
           <NavBar />

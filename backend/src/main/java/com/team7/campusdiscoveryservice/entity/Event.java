@@ -32,6 +32,12 @@ public class Event {
     @Column(name = "location", nullable = false)
     private String location;
 
+    @Column(name = "lat", nullable = false)
+    private Double latitude;
+
+    @Column(name = "long", nullable = false)
+    private Double longitude;
+
     @Column(name = "image", nullable = false, length = 1000)
     private String image;
 
@@ -63,12 +69,14 @@ public class Event {
     public Event() {
     }
 
-    public Event(String title, Date date, Time startTime, String description, String location, String image, int capacity, boolean inviteOnly) {
+    public Event(String title, Date date, Time startTime, String description, String location, Double latitude, Double longitude, String image, int capacity, boolean inviteOnly) {
         this.title = title;
         this.date = date;
         this.startTime = startTime;
         this.description = description;
         this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
         this.image = image;
         this.capacity = capacity;
         this.inviteOnly = inviteOnly;
@@ -134,6 +142,22 @@ public class Event {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public Double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public Double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
     }
 
     public String getImage() {

@@ -50,6 +50,12 @@ export default function NavBar({
             <li><a onClick={()=>{
               router.push("/myEvents")
             }}>My Events</a></li>
+            <li><a onClick={()=> {
+              router.push("/events")
+            }}>Events</a></li>
+            <li><a onClick={()=> {
+              router.push("/map")
+            }}>Events Map</a></li>
             <li><a onClick={()=>{
               router.push("/createEvent")
             }}>Create Event</a></li>

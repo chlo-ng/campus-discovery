@@ -15,24 +15,21 @@ const CreateEvent: NextPage = () => {
     const [description, setDescription] = useState('')
     const [inviteOnly, setInviteOnly] = useState(false)
     const [capacity, setCapacity] = useState('')
+    const [geocoder, setGeocoder] = useState()
 
+    function initMap(): void {
+      var geocode = new google.maps.Geocoder()
+      setGeocoder(geocode)
+    } 
 
+    if (typeof window !== "undefined") {
+      window.initMap = initMap;
+    }
 
     async function submitHandler(e: React.ChangeEvent<any>) {
         e.preventDefault()
 
         const id = localStorage.getItem("id")
-
-        var event: any = {
-            title: name,
-            date: date,
-            startTime: time + ":00",
-            description: description,
-            location: location,
-            image: image,
-            capacity: capacity,
-            inviteOnly: inviteOnly
-        }
 
         var dateElement = document.getElementById("date")
         var timeElement = document.getElementById("time")
@@ -89,17 +86,36 @@ const CreateEvent: NextPage = () => {
         }
 
         if (validInput) {
-            fetch("http://localhost:8080/api/events/" + id, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(event),
-            }).then((response) => {
-            response.json().then((res) => {
-                router.push("/events")
-            }).catch(err => alert(console.log(err)))
-            })
+            geocoder.geocode({'address': location}, function(results, status) {
+              if (status == 'OK') {
+                var event: any = {
+                  title: name,
+                  date: date,
+                  startTime: time + ":00",
+                  description: description,
+                  location: location,
+                  latitude: results[0].geometry.location.lat(),
+                  longitude: results[0].geometry.location.lng(),
+                  image: image,
+                  capacity: capacity,
+                  inviteOnly: inviteOnly
+                }  
+  
+                fetch("http://localhost:8080/api/events/" + id, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(event),
+                }).then((response) => {
+                response.json().then((res) => {
+                    router.push("/events")
+                }).catch(err => alert(console.log(err)))
+                })
+              } else {
+                alert('Geocode was not successful for the following reason: ' + status);
+              }
+            });
         }
     }
     
@@ -111,6 +127,7 @@ const CreateEvent: NextPage = () => {
           <link rel="icon" href="/gtLogo.png" />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto' />
           <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto Slab' />
+          <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBS0al4nwlBsz5w4RflXdYf5imYuXozR2g&callback=initMap" defer></script>
         </Head>
         <main>
           <NavBar />
