@@ -67,7 +67,7 @@ const myEvents: NextPage = () => {
                       <p className={styles.eventText} style={{color: color}}>{time[0] > 12 ?
                         parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
                         parseInt(time[0]) + ":" + time[1] + " AM"}</p>
-                      <p className={styles.eventText}>{event.location}</p>
+                      <p className={styles.eventText}>{event.location.split(",")[0]}</p>
                     </div>
 
                     {/* (isAdmin || (userID == event.creator.id)) */}
