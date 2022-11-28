@@ -17,7 +17,7 @@ public class RSVP implements java.io.Serializable {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @JsonIgnoreProperties({"creator", "rsvped", "invites"})
+    @JsonIgnoreProperties({"rsvped", "invites"})
     @ManyToOne
     @MapsId("eventId")
     @JoinColumn(name = "event_id")
