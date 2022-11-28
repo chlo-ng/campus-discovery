@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, {useState} from 'react'
+import { start } from 'repl'
 import NavBar from '../components/NavBar'
 import styles from '../styles/map.module.css'
 
@@ -13,6 +14,8 @@ declare global {
 
 const Home: NextPage = () => {
     const router = useRouter()
+
+    const [localStorageLoaded, setLocalStorageLoaded] = useState(true)
 
     const [events, setEvents] = useState([])
     const [filterTab, setFilterTab] = useState(false)
@@ -26,7 +29,24 @@ const Home: NextPage = () => {
     const [markers, setMarkers] = useState([])
     const [mapGlobal, setMapGlobal] = useState();
 
+    if (typeof localStorage !== 'undefined' && localStorageLoaded) {
+        setLocalStorageLoaded(false)
+        setStartDate(localStorage.getItem("startDate") ? localStorage.getItem("startDate") : '')
+        setEndDate(localStorage.getItem("endDate") ? localStorage.getItem("endDate") : '')
+        setStartTime(localStorage.getItem("startTime") ? localStorage.getItem("startTime") : '')
+        setEndTime(localStorage.getItem("endTime") ? localStorage.getItem("endTime") : '')
+        setLocation(localStorage.getItem("location") ? localStorage.getItem("location") : '')
+        setHost(localStorage.getItem("host") ? localStorage.getItem("host") : '')
+    }
+
     function submitFilter(): void {
+        localStorage.setItem("startDate", startDate)
+        localStorage.setItem("endDate", endDate)
+        localStorage.setItem("startTime", startTime)
+        localStorage.setItem("endTime", endTime)
+        localStorage.setItem("location", location)
+        localStorage.setItem("host", host)
+
         markers.forEach(markerPair => {
             const eventDetail = markerPair[0]
             const marker = markerPair[1]
@@ -47,16 +67,15 @@ const Home: NextPage = () => {
         })
     }
 
-    function fetchLatLong(address: string, id: number, map: google.maps.Map): void {
+    function fetchLatLong(address: string, eventDetail: object, map: google.maps.Map): void {
         var geocoder = new google.maps.Geocoder();
         geocoder.geocode({'address': address}, function(results, status) {
             if (status == 'OK') {
               var marker = new google.maps.Marker({
                   position: results[0].geometry.location
               });
-              marker.setMap(map)
               marker.addListener("click", () => {
-                var foundEvent = events.find(event => event.id == id)
+                var foundEvent = events.find(event => event.id == eventDetail.id)
                 foundEvent.time = foundEvent.startTime.split(":")
                 var date = new Date(foundEvent.date)
                 date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
@@ -64,7 +83,23 @@ const Home: NextPage = () => {
                 foundEvent.stringDate = date.toLocaleDateString(undefined, options)
                 setSelectedEvent(foundEvent)
               });
-              markers.push([events.find(event => event.id == id), marker])
+
+              var display = true
+              display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
+                  Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
+              display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
+                  Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+              display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
+              display = host.trim() != "" && eventDetail.creator.username != host ? false : display
+  
+              console.log(display)
+              if (display) {
+                  marker.setMap(map)
+              } else {
+                  marker.setMap(null)
+              }
+
+              markers.push([events.find(event => event.id == eventDetail.id), marker])
             } else {
               alert('Geocode was not successful for the following reason: ' + status);
             }
@@ -77,9 +112,7 @@ const Home: NextPage = () => {
         setMapGlobal(map)
         while (events.length === 0) {}
 
-        events.forEach((event) => {fetchLatLong(event.location, event.id, map)})
-
-        console.log(markers)
+        events.forEach((event) => {fetchLatLong(event.location, event, map)})
     }
 
     if (typeof window !== "undefined") {
