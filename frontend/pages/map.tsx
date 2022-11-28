@@ -99,11 +99,11 @@ const Home: NextPage = () => {
                     <div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>Start Date: </p>
-                            <input className={styles.input} id="startDate" type="date" required={true} onChange={e => setStartDate(e.target.value)} />
+                            <input className={styles.input} id="startDate" type="date" required={true} onChange={e => {setStartDate(e.target.value); setDateChange(true)}} />
                         </div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>End Date: </p>
-                            <input className={styles.input} id="endDate" type="date" required={true} onChange={e => setEndDate(e.target.value)} />
+                            <input className={styles.input} id="endDate" type="date" required={true} onChange={e => {setEndDate(e.target.value); setDateChange(true)}} />
                         </div>
                     </div>
 
@@ -111,24 +111,24 @@ const Home: NextPage = () => {
                     <div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>Start Time: </p>
-                            <input className={styles.input} id="startTime" type="time" required={true} onChange={e => setStartTime(e.target.value)} />
+                            <input className={styles.input} id="startTime" type="time" required={true} onChange={e => {setStartTime(e.target.value); setTimeChange(true)}} />
                         </div>
                         <div className={styles.filterDiv}>
                             <p className={styles.filterText}>End Time: </p>
-                            <input className={styles.input} id="endTime" type="time" required={true} onChange={e => setEndTime(e.target.value)} />
+                            <input className={styles.input} id="endTime" type="time" required={true} onChange={e => {setEndTime(e.target.value); setTimeChange(true)}} />
                         </div>
                     </div>
 
                     <p className={styles.filterTitle}>Location</p>
                     <div className={styles.filterDiv}>
                         <p className={styles.filterText}>Search: </p>
-                        <input className={styles.input} required={true} onChange={e => setLocation(e.target.value)} />
+                        <input className={styles.input} required={true} onChange={e => {setLocation(e.target.value); setLocationChange(true)}} />
                     </div>
 
                     <p className={styles.filterTitle}>Host</p>
                     <div className={styles.filterDiv}>
                         <p className={styles.filterText}>Username: </p>
-                        <input className={styles.input} required={true} onChange={e => setHost(e.target.value)} />
+                        <input className={styles.input} required={true} onChange={e => {setHost(e.target.value); setHostChange(true)}} />
                     </div>
                 </div>}
 
