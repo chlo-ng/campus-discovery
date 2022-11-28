@@ -4,7 +4,6 @@ import { useRouter } from 'next/router'
 import React, {useState} from 'react'
 import NavBar from '../components/NavBar'
 import styles from '../styles/map.module.css'
-import { Wrapper, Status } from "@googlemaps/react-wrapper"
 
 declare global {
     interface Window {
@@ -15,21 +14,67 @@ declare global {
 const Home: NextPage = () => {
     const router = useRouter()
 
+    const [dateChange, setDateChange] = useState(false)
+    const [timeChange, setTimeChange] = useState(false)
+    const [locationChange, setLocationChange] = useState(false)
+    const [hostChange, setHostChange] = useState(false)
+
     const [events, setEvents] = useState([])
     const [filterTab, setFilterTab] = useState(false)
     const [startDate, setStartDate] = useState('')
     const [endDate, setEndDate] = useState('')
     const [startTime, setStartTime] = useState('')
     const [endTime, setEndTime] = useState('')
+    const [location, setLocation] = useState('')
     const [host, setHost] = useState('')
+    const [selectedEvent, setSelectedEvent] = useState({})
+    const [markers, setMarkers] = useState([])
+
+    function fetchLatLong(address: string, id: number, map: google.maps.Map): void {
+        var geocoder = new google.maps.Geocoder();
+        geocoder.geocode({'address': address}, function(results, status) {
+            if (status == 'OK') {
+              var marker = new google.maps.Marker({
+                  position: results[0].geometry.location
+              });
+              marker.setMap(map)
+              marker.addListener("click", () => {
+                var foundEvent = events.find(event => event.id == id)
+                foundEvent.startTime = foundEvent.startTime.split(":")
+                var date = new Date(foundEvent.date)
+                date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
+                const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                foundEvent.date = date.toLocaleDateString(undefined, options)
+                setSelectedEvent(foundEvent)
+                console.log(events.find(event => event.id == id))
+              });
+              markers.push([id, marker])
+            } else {
+              alert('Geocode was not successful for the following reason: ' + status);
+            }
+          });
+    }
 
     function initMap(): void {
         var mapCanvas = document.getElementById("map");
         var map = new google.maps.Map(mapCanvas, {center: new google.maps.LatLng(33.7755642724629, -84.39713258041849), zoom: 16.25, MapTypeId: 'terrian' })
+        
+        while (events.length === 0) {}
+
+        events.forEach((event) => {fetchLatLong(event.location, event.id, map)})
+
+        console.log(markers)
     }
 
     if (typeof window !== "undefined") {
         window.initMap = initMap;
+    }
+
+    if (events.length === 0) {
+        fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
+        .then((apiData) => {
+            setEvents(apiData);
+        });
     }
 
     return (
@@ -76,12 +121,26 @@ const Home: NextPage = () => {
                     </div>
 
                     <p className={styles.filterTitle}>Location</p>
+                    <div className={styles.filterDiv}>
+                        <p className={styles.filterText}>Search: </p>
+                        <input className={styles.input} required={true} onChange={e => setLocation(e.target.value)} />
+                    </div>
 
                     <p className={styles.filterTitle}>Host</p>
                     <div className={styles.filterDiv}>
                         <p className={styles.filterText}>Username: </p>
                         <input className={styles.input} required={true} onChange={e => setHost(e.target.value)} />
                     </div>
+                </div>}
+
+                {selectedEvent.id && <div className={styles.selectedEvent}>
+                    <p className={styles.eventTitle} onClick={() => {router.push("/event/" + selectedEvent.id)}}>{selectedEvent.title}</p>
+                    <p className={styles.eventText}>{selectedEvent.creator.username}</p>
+                    <p className={styles.eventText}>{selectedEvent.date}</p>
+                    <p className={styles.eventText}>{selectedEvent.startTime[0] > 12 ?
+                            parseInt(selectedEvent.startTime[0]) - 12 + ":" + selectedEvent.startTime[1] + " PM" :
+                            parseInt(selectedEvent.startTime[0]) + ":" + selectedEvent.startTime[1] + " AM"}</p>
+                    <p className={styles.eventText}>{selectedEvent.location}</p>
                 </div>}
             </div>
         </div>

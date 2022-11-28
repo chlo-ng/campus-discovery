@@ -62,3 +62,32 @@
     right: 0px;
     width: 60%;
 }
+
+.selectedEvent {
+    position: fixed;
+    top: 75px;
+    left: 25px;
+    z-index: 99;
+    width: 400px;
+    background-color: white;
+    border: 1px solid var(--gold);
+    border-radius: 7px;
+    padding: 10px 20px 10px 20px;
+}
+
+.eventTitle {
+    font-family: var(--font-headings);
+    font-size: var(--small);
+    margin: 0px;
+    color: var(--navy)
+}
+
+.eventTitle:hover {
+    cursor: pointer;
+}
+
+.eventText {
+    font-family: var(--font-headings);
+    font-size: 1.75vh;
+    margin: 0px;
+}
