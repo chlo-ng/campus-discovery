@@ -20,7 +20,10 @@ const Events: NextPage = () => {
 
     const [events, setEvents] = useState([]);
     const [allEvents, setAllEvents] = useState([]);
+
+    // const [totalPages, setTotalPages] = useState(1);    
     const [pageNumber, setPageNumber] = useState(0);
+    const pages = [];
 
     if (typeof localStorage !== 'undefined' && localStorageLoaded) {
       setLocalStorageLoaded(false)
@@ -58,7 +61,6 @@ const Events: NextPage = () => {
             display = host.trim() != "" && eventDetail.creator.username != host ? false : display
             return display
           }));
-          setPageNumber(0);
       });
     }
 
@@ -82,6 +84,14 @@ const Events: NextPage = () => {
       }))
     } 
 
+    // init totalPages
+    let totalPages = events.length;
+
+    // init pages
+    for (var i = 0; i <= (totalPages - 1) / 10; i++) {
+      pages[i] = i + 1;
+    }
+    
     return (
       <div>
         <Head>
@@ -186,15 +196,24 @@ const Events: NextPage = () => {
                 })}
               </ul>
 
-              {}
-              <ul className={styles.paginationWrapper}> 
+              <ul className={styles.paginationWrapper}>
+
                 {pageNumber > 0 &&
                   <a onClick={e => setPageNumber(pageNumber - 1)}> 
                     <img className={`${styles.backButton}`} src="/triangle.png"/>
                   </a>
                 }
 
-                {(pageNumber < Math.floor((events.length - 1)/10)) && 
+                {pages.map(page => {
+                  return(
+                    <a onClick={e => setPageNumber(page - 1)}>
+                      {page}
+                    </a>
+                  )
+                  })
+                }
+
+                {pageNumber < Math.floor((totalPages - 1)/10) && 
                   <a onClick={e => setPageNumber(pageNumber + 1)}>
                     <img className={`${styles.nextButton} ${styles.triangleButtonRotate}`} src="/triangle.png"/>
                   </a>
