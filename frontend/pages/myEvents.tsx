@@ -9,9 +9,12 @@ import { eventNames } from "process"
 const myEvents: NextPage = () => {
 
     var userID = null
+    var isAdmin = null
     if (typeof localStorage !== 'undefined') {
       userID = localStorage.getItem("id")
+      isAdmin = localStorage.getItem("role") === "TEACHER"
     }
+
     const [events, setEvents] = useState([])
 
     if (events.length == 0 && userID !== null) {
@@ -46,10 +49,32 @@ const myEvents: NextPage = () => {
           <div className="container">
             <div className={styles.coreContainer}>
               <p className={styles.heading}>My Events</p>
-              <div>
+              <div className={styles.events}>
                 {events.map((event: any) => {
-                  return (<p style={{color: events.filter(eventSearch => Date.parse(event.date + "T" + event.startTime + "Z") == Date.parse(eventSearch.date + "T" + eventSearch.startTime + "Z"))
-                      .length > 1 ? 'red' : 'black'}}>{event.title}</p>)
+                  console.log(event)
+                  var time = event.startTime.split(":")
+                  var date = new Date(event.date)
+                  date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
+                  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                  var color = events.filter(eventSearch => Date.parse(event.date + "T" + event.startTime + "Z") == Date.parse(eventSearch.date + "T" + eventSearch.startTime + "Z"))
+                      .length > 1 ? 'red' : 'black'
+                  return (<div className={styles.event}>
+                    <img className={styles.eventImage} src={event.image} onClick={() => router.push("/event/" + event.id)} />
+                    <div className={styles.eventDetails} onClick={() => router.push("/event/" + event.id)}>
+                      <p className={styles.eventTitle}>{event.title}</p>
+                      {/* <p className={styles.eventText}>{event.creator.username}</p> */}
+                      <p className={styles.eventText} style={{color: color}}>{date.toLocaleDateString(undefined, options)}</p>
+                      <p className={styles.eventText} style={{color: color}}>{time[0] > 12 ?
+                        parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
+                        parseInt(time[0]) + ":" + time[1] + " AM"}</p>
+                      <p className={styles.eventText}>{event.location}</p>
+                    </div>
+
+                    {/* (isAdmin || (userID == event.creator.id)) */}
+                    {true &&
+                      <img className={styles.editButton} src={"/editButton.png"} onClick={() => router.push("/editEvent/" + event.id)} />
+                    }
+                  </div>)
                 })}
               </div>
             </div>
