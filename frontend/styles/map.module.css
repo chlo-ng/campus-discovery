@@ -59,6 +59,8 @@
 }
 
 .filterSubmitButton {
+    width: 75px;
+    height: 25px;
     margin-top: 5px;
     border-radius: 7px;
     border: 0px solid white;
