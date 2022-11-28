@@ -175,7 +175,7 @@ const Events: NextPage = () => {
                           <p className={styles.eventText}>{time[0] > 12 ?
                             parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
                             parseInt(time[0]) + ":" + time[1] + " AM"}</p>
-                          <p className={styles.eventText}>{item.location}</p>
+                          <p className={styles.eventText}>{item.location.split(",")[0]}</p>
                         </div>
 
                         {(isAdmin || (userID == item.creator.id)) &&

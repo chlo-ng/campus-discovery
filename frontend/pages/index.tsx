@@ -6,6 +6,14 @@ import NavBar from '../components/NavBar'
 
 const Home: NextPage = () => {
   const router = useRouter()
+
+  if (typeof localStorage !== 'undefined') {
+    var userID = localStorage.getItem("id")
+    if (userID != null) {
+      router.push("/events")
+    }
+  }
+
   return (
     <div>
       <Head>
