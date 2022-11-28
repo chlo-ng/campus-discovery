@@ -62,7 +62,6 @@ const Events: NextPage = () => {
             display = host.trim() != "" && eventDetail.creator.username != host ? false : display
             return display
           }));
-          console.log((apiData.length + 9) / 10)
       });
     }
 
@@ -73,8 +72,6 @@ const Events: NextPage = () => {
       localStorage.setItem("endTime", endTime)
       localStorage.setItem("location", location)
       localStorage.setItem("host", host)
-
-      console.log("hello")
 
       setEvents(allEvents.filter((eventDetail: any) => {
         var display = true
@@ -173,8 +170,6 @@ const Events: NextPage = () => {
                 var date = new Date(item.date)
                 date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                console.log(item)
-                console.log(userID)
                 return (
                      <li className={styles.eventBox}>
                         <img className={styles.eventImage} src={item.image} onClick={() => router.push("/event/" + item.id)} />
