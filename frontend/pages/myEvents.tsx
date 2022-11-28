@@ -8,11 +8,9 @@ import React, {useState} from 'react'
 const myEvents: NextPage = () => {
     const router = useRouter()
 
-    var userID = null
-    var isAdmin = null
     if (typeof localStorage !== 'undefined') {
-      userID = localStorage.getItem("id")
-      isAdmin = localStorage.getItem("role") === "TEACHER"
+      var userID = localStorage.getItem("id")
+      var isAdmin = localStorage.getItem("role") === "TEACHER"
     }
 
     const [events, setEvents] = useState([])
