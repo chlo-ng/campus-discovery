@@ -181,7 +181,7 @@ const Home: NextPage = () => {
                     <p className={styles.eventText}>{selectedEvent.time[0] > 12 ?
                             parseInt(selectedEvent.time[0]) - 12 + ":" + selectedEvent.time[1] + " PM" :
                             parseInt(selectedEvent.time[0]) + ":" + selectedEvent.time[1] + " AM"}</p>
-                    <p className={styles.eventText}>{selectedEvent.location}</p>
+                    <p className={styles.eventText}>{selectedEvent.location.split(",")[0]}</p>
                 </div>}
             </div>
         </div>

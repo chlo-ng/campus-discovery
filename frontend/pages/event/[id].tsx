@@ -186,7 +186,7 @@ const Post: NextPage = () => {
                   <p className={styles.text}>{time[0] > 12 ?
                     parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
                     parseInt(time[0]) + ":" + time[1] + " AM"}</p>
-                  <p className={styles.text}>{location}</p>
+                  <p className={styles.text}>{location.split(",")[0]}</p>
                 </div>
                 <div>
                   {(!inviteOnly || invited) && <img className= {styles.icon} src="../bookmark.png" onClick={e => setPopup(true)}></img>}
