@@ -40,13 +40,12 @@ const Home: NextPage = () => {
               marker.setMap(map)
               marker.addListener("click", () => {
                 var foundEvent = events.find(event => event.id == id)
-                foundEvent.startTime = foundEvent.startTime.split(":")
+                foundEvent.time = foundEvent.startTime.split(":")
                 var date = new Date(foundEvent.date)
                 date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
                 const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-                foundEvent.date = date.toLocaleDateString(undefined, options)
+                foundEvent.stringDate = date.toLocaleDateString(undefined, options)
                 setSelectedEvent(foundEvent)
-                console.log(events.find(event => event.id == id))
               });
               markers.push([id, marker])
             } else {
@@ -136,10 +135,10 @@ const Home: NextPage = () => {
                 {selectedEvent.id && <div className={styles.selectedEvent}>
                     <p className={styles.eventTitle} onClick={() => {router.push("/event/" + selectedEvent.id)}}>{selectedEvent.title}</p>
                     <p className={styles.eventText}>{selectedEvent.creator.username}</p>
-                    <p className={styles.eventText}>{selectedEvent.date}</p>
-                    <p className={styles.eventText}>{selectedEvent.startTime[0] > 12 ?
-                            parseInt(selectedEvent.startTime[0]) - 12 + ":" + selectedEvent.startTime[1] + " PM" :
-                            parseInt(selectedEvent.startTime[0]) + ":" + selectedEvent.startTime[1] + " AM"}</p>
+                    <p className={styles.eventText}>{selectedEvent.stringDate}</p>
+                    <p className={styles.eventText}>{selectedEvent.time[0] > 12 ?
+                            parseInt(selectedEvent.time[0]) - 12 + ":" + selectedEvent.time[1] + " PM" :
+                            parseInt(selectedEvent.time[0]) + ":" + selectedEvent.time[1] + " AM"}</p>
                     <p className={styles.eventText}>{selectedEvent.location}</p>
                 </div>}
             </div>
