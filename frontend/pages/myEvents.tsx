@@ -57,7 +57,7 @@ const myEvents: NextPage = () => {
                   date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
                   const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
                   var color = events.filter(eventSearch => Date.parse(event.date + "T" + event.startTime + "Z") == Date.parse(eventSearch.date + "T" + eventSearch.startTime + "Z"))
-                      .length > 1 ? 'red' : 'black'
+                      .length > 1 ? 'var(--red)' : 'black'
                   return (<div className={styles.event}>
                     <img className={styles.eventImage} src={event.image} onClick={() => router.push("/event/" + event.id)} />
                     <div className={styles.eventDetails} onClick={() => router.push("/event/" + event.id)}>
