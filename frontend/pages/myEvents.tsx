@@ -62,7 +62,7 @@ const myEvents: NextPage = () => {
                     <img className={styles.eventImage} src={event.image} onClick={() => router.push("/event/" + event.id)} />
                     <div className={styles.eventDetails} onClick={() => router.push("/event/" + event.id)}>
                       <p className={styles.eventTitle}>{event.title}</p>
-                      {/* <p className={styles.eventText}>{event.creator.username}</p> */}
+                      <p className={styles.eventText}>{event.creator.username}</p>
                       <p className={styles.eventText} style={{color: color}}>{date.toLocaleDateString(undefined, options)}</p>
                       <p className={styles.eventText} style={{color: color}}>{time[0] > 12 ?
                         parseInt(time[0]) - 12 + ":" + time[1] + " PM" :
@@ -70,8 +70,7 @@ const myEvents: NextPage = () => {
                       <p className={styles.eventText}>{event.location.split(",")[0]}</p>
                     </div>
 
-                    {/* (isAdmin || (userID == event.creator.id)) */}
-                    {true &&
+                    {(isAdmin || (userID == event.creator.id)) &&
                       <img className={styles.editButton} src={"/editButton.png"} onClick={() => router.push("/editEvent/" + event.id)} />
                     }
                   </div>)
