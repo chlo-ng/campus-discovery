@@ -33,8 +33,8 @@ const Events: NextPage = () => {
       setEndTime(localStorage.getItem("endTime") ? localStorage.getItem("endTime") : '')
       setLocation(localStorage.getItem("location") ? localStorage.getItem("location") : '')
       setHost(localStorage.getItem("host") ? localStorage.getItem("host") : '')
-      setUserID(localStorage.getItem("role") === "TEACHER")
-      setIsAdmin(localStorage.getItem("id"))
+      setIsAdmin(localStorage.getItem("role") === "TEACHER")
+      setUserID(localStorage.getItem("id"))
       setEvents(allEvents.filter((eventDetail: any) => {
         var display = true
         display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
