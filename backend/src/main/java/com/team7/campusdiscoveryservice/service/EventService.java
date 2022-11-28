@@ -55,6 +55,8 @@ public class EventService {
         currentEvent.setDescription(event.getDescription());
         currentEvent.setStartTime(event.getStartTime());
         currentEvent.setLocation(event.getLocation());
+        currentEvent.setLatitude(event.getLatitude());
+        currentEvent.setLongitude(event.getLongitude());
         currentEvent.setCapacity(event.getCapacity());
         currentEvent.setInviteOnly(event.isInviteOnly());
         if (event.getImage() == null) {
