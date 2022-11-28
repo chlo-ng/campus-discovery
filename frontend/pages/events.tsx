@@ -36,28 +36,18 @@ const Events: NextPage = () => {
       setHost(localStorage.getItem("host") ? localStorage.getItem("host") : '')
       setIsAdmin(localStorage.getItem("role") === "TEACHER")
       setUserID(localStorage.getItem("id"))
-      setEvents(allEvents.filter((eventDetail: any) => {
-        var display = true
-        display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
-            Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
-        display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
-            Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
-        display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
-        display = host.trim() != "" && eventDetail.creator.username != host ? false : display
-        return display
-      }));
     }
 
-    if (events.length === 0) {
+    if (typeof localStorage !== 'undefined' && events.length === 0) {
       fetch("http://localhost:8080/api/events/").then((resp) => resp.json())
       .then((apiData) => {
           setAllEvents(apiData);
           setEvents(apiData.filter((eventDetail: any) => {
             var display = true
-            display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
-                Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
-            display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
-                Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+            display = startDate != '' && Date.parse(eventDetail.date) < Date.parse(startDate) ? false : display
+            display = endDate != '' && Date.parse(eventDetail.date) > Date.parse(endDate) ? false : display
+            display = startTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ? false : display
+            display = endTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z') ? false : display
             display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
             display = host.trim() != "" && eventDetail.creator.username != host ? false : display
             return display
@@ -75,10 +65,10 @@ const Events: NextPage = () => {
 
       setEvents(allEvents.filter((eventDetail: any) => {
         var display = true
-        display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
-            Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
-        display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
-            Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+        display = startDate != '' && Date.parse(eventDetail.date) < Date.parse(startDate) ? false : display
+        display = endDate != '' && Date.parse(eventDetail.date) > Date.parse(endDate) ? false : display
+        display = startTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ? false : display
+        display = endTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z') ? false : display
         display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
         display = host.trim() != "" && eventDetail.creator.username != host ? false : display
         return display

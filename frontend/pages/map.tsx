@@ -52,10 +52,10 @@ const Home: NextPage = () => {
             const marker = markerPair[1]
             var display = true
 
-            display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
-                Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
-            display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
-                Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+            display = startDate != '' && Date.parse(eventDetail.date) < Date.parse(startDate) ? false : display
+            display = endDate != '' && Date.parse(eventDetail.date) > Date.parse(endDate) ? false : display
+            display = startTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ? false : display
+            display = endTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z') ? false : display
             display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
             display = host.trim() != "" && eventDetail.creator.username != host ? false : display
 
@@ -82,10 +82,10 @@ const Home: NextPage = () => {
         });
 
         var display = true
-        display = startDate != '' && endDate != '' && (Date.parse(eventDetail.date) < Date.parse(startDate) ||
-            Date.parse(eventDetail.date) > Date.parse(endDate)) ? false : display
-        display = startTime != '' && endTime != '' && (Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ||
-            Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z')) ? false : display
+        display = startDate != '' && Date.parse(eventDetail.date) < Date.parse(startDate) ? false : display
+        display = endDate != '' && Date.parse(eventDetail.date) > Date.parse(endDate) ? false : display
+        display = startTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') < Date.parse('1970-01-01T' + startTime + ':00Z') ? false : display
+        display = endTime != '' && Date.parse('1970-01-01T' + eventDetail.startTime + 'Z') > Date.parse('1970-01-01T' + endTime + ':00Z') ? false : display
         display = location.trim() != "" && !eventDetail.location.toLowerCase().includes(location.toLowerCase()) ? false : display
         display = host.trim() != "" && eventDetail.creator.username != host ? false : display
 
