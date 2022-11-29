@@ -67,9 +67,19 @@ const Home: NextPage = () => {
         })
     }
 
+    function resetMarkers(): void {
+        markers.forEach(markerPair => {
+            const eventDetail = markerPair[0]
+            const marker = markerPair[1]
+
+            marker.setPosition({ lat: eventDetail.latitude, lng: eventDetail.longitude })
+        })
+    }
+
     function fetchLatLong(eventDetail: object, map: google.maps.Map, eventsLocal: Array): void {
         var marker = new google.maps.Marker({
-            position: { lat: eventDetail.latitude, lng: eventDetail.longitude }
+            position: { lat: eventDetail.latitude, lng: eventDetail.longitude },
+            draggable: true
         });
         marker.addListener("click", () => {
           var foundEvent = eventsLocal.find(event => event.id == eventDetail.id)
@@ -133,6 +143,7 @@ const Home: NextPage = () => {
             <div id="map" style={{ width: "100%", height: "100%" }}></div>
 
             <div className={styles.filter}>
+                <button className={styles.resetButton} onClick={() => {resetMarkers()}}>Reset</button>
                 <button className={styles.filterButton} onClick={() => {setFilterTab(!filterTab)}}>Filter</button>
                 {filterTab && <div className={styles.filterList}>
                     <p className={styles.filterTitle}>Date</p>

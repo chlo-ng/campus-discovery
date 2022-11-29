@@ -29,6 +29,23 @@
     color: var(--navy)
 }
 
+.resetButton {
+    position: absolute;
+    right: 85px;
+    width: 75px;
+    height: 25px;
+    border-radius: 7px;
+    border: 0px solid white;
+    font-family: 'Roboto Slab';
+    background-color: var(--gold);
+    color: white;
+}
+
+.resetButton:hover {
+    cursor: pointer;
+    color: var(--navy)
+}
+
 .filterList {
     width: 20vw;
     max-height: calc(100vh - 135px);
